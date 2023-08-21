@@ -13,5 +13,8 @@ data class MovieEntity(
     var movieId: Int,
 
     @ColumnInfo(name = "movieDetail")
-    var movieDetail: String
+    var movieDetail: String,
+
+    @ColumnInfo(name = "typeCategory")
+    var typeCategory: String
 )

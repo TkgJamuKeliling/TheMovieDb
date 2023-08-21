@@ -252,7 +252,7 @@ class DetailActivity: BaseActivity() {
             }
 
             detailHeader.favBtn.setOnClickListener {
-                detailViewModel.updateFav()
+                detailViewModel.updateFav(typeCategory)
             }
 
             nestedScrollView.setOnScrollChangeListener(

@@ -234,6 +234,7 @@ class Repository(
 
     suspend fun updateDb(
         detailResponse: DetailResponse,
+        typeCategory: String,
         result: (DbStateAction) -> Unit
     ) {
         coroutineScope {
@@ -262,7 +263,8 @@ class Repository(
                             withContext(Dispatchers.Default) {
                                 movieDao.insertFav(MovieEntity(
                                     movieId = detailResponse.id,
-                                    movieDetail = Gson().toJson(detailResponse, DetailResponse::class.java)
+                                    movieDetail = Gson().toJson(detailResponse, DetailResponse::class.java),
+                                    typeCategory = typeCategory.uppercase()
                                 ))
                             }
                             result(DbStateAction.SUCCESS_INSERT)

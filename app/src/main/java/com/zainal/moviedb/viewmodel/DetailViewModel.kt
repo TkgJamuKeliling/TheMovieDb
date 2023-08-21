@@ -218,10 +218,13 @@ class DetailViewModel(private var repository: Repository): BaseViewModel()
         }
     }
 
-    fun updateFav() {
+    fun updateFav(typeCategory: String) {
         detailResponse.value?.let {
             viewModelScope.launch {
-                repository.updateDb(it) { dbStateAction ->
+                repository.updateDb(
+                    it,
+                    typeCategory
+                ) { dbStateAction ->
                     isFav.postValue(when (dbStateAction) {
                         DbStateAction.SUCCESS_INSERT -> R.color.yellow
                         else -> R.color.white
