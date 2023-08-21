@@ -163,13 +163,18 @@ class DetailActivity: BaseActivity() {
             vmVoteAverage().observe(this@DetailActivity) {
                 it?.let {
                     with(detailBinding.detailHeader.voteAverage) {
-                        lifecycleScope.launch {
-                            for (i in 0 until it) {
-                                mtvPercentageValue.text = "$i"
-                                delay(10L)
-                                cpiProgress.progress = i
+                        if (it > 0) {
+                            lifecycleScope.launch {
+                                for (i in 0 until it) {
+                                    mtvPercentageValue.text = "$i"
+                                    delay(10L)
+                                    cpiProgress.progress = i
+                                }
                             }
+                            return@observe
                         }
+                        mtvPercentageValue.text = "$it"
+                        cpiProgress.progress = it
                     }
                 }
             }

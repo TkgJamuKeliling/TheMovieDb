@@ -85,6 +85,8 @@ class DetailViewModel(private var repository: Repository): BaseViewModel()
             shimmerState.postValue(ShimmerState.START)
 
             viewModelScope.launch {
+                voteAverage.postValue(0)
+
                 repository.fetchDetail(
                     id,
                     page + 1,
