@@ -15,6 +15,7 @@ import com.zainal.moviedb.model.VideoResultsItem
 import com.zainal.moviedb.util.DbStateAction
 import com.zainal.moviedb.util.Repository
 import com.zainal.moviedb.util.ShimmerState
+import com.zainal.moviedb.util.TypeCategory
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
@@ -105,17 +106,33 @@ class DetailViewModel(private var repository: Repository): BaseViewModel()
 
                             var flag = true
                             val mList = mutableListOf<String>()
-                            it.originalTitle?.let { mTitle ->
-                                it.releaseDate?.let { mDate ->
-                                    flag = false
-                                    mList.apply {
-                                        add(mTitle)
-                                        add(mDate.substringBefore("-"))
+                            when (typeCategory) {
+                                TypeCategory.MOVIE.name.lowercase() -> it.originalTitle?.let { mTitle ->
+                                    it.releaseDate?.let { mDate ->
+                                        flag = false
+                                        mList.apply {
+                                            add(mTitle)
+                                            add(mDate.substringBefore("-"))
+                                        }
+                                    }
+                                    if (flag) {
+                                        flag = false
+                                        mList.add(mTitle)
                                     }
                                 }
-                                if (flag) {
-                                    flag = false
-                                    mList.add(mTitle)
+
+                                else -> it.originalName?.let { mTitle ->
+                                    it.firstAirDate?.let { mDate ->
+                                        flag = false
+                                        mList.apply {
+                                            add(mTitle)
+                                            add(mDate.substringBefore("-"))
+                                        }
+                                    }
+                                    if (flag) {
+                                        flag = false
+                                        mList.add(mTitle)
+                                    }
                                 }
                             }
                             title.postValue(mList)

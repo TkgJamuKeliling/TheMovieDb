@@ -77,7 +77,56 @@ data class DetailResponse(
 	var homepage: String? = "",
 
 	@field:SerializedName("status")
-	var status: String? = ""
+	var status: String? = "",
+
+	//TV
+	@field:SerializedName("created_by")
+	var createBy: List<CreateBy>? = emptyList(),
+
+	@field:SerializedName("episode_run_time")
+	var episodeRunTime: List<Int>? = emptyList(),
+
+	@field:SerializedName("first_air_date")
+	var firstAirDate: String? = "",
+
+	@field:SerializedName("in_production")
+	var inProduction: Boolean = false,
+
+	@field:SerializedName("languages")
+	var languages: List<String>? = emptyList(),
+
+	@field:SerializedName("last_air_date")
+	var lastAirDate: String? = "",
+
+	@field:SerializedName("name")
+	var name: String? = "",
+
+	@field:SerializedName("type")
+	var type: String? = "",
+
+	@field:SerializedName("original_name")
+	var originalName: String? = "",
+
+	@field:SerializedName("number_of_episodes")
+	var numberOfEpisodes: Int = 0,
+
+	@field:SerializedName("number_of_seasons")
+	var numberOfSeasons: Int = 0,
+
+	@field:SerializedName("last_episode_to_air")
+	var lastEpisodeToAir: LastEpisodeToAir? = null,
+
+	@field:SerializedName("next_episode_to_air")
+	var nextEpisodeToAir: NextEpisodeToAir? = null,
+
+	@field:SerializedName("networks")
+	var networks: List<Network>? = emptyList(),
+
+	@field:SerializedName("origin_country")
+	var originCountry: List<String>? = emptyList(),
+
+	@field:SerializedName("seasons")
+	var seasons: List<Seasons>? = emptyList(),
 )
 
 data class SpokenLanguagesItem(
@@ -138,4 +187,148 @@ data class BelongsCollection(
 
 	@field:SerializedName("backdrop_path")
 	var backdropPath: String? = ""
+)
+
+data class CreateBy(
+
+	@field:SerializedName("id")
+	var id: Int = 0,
+
+	@field:SerializedName("credit_id")
+	var creditId: String? = "",
+
+	@field:SerializedName("name")
+	var name: String? = "",
+
+	@field:SerializedName("gender")
+	var gender: String? = "",
+
+	@field:SerializedName("profile_path")
+	var profilePath: String? = "",
+)
+
+data class LastEpisodeToAir(
+
+	@field:SerializedName("id")
+	var id: Int = 0,
+
+	@field:SerializedName("runtime")
+	var runtime: Int = 0,
+
+	@field:SerializedName("season_number")
+	var seasonNumber: Int = 0,
+
+	@field:SerializedName("show_id")
+	var showId: Int = 0,
+
+	@field:SerializedName("name")
+	var name: String? = "",
+
+	@field:SerializedName("still_path")
+	var stillPath: String? = "",
+
+	@field:SerializedName("overview")
+	var overview: String? = "",
+
+	@field:SerializedName("episode_type")
+	var episodeType: String? = "",
+
+	@field:SerializedName("production_code")
+	var productionCode: String? = "",
+
+	@field:SerializedName("vote_average")
+	var voteAverage: Double? = 0.0,
+
+	@field:SerializedName("vote_count")
+	var voteCount: Int = 0,
+
+	@field:SerializedName("episode_number")
+	var episodeNumber: Int = 0,
+
+	@field:SerializedName("air_date")
+	var airDate: String? = ""
+)
+
+data class NextEpisodeToAir(
+
+	@field:SerializedName("id")
+	var id: Int = 0,
+
+	@field:SerializedName("runtime")
+	var runtime: Int = 0,
+
+	@field:SerializedName("season_number")
+	var seasonNumber: Int = 0,
+
+	@field:SerializedName("show_id")
+	var showId: Int = 0,
+
+	@field:SerializedName("name")
+	var name: String? = "",
+
+	@field:SerializedName("still_path")
+	var stillPath: String? = "",
+
+	@field:SerializedName("overview")
+	var overview: String? = "",
+
+	@field:SerializedName("episode_type")
+	var episodeType: String? = "",
+
+	@field:SerializedName("production_code")
+	var productionCode: String? = "",
+
+	@field:SerializedName("vote_average")
+	var voteAverage: Double? = 0.0,
+
+	@field:SerializedName("vote_count")
+	var voteCount: Int = 0,
+
+	@field:SerializedName("episode_number")
+	var episodeNumber: Int = 0,
+
+	@field:SerializedName("air_date")
+	var airDate: String? = ""
+)
+
+data class Network(
+
+	@field:SerializedName("id")
+	var id: Int = 0,
+
+	@field:SerializedName("logo_path")
+	var logoPath: String? = "",
+
+	@field:SerializedName("name")
+	var name: String? = "",
+
+	@field:SerializedName("origin_country")
+	var originCountry: String? = ""
+)
+
+data class Seasons(
+
+	@field:SerializedName("air_date")
+	var airDate: String? = "",
+
+	@field:SerializedName("episode_count")
+	var episodeCount: String? = "",
+
+	@field:SerializedName("id")
+	var id: Int = 0,
+
+	@field:SerializedName("name")
+	var name: String? = "",
+
+	@field:SerializedName("overview")
+	var overview: String? = "",
+
+	@field:SerializedName("poster_path")
+	var posterPath: String? = "",
+
+	@field:SerializedName("season_number")
+	var seasonNumber: Int = 0,
+
+	@field:SerializedName("vote_average")
+	var voteAverage: Double? = 0.0
 )
