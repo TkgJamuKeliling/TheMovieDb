@@ -156,7 +156,6 @@ class DetailViewModel(private var repository: Repository): BaseViewModel()
                     isProcessGetDetail = false
                 }
             }
-            return
         }
     }
 

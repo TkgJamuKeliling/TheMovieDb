@@ -78,7 +78,7 @@ class DetailActivity: BaseActivity() {
                     when (it) {
                         ShimmerState.START -> {
                             appBarLayout.visibility = INVISIBLE
-                            mcvDetail.visibility = INVISIBLE
+                            nestedScrollView.visibility = INVISIBLE
                             detailShimmer.apply {
                                 visibility = VISIBLE
                                 if (!isShimmerStarted) {
@@ -95,7 +95,7 @@ class DetailActivity: BaseActivity() {
                                 visibility = INVISIBLE
                             }
                             appBarLayout.visibility = VISIBLE
-                            mcvDetail.visibility = VISIBLE
+                            nestedScrollView.visibility = VISIBLE
                         }
                     }
                 }
