@@ -14,20 +14,19 @@ import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
 import com.zainal.moviedb.R
 import com.zainal.moviedb.base.BaseFragment
-import com.zainal.moviedb.databinding.FragmentMovieBinding
+import com.zainal.moviedb.databinding.MainFragmentLayoutBinding
 import com.zainal.moviedb.model.GenresItem
 import com.zainal.moviedb.model.TrendingResultsItem
 import com.zainal.moviedb.util.Constant
 import com.zainal.moviedb.util.Constant.EXTRA_CATEGORY
 import com.zainal.moviedb.util.Constant.EXTRA_ID
 import com.zainal.moviedb.util.ShimmerState
-import com.zainal.moviedb.util.TypeCategory
 import com.zainal.moviedb.util.TrendingSeason
+import com.zainal.moviedb.util.TypeCategory
 import com.zainal.moviedb.view.activity.DetailActivity
 import com.zainal.moviedb.view.adapter.GenreAdapter
 import com.zainal.moviedb.view.adapter.TrendingAdapter
 import com.zainal.moviedb.viewmodel.MovieViewModel
-import jp.wasabeef.picasso.transformations.RoundedCornersTransformation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -38,7 +37,7 @@ import kotlin.math.roundToInt
 
 class MovieFragment : BaseFragment() {
 
-    private lateinit var movieBinding: FragmentMovieBinding
+    private lateinit var movieBinding: MainFragmentLayoutBinding
     private val movieViewModel by inject<MovieViewModel>()
     private var trendingSeason: TrendingSeason = TrendingSeason.DAY
 
@@ -57,7 +56,7 @@ class MovieFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         super.onCreateView(inflater, container, savedInstanceState)
-        movieBinding = FragmentMovieBinding.inflate(inflater, container, false)
+        movieBinding = MainFragmentLayoutBinding.inflate(inflater, container, false)
         return movieBinding.root
     }
 
