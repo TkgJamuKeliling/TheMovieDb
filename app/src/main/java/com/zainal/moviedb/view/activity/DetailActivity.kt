@@ -142,14 +142,17 @@ class DetailActivity: BaseActivity() {
             vmTitle().observe(this@DetailActivity) {
                 it?.let { strings ->
                     if (strings.isNotEmpty()) {
-                        detailBinding.toolbar.title = when(strings.size) {
-                            1 -> strings[0]
-                            else -> getString(
-                                R.string.placeholder_template,
-                                strings[0],
-                                strings[1]
-                            )
+                        if (strings.any { s ->
+                                s.isEmpty()
+                            } || strings.size == 1) {
+                            detailBinding.toolbar.title = strings[0]
+                            return@observe
                         }
+                        detailBinding.toolbar.title = getString(
+                            R.string.placeholder_template,
+                            strings[0],
+                            strings[1]
+                        )
                     }
                 }
             }
