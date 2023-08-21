@@ -1,7 +1,5 @@
 package com.zainal.moviedb.view.fragment
 
-import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,15 +13,11 @@ import com.squareup.picasso.Picasso
 import com.zainal.moviedb.R
 import com.zainal.moviedb.base.BaseFragment
 import com.zainal.moviedb.databinding.MainFragmentLayoutBinding
-import com.zainal.moviedb.model.GenresItem
 import com.zainal.moviedb.model.TrendingResultsItem
 import com.zainal.moviedb.util.Constant
-import com.zainal.moviedb.util.Constant.EXTRA_CATEGORY
-import com.zainal.moviedb.util.Constant.EXTRA_ID
 import com.zainal.moviedb.util.ShimmerState
 import com.zainal.moviedb.util.TrendingSeason
 import com.zainal.moviedb.util.TypeCategory
-import com.zainal.moviedb.view.activity.DetailActivity
 import com.zainal.moviedb.view.adapter.GenreAdapter
 import com.zainal.moviedb.view.adapter.TrendingAdapter
 import com.zainal.moviedb.viewmodel.MovieViewModel
@@ -193,36 +187,10 @@ class MovieFragment : BaseFragment() {
             }
 
             root.setOnClickListener {
-                startActivity(
-                    Intent(
-                        requireContext(),
-                        DetailActivity::class.java
-                    ).apply {
-                        putExtra(EXTRA_ID, trendingResultsItem.id)
-                        putExtra(EXTRA_CATEGORY, TypeCategory.MOVIE.name)
-                    }
+                openDetailActivity(
+                    trendingResultsItem.id,
+                    TypeCategory.MOVIE.name
                 )
-            }
-        }
-    }
-
-    @SuppressLint("DiscouragedApi")
-    private fun genreAdapterCallback(
-        genresItem: GenresItem,
-        holder: GenreAdapter.GenreHolder
-    ) {
-        with(holder) {
-            val resId = requireContext().resources.getIdentifier(
-                genresItem.icon,
-                "drawable",
-                requireContext().packageName
-            )
-            acivIcon.setImageResource(resId)
-
-            mtvMenuTitle.text = genresItem.name
-
-            mcv.setOnClickListener {
-                //TODO
             }
         }
     }

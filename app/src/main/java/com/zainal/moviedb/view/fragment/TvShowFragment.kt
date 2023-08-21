@@ -1,26 +1,21 @@
 package com.zainal.moviedb.view.fragment
 
-import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.squareup.picasso.MemoryPolicy
 import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
 import com.zainal.moviedb.R
+import com.zainal.moviedb.base.BaseFragment
 import com.zainal.moviedb.databinding.MainFragmentLayoutBinding
-import com.zainal.moviedb.model.GenresItem
 import com.zainal.moviedb.model.TrendingResultsItem
 import com.zainal.moviedb.util.Constant
 import com.zainal.moviedb.util.ShimmerState
 import com.zainal.moviedb.util.TrendingSeason
 import com.zainal.moviedb.util.TypeCategory
-import com.zainal.moviedb.view.activity.DetailActivity
 import com.zainal.moviedb.view.adapter.GenreAdapter
 import com.zainal.moviedb.view.adapter.TrendingAdapter
 import com.zainal.moviedb.viewmodel.TvShowViewModel
@@ -32,7 +27,7 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 import kotlin.math.roundToInt
 
-class TvShowFragment : Fragment() {
+class TvShowFragment : BaseFragment() {
 
     private lateinit var tvShowBinding: MainFragmentLayoutBinding
     private val tvShowViewModel by inject<TvShowViewModel>()
@@ -190,36 +185,10 @@ class TvShowFragment : Fragment() {
             }
 
             root.setOnClickListener {
-                startActivity(
-                    Intent(
-                        requireContext(),
-                        DetailActivity::class.java
-                    ).apply {
-                        putExtra(Constant.EXTRA_ID, trendingResultsItem.id)
-                        putExtra(Constant.EXTRA_CATEGORY, TypeCategory.TV.name)
-                    }
+                openDetailActivity(
+                    trendingResultsItem.id,
+                    TypeCategory.TV.name
                 )
-            }
-        }
-    }
-
-    @SuppressLint("DiscouragedApi")
-    private fun genreAdapterCallback(
-        genresItem: GenresItem,
-        holder: GenreAdapter.GenreHolder
-    ) {
-        with(holder) {
-            val resId = requireContext().resources.getIdentifier(
-                genresItem.icon,
-                "drawable",
-                requireContext().packageName
-            )
-            acivIcon.setImageResource(resId)
-
-            mtvMenuTitle.text = genresItem.name
-
-            mcv.setOnClickListener {
-                //TODO
             }
         }
     }
