@@ -1,6 +1,7 @@
 package com.zainal.moviedb.viewmodel
 
-import android.content.Context
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -13,11 +14,14 @@ import com.zainal.moviedb.model.VideoResultsItem
 import com.zainal.moviedb.util.DbStateAction
 import com.zainal.moviedb.util.Repository
 import com.zainal.moviedb.util.ShimmerState
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
 class DetailViewModel(private var repository: Repository): BaseViewModel()
 {
+    private var isLoadingMoreReview = false
+
     val shimmerState = MutableLiveData<ShimmerState>()
     fun vmShimmerState(): LiveData<ShimmerState> = shimmerState
 
@@ -60,6 +64,12 @@ class DetailViewModel(private var repository: Repository): BaseViewModel()
 
     val reviewItems = MutableLiveData<List<ReviewResultsItem>>()
     fun vmReviewItems(): LiveData<List<ReviewResultsItem>> = reviewItems
+
+    val loadingView = MutableLiveData<Int>()
+    fun vmLoadingView(): LiveData<Int> = loadingView
+
+    val stuckView = MutableLiveData<Int>()
+    fun vmStuckView(): LiveData<Int> = stuckView
 
     fun getDetailData(
         id: Int,
@@ -138,23 +148,38 @@ class DetailViewModel(private var repository: Repository): BaseViewModel()
     }
 
     fun getMoreReviewsData(typeCategory: String) {
-        val currentReviewData = reviewResponse.value?.results
+        viewModelScope.launch {
+            reviewResponse.value?.let {
+                if (!isLoadingMoreReview) {
+                    isLoadingMoreReview = true
 
-        reviewResponse.value?.let {
-            currentReviewData?.let { mList ->
-                if (it.totalPages > it.page) {
-                    viewModelScope.launch {
+                    loadingView.postValue(VISIBLE)
+
+                    if (it.totalPages > it.page) {
                         repository.fetchMoreReviews(
                             it.id,
                             it.page,
-                            mList.filterNotNull(),
+                            reviewItems.value,
                             typeCategory
-                        ) { mReviewResponse, mReviewResultsItems ->
+                        ) { mReviewResponse, mListReviewItem ->
                             reviewResponse.postValue(mReviewResponse)
-                            reviewItems.postValue(mReviewResultsItems)
+                            totalReview.postValue(mReviewResponse?.totalResults ?:0)
+
+                            loadingView.postValue(INVISIBLE)
+                            reviewItems.postValue(mListReviewItem)
+
+                            isLoadingMoreReview = false
                         }
+                        return@launch
                     }
-                    return
+
+                    delay(1000L)
+                    loadingView.postValue(INVISIBLE)
+                    stuckView.postValue(VISIBLE)
+
+                    delay(1000L)
+                    stuckView.postValue(INVISIBLE)
+                    isLoadingMoreReview = false
                 }
             }
         }

@@ -65,6 +65,7 @@
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
+        android:overScrollMode="never"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_height="wrap_content">
 
@@ -244,6 +245,26 @@
                         app:layout_constraintTop_toBottomOf="@id/mtvReviewTitle"
                         app:spanCount="1"
                         tools:listitem="@layout/review_item"/>
+
+                    <include
+                        android:id="@+id/bottomLoading"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="@id/rcvReview"
+                        app:layout_constraintEnd_toEndOf="@id/rcvReview"
+                        app:layout_constraintTop_toBottomOf="@id/rcvReview"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        layout="@layout/bottom_loading"/>
+
+                    <include
+                        android:id="@+id/stuckView"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="@id/rcvReview"
+                        app:layout_constraintEnd_toEndOf="@id/rcvReview"
+                        app:layout_constraintTop_toBottomOf="@id/rcvReview"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        layout="@layout/bottom_stuck"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

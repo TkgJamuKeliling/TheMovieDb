@@ -2,7 +2,6 @@ package com.zainal.moviedb.model
 
 import com.google.gson.annotations.SerializedName
 import com.zainal.moviedb.base.Equatable
-import com.zainal.moviedb.util.ReviewSection
 
 data class ReviewResponse(
 
@@ -23,7 +22,6 @@ data class ReviewResponse(
 )
 
 data class ReviewResultsItem(
-	var reviewSection: Int = ReviewSection.DATA.type,
 
 	@field:SerializedName("author_details")
 	var authorDetails: AuthorDetails? = null,

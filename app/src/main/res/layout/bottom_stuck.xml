@@ -6,15 +6,16 @@
     android:visibility="invisible"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.airbnb.lottie.LottieAnimationView
+    <com.google.android.material.textview.MaterialTextView
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:lottie_autoPlay="true"
-        app:lottie_fileName="@string/lottie_loading_file"
+        android:text="@string/have_reached_data"
+        android:gravity="center"
+        android:textColor="?colorPrimary"
+        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
         android:layout_width="match_parent"
-        app:lottie_loop="true"
         android:layout_height="60dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

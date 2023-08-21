@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerCallback
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import com.squareup.picasso.MemoryPolicy
 import com.squareup.picasso.NetworkPolicy
@@ -36,7 +35,6 @@ import com.zainal.moviedb.util.Constant.EXTRA_ID
 import com.zainal.moviedb.util.Constant.EXTRA_POSTER_PATH
 import com.zainal.moviedb.util.Constant.EXTRA_REVIEW_ID
 import com.zainal.moviedb.util.Constant.EXTRA_YEAR
-import com.zainal.moviedb.util.ReviewSection
 import com.zainal.moviedb.util.ShimmerState
 import com.zainal.moviedb.util.TypeCategory
 import com.zainal.moviedb.view.adapter.CastAdapter
@@ -56,7 +54,6 @@ class DetailActivity: BaseActivity() {
 
     private var idTvOrMovie = 0
     private var typeCategory: String = TypeCategory.MOVIE.name
-    private var isLoadingMoreReview = false
 
     private val ytPlayers = mutableListOf<YouTubePlayerView>()
 
@@ -211,17 +208,15 @@ class DetailActivity: BaseActivity() {
             }
 
             vmReviewItems().observe(this@DetailActivity) {
-                val reviewData = reviewAdapter.getListModel().filterIsInstance<ReviewResultsItem>().toMutableList()
-                if (reviewData.isNotEmpty()) {
-                    if (reviewData.any {
-                        it.reviewSection == ReviewSection.LOADING.type
-                    }) {
-                        reviewData.removeLast()
-                    }
-                }
-                reviewAdapter.setupData(reviewData.apply {
-                    addAll(it)
-                })
+                reviewAdapter.setupData(it)
+            }
+
+            vmLoadingView().observe(this@DetailActivity) {
+                detailBinding.bottomLoading.root.visibility = it
+            }
+
+            vmStuckView().observe(this@DetailActivity) {
+                detailBinding.stuckView.root.visibility = it
             }
 
             getDetailData(
@@ -242,10 +237,7 @@ class DetailActivity: BaseActivity() {
             nestedScrollView.setOnScrollChangeListener(
                 NestedScrollView.OnScrollChangeListener { v, _, scrollY, _, _ ->
                     if (scrollY == v.getChildAt(0).measuredHeight - v.measuredHeight) {
-                        if (!isLoadingMoreReview) {
-                            isLoadingMoreReview = true
-                            detailViewModel.getMoreReviewsData(typeCategory)
-                        }
+                        detailViewModel.getMoreReviewsData(typeCategory)
                     }
                 }
             )

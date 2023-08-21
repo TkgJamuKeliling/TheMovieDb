@@ -134,11 +134,12 @@ class Repository(
     suspend fun fetchMoreReviews(
         id: Int,
         page: Int,
-        list: List<ReviewResultsItem>,
+        list: List<ReviewResultsItem>?,
         typeCategory: String,
-        result: (ReviewResponse?, List<ReviewResultsItem>) -> Unit
+        result: (ReviewResponse?, List<ReviewResultsItem>?) -> Unit
     ) {
         coroutineScope {
+            delay(1000L)
             val reviewResponse = async(Dispatchers.IO) {
                 fetchReviews(
                     id,
@@ -147,9 +148,9 @@ class Repository(
                 )
             }.await()
 
-            val listReview = list.toMutableList()
+            val listReview = list?.toMutableList()
             reviewResponse?.results?.filterNotNull()?.let {
-                listReview.addAll(it)
+                listReview?.addAll(it)
             }
 
             result(reviewResponse, listReview)

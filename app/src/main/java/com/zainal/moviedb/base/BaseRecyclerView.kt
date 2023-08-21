@@ -26,7 +26,6 @@ abstract class BaseRecyclerView: RecyclerView.Adapter<RecyclerView.ViewHolder>()
                             && oldItem.id == newItem.id
                             && oldItem.content == newItem.content
                             && oldItem.url == newItem.url
-                            && oldItem.reviewSection == newItem.reviewSection
 
                     oldItem is CastItem && newItem is CastItem -> oldItem.castId == newItem.castId
                             && oldItem.character == newItem.character

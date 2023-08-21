@@ -46,11 +46,6 @@ enum class ShimmerState {
     STOP_GONE
 }
 
-enum class ReviewSection(var type: Int) {
-    DATA(0),
-    LOADING(1)
-}
-
 enum class DbStateAction {
     SUCCESS_INSERT,
     SUCCESS_DELETE,
