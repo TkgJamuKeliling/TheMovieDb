@@ -25,6 +25,48 @@ class Repository(
     private var restClientService: RestClientService
 ) {
 
+    suspend fun fetchMainFragmentData(
+        trendingSeason: TrendingSeason,
+        typeCategory: TypeCategory,
+        result: (List<TrendingResultsItem>?, List<GenresItem>?) -> Unit
+    ) {
+        coroutineScope {
+            delay(1000L)
+
+            val trendingResponse = async(Dispatchers.IO) {
+                fetchTrendingResponse(
+                    typeCategory,
+                    trendingSeason
+                )
+            }.await()
+
+            val genreResponse = async(Dispatchers.IO) {
+                fetchGenreResponse(typeCategory)
+            }.await()
+
+            result(
+                trendingResponse?.results?.filterNotNull(),
+                genreResponse?.genres?.filterNotNull()?.apply {
+                    map {
+                        it.icon = "ic_${it.name?.lowercase()?.replace(" ", "_")}_genre"
+                    }
+                }
+            )
+        }
+    }
+
+    private suspend fun fetchTrendingResponse(
+        typeCategory: TypeCategory,
+        trendingSeason: TrendingSeason
+    ) = restClientService.getInstance().getTrendingData(
+        typeCategory.name.lowercase(),
+        trendingSeason.name.lowercase()
+    )
+
+    private suspend fun fetchGenreResponse(
+        typeCategory: TypeCategory
+    ) = restClientService.getInstance().getGenreData(typeCategory.name.lowercase())
+
     suspend fun fetchTrendingData(
         trendingSeason: TrendingSeason,
         typeCategory: TypeCategory,
@@ -33,32 +75,14 @@ class Repository(
         coroutineScope {
             delay(1000L)
 
-            val trendingResponseModel = async(Dispatchers.IO) {
-                restClientService.getInstance().getTrendingData(
-                    typeCategory.name.lowercase(),
-                    trendingSeason.name.lowercase()
+            val trendingResponse = async(Dispatchers.IO) {
+                fetchTrendingResponse(
+                    typeCategory,
+                    trendingSeason,
                 )
             }.await()
 
-            result(trendingResponseModel?.results?.filterNotNull())
-        }
-    }
-
-    suspend fun fetchGenreData(
-        typeCategory: TypeCategory,
-        result: (List<GenresItem>?) -> Unit
-    ) {
-        coroutineScope {
-            delay(1000L)
-            val genreResponseModel = async(Dispatchers.IO) {
-                restClientService.getInstance().getGenreData(typeCategory.name.lowercase())
-            }.await()
-
-            result(genreResponseModel?.genres?.apply {
-                map { genresItem ->
-                    genresItem?.icon = "ic_${genresItem?.name?.lowercase()?.replace(" ", "_")}_genre"
-                }
-            }?.filterNotNull())
+            result(trendingResponse?.results?.filterNotNull())
         }
     }
 

@@ -1,6 +1,5 @@
 package com.zainal.moviedb.base
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.ktx.Firebase
@@ -11,17 +10,13 @@ import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 import com.zainal.moviedb.helper.PrefsHelper
 import com.zainal.moviedb.util.Constant
-import com.zainal.moviedb.util.TypeCategory
 import com.zainal.moviedb.util.TrendingSeason
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 open class BaseViewModel: ViewModel(), KoinComponent {
-    val prefsHelper by inject<PrefsHelper>()
-
-    var isGenreRequestProcess = false
-    var isTrendingRequestProcess = false
+    private val prefsHelper by inject<PrefsHelper>()
 
     init {
         Firebase.remoteConfig.apply {
@@ -55,11 +50,6 @@ open class BaseViewModel: ViewModel(), KoinComponent {
                 }
             })
         }
-    }
-
-    fun clearRequestState() {
-        isGenreRequestProcess = false
-        isTrendingRequestProcess = false
     }
 
     open fun fetchAllData(trendingSeason: TrendingSeason = TrendingSeason.DAY) {}

@@ -68,77 +68,93 @@ class MovieFragment : BaseFragment() {
                 movieViewModel.fetchAllData(trendingSeason)
             }
 
-            btnToggle.apply {
-                check(btnToday.id)
-                addOnButtonCheckedListener { _, checkedId, isChecked ->
-                    if (isChecked) {
-                        trendingSeason = when (checkedId) {
-                            btnToday.id -> TrendingSeason.DAY
-                            else -> TrendingSeason.WEEK
+            with(trendingLayout) {
+                btnToggle.apply {
+                    check(btnToday.id)
+                    addOnButtonCheckedListener { _, checkedId, isChecked ->
+                        if (isChecked) {
+                            trendingSeason = when (checkedId) {
+                                btnToday.id -> TrendingSeason.DAY
+                                else -> TrendingSeason.WEEK
+                            }
+                            movieViewModel.getMovieTrendingData(trendingSeason)
                         }
-                        movieViewModel.getMovieTrendingData(trendingSeason)
                     }
+                }
+
+                rcvTrending.apply {
+                    adapter = trendingAdapter
+                    setHasFixedSize(false)
+                    itemAnimator = null
                 }
             }
 
-            rcvTrending.apply {
-                adapter = trendingAdapter
-                setHasFixedSize(false)
-                itemAnimator = null
-            }
-
-            rcvGenre.apply {
-                adapter = genreAdapter
-                setHasFixedSize(false)
-                itemAnimator = null
+            with(genreLayout) {
+                rcvGenre.apply {
+                    adapter = genreAdapter
+                    setHasFixedSize(false)
+                    itemAnimator = null
+                }
             }
         }
     }
 
     private fun observeView() {
         with(movieViewModel) {
-            vmSeasonBtnState().observe(viewLifecycleOwner) {
-                movieBinding.btnToggle.isEnabled = it
-            }
-
-            vmListTrendingResultsItem().observe(viewLifecycleOwner) {
-                trendingAdapter.setData(it)
-            }
-
-            vmRcvTrendingState().observe(viewLifecycleOwner) {
-                movieBinding.rcvTrending.visibility = it
-            }
-
-            vmTrendingShimmerState().observe(viewLifecycleOwner) {
-                movieBinding.trendingCardShimmer.visibility = when (it) {
-                    ShimmerState.STOP_GONE -> INVISIBLE
-                    else -> VISIBLE
-                }
-                with(movieBinding.trendingCardShimmer) {
+            vmShimmerState().observe(viewLifecycleOwner) {
+                with(movieBinding) {
                     when (it) {
-                        ShimmerState.START -> if (!isShimmerStarted) startShimmer()
-                        else -> if (isShimmerStarted) stopShimmer()
+                        ShimmerState.START -> {
+                            nestedScrollView.visibility = INVISIBLE
+                            mainShimmer.apply {
+                                visibility = VISIBLE
+                                if (!isShimmerStarted) {
+                                    startShimmer()
+                                }
+                            }
+                        }
+                        else -> {
+                            mainShimmer.apply {
+                                if (isShimmerStarted) {
+                                    stopShimmer()
+                                }
+                                visibility = INVISIBLE
+                            }
+                            nestedScrollView.visibility = VISIBLE
+                        }
                     }
                 }
             }
 
-            vmListGenreItem().observe(viewLifecycleOwner) {
+            vmTrendingResultsItem().observe(viewLifecycleOwner) {
+                trendingAdapter.setData(it)
+            }
+
+            vmGenresItem().observe(viewLifecycleOwner) {
                 genreAdapter.setData(it)
             }
 
-            vmRcvGenreState().observe(viewLifecycleOwner) {
-                movieBinding.rcvGenre.visibility = it
-            }
-
-            vmGenreShimmerState().observe(viewLifecycleOwner) {
-                movieBinding.genreCardShimmer.visibility = when (it) {
-                    ShimmerState.STOP_GONE -> INVISIBLE
-                    else -> VISIBLE
-                }
-                with(movieBinding.genreCardShimmer) {
+            vmTrendingShimmerState().observe(viewLifecycleOwner) {
+                with(movieBinding.trendingLayout) {
                     when (it) {
-                        ShimmerState.START -> if (!isShimmerStarted) startShimmer()
-                        else -> if (isShimmerStarted) stopShimmer()
+                        ShimmerState.START -> {
+                            trendingContainer.visibility = INVISIBLE
+                            trendingShimmer.apply {
+                                visibility = VISIBLE
+                                if (!isShimmerStarted) {
+                                    startShimmer()
+                                }
+                            }
+                        }
+                        else -> {
+                            trendingShimmer.apply {
+                                if (isShimmerStarted) {
+                                    stopShimmer()
+                                }
+                                visibility = INVISIBLE
+                            }
+                            trendingContainer.visibility = VISIBLE
+                        }
                     }
                 }
             }
@@ -154,7 +170,6 @@ class MovieFragment : BaseFragment() {
                 .load("${Constant.BASE_URL_POSTER}${trendingResultsItem.posterPath}")
                 .networkPolicy(NetworkPolicy.NO_CACHE)
                 .memoryPolicy(MemoryPolicy.NO_CACHE)
-                .transform(RoundedCornersTransformation(100, 2))
                 .placeholder(R.drawable.poster_placeholder)
                 .into(acivCard)
 
@@ -163,8 +178,8 @@ class MovieFragment : BaseFragment() {
 
                 lifecycleScope.launch(Dispatchers.Main) {
                     for (i in 0 until percentageValue) {
-                        delay(10L)
                         mtvPercentageValue.text = "$percentageValue"
+                        delay(10L)
                         cpiProgress.progress = i
                     }
                 }
