@@ -217,10 +217,12 @@ class Repository(
                     if (flag) {
                         //save
                         launch {
-                            movieDao.insertFav(MovieEntity(
-                                movieId = detailResponse.id,
-                                movieDetail = Gson().toJson(detailResponse, DetailResponse::class.java)
-                            ))
+                            withContext(Dispatchers.Default) {
+                                movieDao.insertFav(MovieEntity(
+                                    movieId = detailResponse.id,
+                                    movieDetail = Gson().toJson(detailResponse, DetailResponse::class.java)
+                                ))
+                            }
                             result(DbStateAction.SUCCESS_INSERT)
                         }
                     }
