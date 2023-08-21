@@ -11,7 +11,7 @@ import com.zainal.moviedb.model.GenresItem
 class GenreAdapter(var callback : (GenresItem, GenreHolder) -> Unit): BaseRecyclerView() {
 
     class GenreHolder(genreItemBinding: GenreItemBinding): RecyclerView.ViewHolder(genreItemBinding.root) {
-        val mcv = genreItemBinding.root
+        val mcv = genreItemBinding.mcvGenre
         val acivIcon = genreItemBinding.acivIcon
         val mtvMenuTitle = genreItemBinding.mtvGenre
     }

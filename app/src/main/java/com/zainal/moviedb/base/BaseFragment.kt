@@ -2,6 +2,7 @@ package com.zainal.moviedb.base
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.util.Log
 import androidx.fragment.app.Fragment
 import com.zainal.moviedb.model.GenresItem
 import com.zainal.moviedb.util.Constant
@@ -11,6 +12,8 @@ import com.zainal.moviedb.view.activity.DiscoverActivity
 import com.zainal.moviedb.view.adapter.GenreAdapter
 
 open class BaseFragment: Fragment() {
+
+    val genreAdapter = GenreAdapter(::genreAdapterCallback)
 
     fun openDetailActivity(id: Int, name: String) = startActivity(
         Intent(
@@ -38,6 +41,7 @@ open class BaseFragment: Fragment() {
             mtvMenuTitle.text = genresItem.name
 
             mcv.setOnClickListener {
+                Log.w("Zen", "onClick")
                 startActivity(Intent(
                     requireContext(),
                     DiscoverActivity::class.java

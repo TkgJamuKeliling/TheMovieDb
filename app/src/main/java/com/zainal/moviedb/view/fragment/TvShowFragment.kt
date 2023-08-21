@@ -35,7 +35,6 @@ class TvShowFragment : BaseFragment() {
     private var trendingSeason: TrendingSeason = TrendingSeason.DAY
 
     private val trendingAdapter = TrendingAdapter(::trendingAdapterCallback)
-    private val genreAdapter = GenreAdapter(::genreAdapterCallback)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
