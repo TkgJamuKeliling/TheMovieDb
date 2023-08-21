@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="350dp"
+    android:background="@drawable/bg_window"
+    android:backgroundTint="@color/md_theme_dark_primaryContainer"
+    android:backgroundTintMode="multiply"
+    android:layout_gravity="center"
+    android:animateLayoutChanges="true">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.4"/>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/acivPoster"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CardItem"
+        android:layout_width="140dp"
+        android:layout_height="250dp"
+        android:layout_margin="10dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:padding="2dp"
+        app:strokeColor="@color/md_theme_dark_tertiary"
+        app:strokeWidth="1dp"
+        android:background="@drawable/bg_placeholder_round_square"
+        app:layout_constraintBottom_toBottomOf="@id/gl"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/gl"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/mtvGenreTitle"
+        style="@style/TextAppearance.Material3.BodyMedium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginBottom="2dp"
+        android:textAlignment="textStart"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@id/mtvGenre"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/acivPoster"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        android:text="@string/genre_text_header"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/mtvGenre"
+        style="@style/TextAppearance.Material3.BodyMedium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginBottom="12dp"
+        android:textAlignment="textStart"
+        android:text="@string/not_available"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/voteAverage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/acivPoster"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <include
+        android:id="@+id/voteAverage"
+        layout="@layout/vote_average_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/acivPoster"
+        app:layout_constraintTop_toBottomOf="@id/gl"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/favBtn"
+        app:backgroundTint="@color/md_theme_dark_primaryContainer"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CircleBtn"
+        app:icon="@drawable/ic_round_favorite_24"
+        app:iconTint="@color/white"
+        style="@style/CircularButtonIcon"
+        android:layout_marginHorizontal="20dp"
+        app:layout_constraintBottom_toBottomOf="@id/voteAverage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/voteAverage"
+        app:layout_constraintTop_toTopOf="@id/voteAverage"
+        android:layout_width="52dp"
+        android:layout_height="52dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

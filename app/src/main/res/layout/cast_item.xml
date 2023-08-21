@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_gravity="center"
+    style="@style/Widget.Material3.CardView.Filled"
+    app:cardBackgroundColor="@color/md_theme_light_onSurfaceVariant"
+    android:elevation="6dp"
+    app:cardUseCompatPadding="true"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_gravity="center"
+        android:layout_width="100dp"
+        android:layout_height="230dp">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/acivCast"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CastItem"
+            tools:src="@drawable/ic_round_man_24"
+            android:layout_width="match_parent"
+            android:scaleType="fitXY"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            android:adjustViewBounds="true"
+            android:layout_height="100dp"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/mtvActorName"
+            tools:text="Leah Lewis\nLeah Lewis\nLeah Lewis"
+            android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+            android:textStyle="bold"
+            android:maxLines="3"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/acivCast"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.0"
+            android:textAlignment="textStart"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="6dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/mtvCastName"
+            tools:text="Ember Lumen\nEmber Lumen\nEmber Lumen"
+            android:maxLines="3"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="@id/mtvActorName"
+            app:layout_constraintEnd_toEndOf="@id/mtvActorName"
+            android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+            app:layout_constraintTop_toBottomOf="@id/mtvActorName"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            android:textAlignment="textStart"
+            android:layout_marginTop="2dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

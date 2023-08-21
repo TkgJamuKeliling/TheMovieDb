@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+
+    <include
+        android:id="@+id/reviewItemHeader"
+        layout="@layout/review_item_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/mtvReviewValue"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:ellipsize="end"
+        android:maxLines="4"
+        android:textAlignment="textStart"
+        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/reviewItemHeader"
+        app:layout_constraintVertical_bias="0.0"
+        tools:text="And perhaps Beyond the Spider-Verse will retroactively make Across’ story more enjoyable, but for now, the franchise’s flashy visuals are fully in controls of its web-shooters. As a stand alone feature, Across the Spider-Verse is groundbreaking with its half-a-dozen animation styles and plethora of Spider-Men. The Spot is an insanely cool villain, Spider-Man 2099 is an anti-hero teetering on the verge of becoming a full-time villain, and Spider-Punk oozes overall awesomeness. But with the film sitting at 162 minutes and a sequel on the way in less than a year, the story ultimately fee..."/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/mtvContinue"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/read_the_rest_text"
+        android:clickable="true"
+        android:background="?selectableItemBackground"
+        android:layout_marginVertical="10dp"
+        android:textAlignment="textStart"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/mtvReviewValue"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/mtvReviewValue"
+        app:layout_constraintTop_toBottomOf="@id/mtvReviewValue"
+        app:layout_constraintVertical_bias="0.0"
+        android:focusable="true" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

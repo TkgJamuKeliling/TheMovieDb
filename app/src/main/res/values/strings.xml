@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">Movie Db</string>
+    <string name="menu_title_movie">Movie</string>
+    <string name="menu_title_tv">TV Show</string>
+    <string name="menu_title_fav">Favourite</string>
+    <string name="trending_text">Trending</string>
+    <string name="percentage_symbol">%</string>
+    <string name="today_text">Today</string>
+    <string name="this_week_text">This Week</string>
+    <string name="genre_text">Genre</string>
+    <string name="genre_text_header">Genre :</string>
+    <string name="overview_text">Overview</string>
+    <string name="trailer_text">Play Trailer</string>
+    <string name="review_text">Reviews</string>
+    <string name="read_the_rest_text"><u>read the rest</u></string>
+    <string name="placeholder_template">%1$s (%2$s)</string>
+    <string name="mock_long_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur tortor sapien, vehicula nec metus vel, interdum ornare est. Phasellus tincidunt lacus ac quam cursus, elementum pharetra ipsum posuere. Pellentesque at mollis mi. Praesent iaculis sollicitudin erat, in sodales risus lacinia vel. Vestibulum vel quam accumsan, varius sem sed, vehicula sem. Curabitur condimentum quis enim non feugiat. In facilisis mi in est bibendum, quis bibendum quam tempor. Ut rhoncus risus vitae dui mollis, eget tristique nisl efficitur. Fusce suscipit maximus facilisis. Vestibulum feugiat justo molestie dolor porttitor, in viverra massa semper. In hac habitasse platea dictumst. Donec varius nunc consequat diam consectetur, lacinia ultrices nunc luctus. Curabitur dolor diam, porta eu condimentum commodo, ullamcorper id dolor.
+        Vestibulum sit amet imperdiet mi, id sodales ipsum. Nam vestibulum volutpat sapien in pharetra. Proin ac arcu ut tortor iaculis venenatis vitae in leo. Duis quis nulla gravida, ornare magna ut, ultrices lectus. Proin tristique egestas justo, sollicitudin molestie lectus. Etiam sed fringilla massa, sit amet rutrum justo. Maecenas lectus nibh, efficitur ac lectus sit amet, auctor mattis turpis. Morbi tellus augue, luctus nec mi ut, lobortis maximus neque. Aenean et leo fringilla, tincidunt massa in, pulvinar ante. Mauris dapibus ac augue quis pellentesque. Fusce molestie eleifend nisl.
+        Quisque quis arcu a lacus eleifend scelerisque eu a nunc. Pellentesque et nisl lectus. Morbi id diam at orci luctus ultricies. Integer pulvinar nisl vestibulum massa auctor porttitor. Vivamus quis vehicula elit. Fusce mattis dui dui, nec dapibus erat congue eget. Nunc tincidunt efficitur hendrerit.
+        Etiam volutpat tellus vitae efficitur aliquet. Donec vel velit nec eros pharetra hendrerit vitae a elit. Nullam imperdiet eros id sapien sagittis, facilisis dignissim ex malesuada. Duis vulputate bibendum sollicitudin. Nam ullamcorper et nulla quis condimentum. Quisque porta sapien feugiat interdum lobortis. Donec non consequat eros, vitae sodales urna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Suspendisse risus tortor, lacinia vel tortor ac, commodo ullamcorper eros. Vestibulum non efficitur nibh.
+        Quisque commodo nunc id elit maximus imperdiet. Maecenas rhoncus nisi ipsum, in efficitur turpis pulvinar sit amet. Morbi nec ex sit amet felis gravida lacinia interdum eget erat. Donec et blandit massa. Sed quis venenatis neque. Aenean vitae cursus arcu. Ut commodo nisl at faucibus dictum. Proin mi neque, cursus ac ultricies a, porta vel mi. Donec in ante porttitor, eleifend orci sit amet, tincidunt velit. Sed lacus ligula, semper sed varius vel, dapibus a lacus. Nulla vel lorem eget ligula feugiat sodales ac sed nulla. Aliquam eget tempor risus. Nam sed lacinia velit. In ut odio sit amet eros porttitor auctor eleifend vel enim.</string>
+    <string name="top_billed_cast_title">Top Billed Cast</string>
+    <string name="trailer_title">Trailer</string>
+    <string name="close_text">Close</string>
+    <string name="lottie_loading_file">loading.json</string>
+    <string name="have_reached_data">You have reached the last data</string>
+    <string name="not_available">Not available</string>
+    <string name="zero_value">0</string>
+    <string name="review_note">Written by %1$s on %2$s</string>
+</resources>
