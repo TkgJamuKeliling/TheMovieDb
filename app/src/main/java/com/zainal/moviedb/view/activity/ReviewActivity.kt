@@ -1,7 +1,6 @@
 package com.zainal.moviedb.view.activity
 
 import android.os.Bundle
-import android.view.View
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import com.squareup.picasso.MemoryPolicy
@@ -9,7 +8,7 @@ import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
 import com.zainal.moviedb.R
 import com.zainal.moviedb.base.BaseActivity
-import com.zainal.moviedb.databinding.ReviewItemDetailBinding
+import com.zainal.moviedb.databinding.ActivityReviewBinding
 import com.zainal.moviedb.util.Constant
 import com.zainal.moviedb.util.Constant.EXTRA_POSTER_PATH
 import com.zainal.moviedb.util.Constant.EXTRA_REVIEW_ID
@@ -19,7 +18,7 @@ import com.zainal.moviedb.viewmodel.ReviewViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ReviewActivity: BaseActivity() {
-    lateinit var reviewItemBinding: ReviewItemDetailBinding
+    lateinit var reviewItemBinding: ActivityReviewBinding
     val reviewViewModel by viewModel<ReviewViewModel>()
 
     var reviewId: String? = null
@@ -28,7 +27,7 @@ class ReviewActivity: BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        reviewItemBinding = ReviewItemDetailBinding.inflate(layoutInflater)
+        reviewItemBinding = ActivityReviewBinding.inflate(layoutInflater)
         setContentView(reviewItemBinding.root)
 
         initData()
