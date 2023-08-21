@@ -1,6 +1,9 @@
 package com.zainal.moviedb.view.activity
 
 import android.os.Bundle
+import android.view.View
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import com.squareup.picasso.MemoryPolicy
 import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
@@ -11,6 +14,7 @@ import com.zainal.moviedb.util.Constant
 import com.zainal.moviedb.util.Constant.EXTRA_POSTER_PATH
 import com.zainal.moviedb.util.Constant.EXTRA_REVIEW_ID
 import com.zainal.moviedb.util.Constant.EXTRA_YEAR
+import com.zainal.moviedb.util.ShimmerState
 import com.zainal.moviedb.viewmodel.ReviewViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -34,6 +38,34 @@ class ReviewActivity: BaseActivity() {
 
     private fun observeView() {
         with(reviewViewModel) {
+            vmShimmerState().observe(this@ReviewActivity) {
+                with(reviewItemBinding) {
+                    when (it) {
+                        ShimmerState.START -> {
+                            mcvReview.visibility = INVISIBLE
+                            nestedScrollView.visibility = INVISIBLE
+                            shimmerReview.apply {
+                                visibility = VISIBLE
+                                if (!isShimmerStarted) {
+                                    startShimmer()
+                                }
+                            }
+                        }
+
+                        else -> {
+                            shimmerReview.apply {
+                                if (isShimmerStarted) {
+                                    stopShimmer()
+                                }
+                                visibility = INVISIBLE
+                            }
+                            mcvReview.visibility = VISIBLE
+                            nestedScrollView.visibility = VISIBLE
+                        }
+                    }
+                }
+            }
+
             vmTitle().observe(this@ReviewActivity) {
                 it?.let {
                     reviewItemBinding.mtvTitle.text = it
@@ -55,18 +87,29 @@ class ReviewActivity: BaseActivity() {
                     reviewItemBinding.mtvReviewValue.text = it
                 }
             }
+        }
+    }
 
-            reviewId?.let {
-                getReviewDetail(
-                    it,
-                    yearInfo
-                )
+    private fun getReviewDetail() {
+        reviewId?.let {
+            reviewViewModel.getReviewDetail(
+                it,
+                yearInfo
+            ) { b ->
+                reviewItemBinding.root.isEnabled = b
             }
         }
     }
 
     private fun initView() {
         with(reviewItemBinding) {
+            root.apply {
+                setOnRefreshListener {
+                    isRefreshing = false
+                    getReviewDetail()
+                }
+            }
+
             posterPath?.let {
                 Picasso.get()
                     .load("${Constant.BASE_URL_POSTER}$it")
@@ -76,6 +119,8 @@ class ReviewActivity: BaseActivity() {
                     .into(acivPoster)
             }
         }
+
+        getReviewDetail()
     }
 
     private fun initData() {

@@ -162,6 +162,7 @@ class Repository(
         result: (ReviewItemResponse?) -> Unit
     ) {
         coroutineScope {
+            delay(1000L)
             val reviewItemResponse = async(Dispatchers.IO) {
                 restClientService.getInstance().getReviewDetail(reviewId)
             }.await()

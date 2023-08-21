@@ -1,124 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/mcvReview"
-        app:cardUseCompatPadding="true"
-        app:cardBackgroundColor="?colorPrimaryContainer"
-        app:cardElevation="8dp"
-        style="@style/Widget.Material3.CardView.Filled"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0.0"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmerReview"
+            android:visibility="invisible"
             android:layout_width="match_parent"
-            android:layout_margin="10dp"
-            android:layout_height="wrap_content">
+            style="@style/ShimmerTheme"
+            android:layout_height="match_parent">
 
-            <com.google.android.material.imageview.ShapeableImageView
-                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CardItem"
-                android:id="@+id/acivPoster"
-                android:adjustViewBounds="true"
-                android:scaleType="fitXY"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintVertical_bias="0.0"
-                app:layout_constraintHorizontal_bias="0.0"
-                android:layout_width="100dp"
-                android:layout_height="150dp"/>
+            <include
+                layout="@layout/review_item_placeholder"/>
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/gl"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.5"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+        </com.facebook.shimmer.ShimmerFrameLayout>
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/mtvTitle"
-                app:layout_constraintStart_toEndOf="@id/acivPoster"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/acivPoster"
-                app:layout_constraintBottom_toTopOf="@id/gl"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintVertical_bias="1.0"
-                android:layout_marginStart="10dp"
-                tools:text="バイオハザード：デスアイラン?"
-                android:textStyle="bold"
-                android:textAlignment="textStart"
-                android:maxLines="2"
-                android:ellipsize="end"
-                android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
-                android:layout_marginBottom="4dp"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"/>
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/mtvSubTitle"
-                android:maxLines="3"
-                tools:text="Written by Fulan bin Fulan\non May 20, 1990"
-                app:layout_constraintStart_toStartOf="@id/mtvTitle"
-                app:layout_constraintEnd_toEndOf="@id/mtvTitle"
-                app:layout_constraintTop_toBottomOf="@id/gl"
-                app:layout_constraintBottom_toBottomOf="@id/acivPoster"
-                android:layout_width="0dp"
-                android:textStyle="bold"
-                android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintVertical_bias="0.0"
-                android:textAlignment="textStart"
-                android:layout_height="wrap_content"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </com.google.android.material.card.MaterialCardView>
-
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/nestedScrollView"
-        android:overScrollMode="never"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/mcvReview"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        android:layout_marginHorizontal="12dp"
-        android:layout_marginBottom="12dp"
-        android:layout_width="match_parent"
-        android:layout_height="0dp">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/mcvReview"
+            app:cardUseCompatPadding="true"
+            app:cardElevation="8dp"
+            android:visibility="invisible"
+            app:cardBackgroundColor="?colorPrimaryContainer"
+            style="@style/Widget.Material3.CardView.Filled"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.0"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/mtvReviewValue"
-                android:justificationMode="inter_word"
-                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-                android:textAlignment="textStart"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintVertical_bias="0.0"
-                tools:text="@string/mock_long_text"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_margin="10dp"
+                android:layout_height="wrap_content">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <com.google.android.material.imageview.ShapeableImageView
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CardItem"
+                    android:id="@+id/acivPoster"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    android:layout_width="100dp"
+                    android:layout_height="150dp"/>
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/gl"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.5"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/mtvTitle"
+                    app:layout_constraintStart_toEndOf="@id/acivPoster"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/acivPoster"
+                    app:layout_constraintBottom_toTopOf="@id/gl"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintVertical_bias="1.0"
+                    android:layout_marginStart="10dp"
+                    tools:text="バイオハザード：デスアイラン?"
+                    android:textStyle="bold"
+                    android:textAlignment="textStart"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+                    android:layout_marginBottom="4dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/mtvSubTitle"
+                    android:maxLines="3"
+                    tools:text="Written by Fulan bin Fulan\non May 20, 1990"
+                    app:layout_constraintStart_toStartOf="@id/mtvTitle"
+                    app:layout_constraintEnd_toEndOf="@id/mtvTitle"
+                    app:layout_constraintTop_toBottomOf="@id/gl"
+                    app:layout_constraintBottom_toBottomOf="@id/acivPoster"
+                    android:layout_width="0dp"
+                    android:textStyle="bold"
+                    android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintVertical_bias="0.0"
+                    android:textAlignment="textStart"
+                    android:layout_height="wrap_content"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
+            android:overScrollMode="never"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mcvReview"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginBottom="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/mtvReviewValue"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                    android:textAlignment="textStart"
+                    android:justificationMode="inter_word"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
+                    tools:text="@string/mock_long_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    </androidx.core.widget.NestedScrollView>
+        </androidx.core.widget.NestedScrollView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
