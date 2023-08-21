@@ -6,6 +6,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.gms.google-services")
+    id("kotlin-parcelize")
     id("kotlinx-serialization")
     id("com.google.devtools.ksp") version "1.8.20-1.0.11"
 }

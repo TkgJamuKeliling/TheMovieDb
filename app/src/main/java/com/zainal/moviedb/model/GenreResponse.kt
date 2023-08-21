@@ -1,7 +1,9 @@
 package com.zainal.moviedb.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import com.zainal.moviedb.base.Equatable
+import kotlinx.parcelize.Parcelize
 
 data class GenreResponseModel(
 
@@ -9,6 +11,7 @@ data class GenreResponseModel(
 	var genres: List<GenresItem?> = emptyList()
 )
 
+@Parcelize
 data class GenresItem(
 
 	@field:SerializedName("name")
@@ -18,4 +21,4 @@ data class GenresItem(
 	var id: Int = 0,
 
 	var icon: String? = ""
-): Equatable
+): Equatable, Parcelable
