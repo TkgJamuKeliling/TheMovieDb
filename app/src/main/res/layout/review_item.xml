@@ -37,7 +37,7 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/mtvContinue"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/read_the_rest_text"
         android:clickable="true"
