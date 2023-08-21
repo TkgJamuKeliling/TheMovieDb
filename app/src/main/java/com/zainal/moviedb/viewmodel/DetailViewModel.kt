@@ -5,6 +5,7 @@ import android.view.View.VISIBLE
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.zainal.moviedb.R
 import com.zainal.moviedb.base.BaseViewModel
 import com.zainal.moviedb.model.CastItem
 import com.zainal.moviedb.model.DetailResponse
@@ -49,8 +50,8 @@ class DetailViewModel(private var repository: Repository): BaseViewModel()
     val overview = MutableLiveData<String?>()
     fun vmOverview(): LiveData<String?> = overview
 
-    val isFav = MutableLiveData<Boolean>()
-    fun vmIsFav(): LiveData<Boolean> = isFav
+    val isFav = MutableLiveData<Int>()
+    fun vmIsFav(): LiveData<Int> = isFav
 
     val videoResultItems = MutableLiveData<List<VideoResultsItem>?>()
     fun vmVideoResultItems(): LiveData<List<VideoResultsItem>?> = videoResultItems
@@ -136,7 +137,10 @@ class DetailViewModel(private var repository: Repository): BaseViewModel()
                                         isExist = b
                                     }
                                 }
-                                isFav.postValue(isExist)
+                                isFav.postValue(when {
+                                    isExist -> R.color.yellow
+                                    else -> R.color.white
+                                })
                             }
 
                             overview.postValue(it.overview)
@@ -201,7 +205,10 @@ class DetailViewModel(private var repository: Repository): BaseViewModel()
         detailResponse.value?.let {
             viewModelScope.launch {
                 repository.updateDb(it) { dbStateAction ->
-                    isFav.postValue(dbStateAction == DbStateAction.SUCCESS_INSERT)
+                    isFav.postValue(when (dbStateAction) {
+                        DbStateAction.SUCCESS_INSERT -> R.color.yellow
+                        else -> R.color.white
+                    })
                 }
             }
         }

@@ -181,12 +181,10 @@ class DetailActivity: BaseActivity() {
 
             vmIsFav().observe(this@DetailActivity) {
                 it?.let {
-                    detailBinding.detailHeader.favBtn.apply {
-                        iconTint = ColorStateList.valueOf(ContextCompat.getColor(this@DetailActivity, when {
-                            it -> R.color.yellow
-                            else -> R.color.white
-                        }))
-                    }
+                    detailBinding.detailHeader.favBtn.iconTint = ColorStateList.valueOf(ContextCompat.getColor(
+                        this@DetailActivity,
+                        it
+                    ))
                 }
             }
 
