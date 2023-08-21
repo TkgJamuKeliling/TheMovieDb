@@ -188,7 +188,9 @@ class MovieFragment : BaseFragment() {
 
             val formatter = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
             val parser = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-            mtvReleaseDate.text = parser.parse(trendingResultsItem.releaseDate)?.let { formatter.format(it) }
+            if (trendingResultsItem.releaseDate.isNotEmpty()) {
+                mtvReleaseDate.text = parser.parse(trendingResultsItem.releaseDate)?.let { formatter.format(it) }
+            }
 
             root.setOnClickListener {
                 startActivity(
