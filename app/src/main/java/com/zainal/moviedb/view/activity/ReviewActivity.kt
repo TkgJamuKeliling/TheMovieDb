@@ -94,11 +94,14 @@ class ReviewActivity: BaseActivity() {
         reviewId?.let {
             reviewViewModel.getReviewDetail(
                 it,
-                yearInfo
-            ) { b ->
-                reviewItemBinding.root.isEnabled = b
-            }
+                yearInfo,
+                ::setupSwipeLayout
+            )
         }
+    }
+    
+    private fun setupSwipeLayout(enable: Boolean) {
+        reviewItemBinding.root.isEnabled = enable
     }
 
     private fun initView() {
