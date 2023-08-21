@@ -218,17 +218,35 @@ class DetailActivity: BaseActivity() {
             vmStuckView().observe(this@DetailActivity) {
                 detailBinding.stuckView.root.visibility = it
             }
-
-            getDetailData(
-                idTvOrMovie,
-                0,
-                typeCategory
-            )
         }
+    }
+
+    private fun getDetailData() {
+        detailViewModel.getDetailData(
+            idTvOrMovie,
+            0,
+            typeCategory,
+            ::setupSwipeLayout
+        )
+    }
+
+    private fun setupSwipeLayout(enable: Boolean) {
+        detailBinding.root.isEnabled = enable
     }
 
     private fun initView() {
         with(detailBinding) {
+
+            root.apply {
+                setOnRefreshListener {
+                    isRefreshing = false
+                    getDetailData()
+                }
+            }
+
+            appBarLayout.addOnOffsetChangedListener { _, verticalOffset ->
+                root.isEnabled = verticalOffset >= 0
+            }
 
             detailHeader.favBtn.setOnClickListener {
                 detailViewModel.updateFav()
@@ -264,6 +282,8 @@ class DetailActivity: BaseActivity() {
                 itemAnimator = null
             }
         }
+
+        getDetailData()
     }
 
     private fun initData() {

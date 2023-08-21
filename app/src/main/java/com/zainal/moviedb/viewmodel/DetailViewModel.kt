@@ -21,6 +21,7 @@ import kotlin.math.roundToInt
 class DetailViewModel(private var repository: Repository): BaseViewModel()
 {
     private var isLoadingMoreReview = false
+    private var isProcessGetDetail = false
 
     val shimmerState = MutableLiveData<ShimmerState>()
     fun vmShimmerState(): LiveData<ShimmerState> = shimmerState
@@ -75,75 +76,85 @@ class DetailViewModel(private var repository: Repository): BaseViewModel()
         id: Int,
         page: Int,
         typeCategory: String,
+        enable: (Boolean) -> Unit
     ) {
-        shimmerState.postValue(ShimmerState.START)
+        if (!isProcessGetDetail) {
+            isProcessGetDetail = true
 
-        viewModelScope.launch {
-            repository.fetchDetail(
-                id,
-                page + 1,
-                typeCategory
-            ) { mDetailResponse, mListVideo, mListCast, mReviewResponse, mListReviewItem ->
-                detailResponse.postValue(mDetailResponse.also {
-                    it?.let {
-                        shimmerState.postValue(ShimmerState.STOP_GONE)
+            enable(false)
+            shimmerState.postValue(ShimmerState.START)
 
-                        bgUrlPoster.postValue(it.backdropPath)
+            viewModelScope.launch {
+                repository.fetchDetail(
+                    id,
+                    page + 1,
+                    typeCategory
+                ) { mDetailResponse, mListVideo, mListCast, mReviewResponse, mListReviewItem ->
+                    detailResponse.postValue(mDetailResponse.also {
+                        it?.let {
+                            shimmerState.postValue(ShimmerState.STOP_GONE)
 
-                        urlPoster.postValue(it.posterPath)
+                            bgUrlPoster.postValue(it.backdropPath)
 
-                        tag.postValue(it.tagline)
+                            urlPoster.postValue(it.posterPath)
 
-                        var flag = true
-                        val mList = mutableListOf<String>()
-                        it.originalTitle?.let { mTitle ->
-                            it.releaseDate?.let { mDate ->
-                                flag = false
-                                mList.apply {
-                                    add(mTitle)
-                                    add(mDate.substringBefore("-"))
+                            tag.postValue(it.tagline)
+
+                            var flag = true
+                            val mList = mutableListOf<String>()
+                            it.originalTitle?.let { mTitle ->
+                                it.releaseDate?.let { mDate ->
+                                    flag = false
+                                    mList.apply {
+                                        add(mTitle)
+                                        add(mDate.substringBefore("-"))
+                                    }
+                                }
+                                if (flag) {
+                                    flag = false
+                                    mList.add(mTitle)
                                 }
                             }
-                            if (flag) {
-                                flag = false
-                                mList.add(mTitle)
+                            title.postValue(mList)
+
+                            it.genres?.filterNotNull()?.joinToString(", ") { item ->
+                                item.name!!
+                            }.also { s ->
+                                genresItem.postValue(s)
                             }
-                        }
-                        title.postValue(mList)
 
-                        it.genres?.filterNotNull()?.joinToString(", ") { item ->
-                            item.name!!
-                        }.also { s ->
-                            genresItem.postValue(s)
-                        }
+                            it.voteAverage?.let { i ->
+                                voteAverage.postValue((i * 10).roundToInt())
+                            }
 
-                        it.voteAverage?.let { i ->
-                            voteAverage.postValue((i * 10).roundToInt())
-                        }
-
-                        viewModelScope.launch {
-                            var isExist = false
-                            repository.isFavExist(it.id) { b, movieEntity ->
-                                movieEntity?.let {
-                                    isExist = b
+                            viewModelScope.launch {
+                                var isExist = false
+                                repository.isFavExist(it.id) { b, movieEntity ->
+                                    movieEntity?.let {
+                                        isExist = b
+                                    }
                                 }
+                                isFav.postValue(isExist)
                             }
-                            isFav.postValue(isExist)
+
+                            overview.postValue(it.overview)
                         }
+                    })
 
-                        overview.postValue(it.overview)
-                    }
-                })
+                    videoResultItems.postValue(mListVideo)
 
-                videoResultItems.postValue(mListVideo)
+                    castItems.postValue(mListCast)
 
-                castItems.postValue(mListCast)
+                    reviewResponse.postValue(mReviewResponse)
+                    totalReview.postValue(mReviewResponse?.totalResults ?:0)
 
-                reviewResponse.postValue(mReviewResponse)
-                totalReview.postValue(mReviewResponse?.totalResults ?:0)
+                    reviewItems.postValue(mListReviewItem)
 
-                reviewItems.postValue(mListReviewItem)
+                    enable(true)
+                    isProcessGetDetail = false
+                }
             }
+            return
         }
     }
 
