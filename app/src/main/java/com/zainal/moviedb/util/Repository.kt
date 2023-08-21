@@ -48,11 +48,28 @@ class Repository(
                 trendingResponse?.results?.filterNotNull(),
                 genreResponse?.genres?.filterNotNull()?.apply {
                     map {
-                        it.icon = "ic_${it.name?.lowercase()?.replace(" ", "_")}_genre"
+                        it.icon = iconName(it.name)
                     }
                 }
             )
         }
+    }
+
+    private fun iconName(s: String?): String {
+        s?.let {
+            return buildString {
+                append("ic_")
+                append(
+                    it.lowercase()
+                        .replace(" ", "_")
+                        .replace("-", "_")
+                        .replace("&", "")
+                        .replace("__", "_")
+                )
+                append("_genre")
+            }
+        }
+        return ""
     }
 
     private suspend fun fetchTrendingResponse(

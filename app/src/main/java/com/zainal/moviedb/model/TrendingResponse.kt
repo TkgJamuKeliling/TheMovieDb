@@ -63,5 +63,18 @@ data class TrendingResultsItem(
 	var adult: Boolean = false,
 
 	@field:SerializedName("vote_count")
-	var voteCount: Int = 0
+	var voteCount: Int = 0,
+
+	//TV Show
+	@field:SerializedName("original_name")
+	var originalName: String = "",
+
+	@field:SerializedName("name")
+	var name: String = "",
+
+	@field:SerializedName("first_air_date")
+	var firstAirDate: String = "",
+
+	@field:SerializedName("origin_country")
+	var originCountry: List<String> = emptyList(),
 ): Equatable
