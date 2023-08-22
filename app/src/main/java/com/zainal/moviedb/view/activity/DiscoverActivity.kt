@@ -1,6 +1,7 @@
 package com.zainal.moviedb.view.activity
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -16,6 +17,7 @@ import com.zainal.moviedb.model.DiscoverResultsItem
 import com.zainal.moviedb.model.GenreResponse
 import com.zainal.moviedb.model.GenresItem
 import com.zainal.moviedb.util.BottomViewState
+import com.zainal.moviedb.util.Constant
 import com.zainal.moviedb.util.Constant.BASE_URL_POSTER
 import com.zainal.moviedb.util.Constant.EXTRA_CATEGORY
 import com.zainal.moviedb.util.Constant.EXTRA_GENRE_DATA
@@ -195,9 +197,21 @@ class DiscoverActivity: BaseActivity() {
         discoverResultsItem: DiscoverResultsItem,
         holder: DiscoverAdapter.DiscoverViewHolder
     ) {
-        Glide.with(this)
-            .load("${BASE_URL_POSTER}${discoverResultsItem.posterPath}")
-            .placeholder(R.drawable.poster_placeholder)
-            .into(holder.sivPoster)
+        with(holder.sivPoster) {
+            Glide.with(this)
+                .load("${BASE_URL_POSTER}${discoverResultsItem.posterPath}")
+                .placeholder(R.drawable.poster_placeholder)
+                .into(this)
+
+            setOnClickListener {
+                startActivity(Intent(
+                    this@DiscoverActivity,
+                    DetailActivity::class.java
+                ).apply {
+                    putExtra(Constant.EXTRA_ID, discoverResultsItem.id)
+                    putExtra(Constant.EXTRA_CATEGORY, typeCategory)
+                })
+            }
+        }
     }
 }

@@ -13,6 +13,8 @@
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CardItem"
         app:layout_constraintStart_toStartOf="parent"
         app:strokeColor="?colorPrimary"
+        android:clickable="true"
+        android:focusable="true"
         app:strokeWidth="2dp"
         android:background="?selectableItemBackground"
         android:padding="2dp"
