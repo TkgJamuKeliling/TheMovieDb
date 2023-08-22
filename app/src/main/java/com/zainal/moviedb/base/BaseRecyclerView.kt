@@ -117,9 +117,21 @@ abstract class BaseRecyclerView: RecyclerView.Adapter<RecyclerView.ViewHolder>()
                     }.also { reviewResultsItems ->
                         data = reviewResultsItems
                     }
+                } else if (it.all { equatable ->
+                        equatable is ReviewResultsItem
+                    }) {
+                    it.map { e ->
+                        (e as DiscoverResultsItem).copy()
+                    }.also { discoverResultsItems ->
+                        data = discoverResultsItems
+                    }
+                } else {
+                    submitList(null)
                 }
                 submitList(data)
+                return@with
             }
+            submitList(null)
         }
     }
 

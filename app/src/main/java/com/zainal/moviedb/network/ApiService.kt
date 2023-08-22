@@ -3,7 +3,7 @@ package com.zainal.moviedb.network
 import com.zainal.moviedb.model.CastResponse
 import com.zainal.moviedb.model.DetailResponse
 import com.zainal.moviedb.model.DiscoverResponse
-import com.zainal.moviedb.model.GenreResponseModel
+import com.zainal.moviedb.model.GenreResponse
 import com.zainal.moviedb.model.ReviewItemResponse
 import com.zainal.moviedb.model.ReviewResponse
 import com.zainal.moviedb.model.TrendingResponse
@@ -17,7 +17,7 @@ interface ApiService {
     @GET(Constant.GENRES_ENDPOINT)
     suspend fun getGenreData(
         @Path(value = "xCategory") xCategory: String
-    ): GenreResponseModel?
+    ): GenreResponse?
 
     @GET(Constant.TRENDINGS_ENDPOINT)
     suspend fun getTrendingData(

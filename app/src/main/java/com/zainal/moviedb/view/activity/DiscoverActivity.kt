@@ -3,18 +3,23 @@ package com.zainal.moviedb.view.activity
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
-import android.view.View
-import com.squareup.picasso.MemoryPolicy
-import com.squareup.picasso.NetworkPolicy
-import com.squareup.picasso.Picasso
+import android.util.Log
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
+import androidx.appcompat.widget.PopupMenu
+import androidx.core.widget.NestedScrollView
+import com.bumptech.glide.Glide
 import com.zainal.moviedb.R
 import com.zainal.moviedb.base.BaseActivity
 import com.zainal.moviedb.databinding.ActivityDiscoverBinding
 import com.zainal.moviedb.model.DiscoverResultsItem
+import com.zainal.moviedb.model.GenreResponse
 import com.zainal.moviedb.model.GenresItem
+import com.zainal.moviedb.util.BottomViewState
 import com.zainal.moviedb.util.Constant.BASE_URL_POSTER
 import com.zainal.moviedb.util.Constant.EXTRA_CATEGORY
 import com.zainal.moviedb.util.Constant.EXTRA_GENRE_DATA
+import com.zainal.moviedb.util.Constant.EXTRA_LIST_GENRE
 import com.zainal.moviedb.util.ShimmerState
 import com.zainal.moviedb.util.TypeCategory
 import com.zainal.moviedb.view.adapter.DiscoverAdapter
@@ -27,6 +32,7 @@ class DiscoverActivity: BaseActivity() {
 
     var genresItem: GenresItem? = null
     var typeCategory: String = TypeCategory.MOVIE.name
+    var genreResponse: GenreResponse? = null
 
     val discoverAdapter = DiscoverAdapter(::discoverAdapterCallback)
 
@@ -42,13 +48,27 @@ class DiscoverActivity: BaseActivity() {
 
     private fun observeView() {
         with(discoverViewModel) {
-            vmShimmerState().observe(this@DiscoverActivity) {
+            vmDiscoverResultsItem().observe(this@DiscoverActivity) {
+                discoverAdapter.setupData(it)
+            }
+
+            getData()
+        }
+    }
+
+    private fun getData(isPageOne: Boolean = true) {
+        genresItem?.let {
+            discoverViewModel.getDiscoverData(
+                it.id,
+                typeCategory,
+                isPageOne
+            ) { shimmerState, scrollState, bottomViewState, menuState ->
                 with(discoverBinding) {
-                    when (it) {
+                    when (shimmerState) {
                         ShimmerState.START -> {
-                            rcvDiscover.visibility = View.INVISIBLE
+                            rcvDiscover.visibility = INVISIBLE
                             discoverShimmer.apply {
-                                visibility = View.VISIBLE
+                                visibility = VISIBLE
                                 if (!isShimmerStarted) {
                                     startShimmer()
                                 }
@@ -59,38 +79,30 @@ class DiscoverActivity: BaseActivity() {
                                 if (isShimmerStarted) {
                                     stopShimmer()
                                 }
-                                visibility = View.INVISIBLE
+                                visibility = INVISIBLE
                             }
-                            rcvDiscover.visibility = View.VISIBLE
+                            rcvDiscover.visibility = VISIBLE
+                        }
+                    }
+
+                    root.isEnabled = scrollState.state
+                    nestedScrollView.isEnabled = scrollState.state
+
+                    btnMenu.isEnabled = menuState.state
+
+                    when (bottomViewState) {
+                        BottomViewState.LOADING -> loadingView.root.visibility = VISIBLE
+                        BottomViewState.STUCK -> {
+                            loadingView.root.visibility = INVISIBLE
+                            stuckView.root.visibility = VISIBLE
+                        }
+                        else -> {
+                            loadingView.root.visibility = INVISIBLE
+                            stuckView.root.visibility = INVISIBLE
                         }
                     }
                 }
             }
-
-            vmDiscoverResultsItem().observe(this@DiscoverActivity) {
-                discoverAdapter.setupData(it)
-                setupStateView(true)
-            }
-
-            getData()
-        }
-    }
-
-    private fun getData() {
-        genresItem?.let {
-            setupStateView(false)
-
-            discoverViewModel.getDiscoverData(
-                genreId = it.id,
-                typeCategory = typeCategory
-            )
-        }
-    }
-
-    private fun setupStateView(b: Boolean) {
-        with(discoverBinding) {
-            root.isEnabled = b
-            nestedScrollView.isEnabled = b
         }
     }
 
@@ -104,15 +116,42 @@ class DiscoverActivity: BaseActivity() {
                 }
             }
 
-            genresItem?.let {
-                acivMenuIcon.setImageResource(resources.getIdentifier(
-                    it.icon,
-                    "drawable",
-                    packageName
-                ))
+            btnMenu.apply {
+                text = genresItem?.name
+                setOnClickListener {
+                    val listGenreItems = genreResponse?.genres?.filterNotNull()
 
-                mtvTitle.text = it.name
+                    PopupMenu(
+                        this@DiscoverActivity,
+                        it
+                    ).apply {
+                        menu.apply {
+                            listGenreItems?.forEach { item ->
+                                add(item.name)
+                            }
+                        }
+                        setOnMenuItemClickListener { menuItem ->
+                            menuItem?.title?.let { s ->
+                                btnMenu.text = s
+                                genresItem = listGenreItems?.find { item ->
+                                    item.name == s
+                                }
+                                getData()
+                            }
+                            return@setOnMenuItemClickListener true
+                        }
+                        show()
+                    }
+                }
             }
+
+            nestedScrollView.setOnScrollChangeListener(
+                NestedScrollView.OnScrollChangeListener { v, _, scrollY, _, _ ->
+                    if (scrollY != 0 && scrollY == v.getChildAt(0).measuredHeight - v.measuredHeight) {
+                        getData(false)
+                    }
+                }
+            )
 
             rcvDiscover.apply {
                 adapter = discoverAdapter
@@ -137,6 +176,18 @@ class DiscoverActivity: BaseActivity() {
             }
 
             typeCategory = it.getStringExtra(EXTRA_CATEGORY) ?:TypeCategory.MOVIE.name
+
+            genreResponse = when {
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU -> it.getParcelableExtra(
+                    EXTRA_LIST_GENRE,
+                    GenreResponse::class.java
+                )
+
+                else -> {
+                    @Suppress("DEPRECATION")
+                    it.getParcelableExtra(EXTRA_LIST_GENRE)
+                }
+            }
         }
     }
 
@@ -144,10 +195,8 @@ class DiscoverActivity: BaseActivity() {
         discoverResultsItem: DiscoverResultsItem,
         holder: DiscoverAdapter.DiscoverViewHolder
     ) {
-        Picasso.get()
+        Glide.with(this)
             .load("${BASE_URL_POSTER}${discoverResultsItem.posterPath}")
-            .networkPolicy(NetworkPolicy.NO_CACHE)
-            .memoryPolicy(MemoryPolicy.NO_CACHE)
             .placeholder(R.drawable.poster_placeholder)
             .into(holder.sivPoster)
     }

@@ -19,7 +19,9 @@ class TvShowViewModel(repository: Repository) : MainFragmentViewModel(repository
                 repository.fetchMainFragmentData(
                     trendingSeason,
                     TypeCategory.TV
-                ) { mTrendingResultsItem, mGenresItem ->
+                ) { mTrendingResultsItem, mGenreResponse, mGenresItem ->
+                    genreResponse.postValue(mGenreResponse)
+
                     shimmerState.postValue(ShimmerState.STOP_GONE)
 
                     trendingResultsItem.postValue(mTrendingResultsItem)

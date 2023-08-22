@@ -12,6 +12,7 @@ object Constant {
     const val EXTRA_YEAR = "extraYear"
     const val EXTRA_POSTER_PATH = "extraPosterPath"
     const val EXTRA_GENRE_DATA = "extraGenreData"
+    const val EXTRA_LIST_GENRE = "extraListGenre"
 
     const val BASE_URL = "https://api.themoviedb.org/3/"
     const val BASE_URL_POSTER = "https://www.themoviedb.org/t/p/w1280"
@@ -47,4 +48,20 @@ enum class DbStateAction {
     SUCCESS_INSERT,
     SUCCESS_DELETE,
     FAILED_ACTION
+}
+
+enum class BottomViewState {
+    LOADING,
+    STUCK,
+    NORMAL
+}
+
+enum class ScrollState(var state: Boolean) {
+    ENABLE(true),
+    DISABLE(false)
+}
+
+enum class MenuState(var state: Boolean) {
+    ENABLE(true),
+    DISABLE(false)
 }

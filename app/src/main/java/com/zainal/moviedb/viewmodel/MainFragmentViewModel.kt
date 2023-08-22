@@ -3,6 +3,7 @@ package com.zainal.moviedb.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.zainal.moviedb.base.BaseViewModel
+import com.zainal.moviedb.model.GenreResponse
 import com.zainal.moviedb.model.GenresItem
 import com.zainal.moviedb.model.TrendingResultsItem
 import com.zainal.moviedb.util.Repository
@@ -23,4 +24,6 @@ open class MainFragmentViewModel(var repository: Repository) : BaseViewModel() {
 
     val trendingShimmerState = MutableLiveData<ShimmerState>()
     fun vmTrendingShimmerState(): LiveData<ShimmerState> = trendingShimmerState
+
+    val genreResponse = MutableLiveData<GenreResponse?>()
 }

@@ -19,7 +19,8 @@ class MovieViewModel(repository: Repository) : MainFragmentViewModel(repository)
                 repository.fetchMainFragmentData(
                     trendingSeason,
                     TypeCategory.MOVIE
-                ) { mTrendingResultsItem, mGenresItem ->
+                ) { mTrendingResultsItem, mGenreResponse, mGenresItem ->
+                    genreResponse.postValue(mGenreResponse)
                     shimmerState.postValue(ShimmerState.STOP_GONE)
 
                     trendingResultsItem.postValue(mTrendingResultsItem)

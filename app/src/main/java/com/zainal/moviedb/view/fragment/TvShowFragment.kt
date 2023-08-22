@@ -7,9 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
-import com.squareup.picasso.MemoryPolicy
-import com.squareup.picasso.NetworkPolicy
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
 import com.zainal.moviedb.R
 import com.zainal.moviedb.base.BaseFragment
 import com.zainal.moviedb.databinding.MainFragmentLayoutBinding
@@ -18,6 +16,7 @@ import com.zainal.moviedb.model.TrendingResultsItem
 import com.zainal.moviedb.util.Constant
 import com.zainal.moviedb.util.Constant.EXTRA_CATEGORY
 import com.zainal.moviedb.util.Constant.EXTRA_GENRE_DATA
+import com.zainal.moviedb.util.Constant.EXTRA_LIST_GENRE
 import com.zainal.moviedb.util.ShimmerState
 import com.zainal.moviedb.util.TrendingSeason
 import com.zainal.moviedb.util.TypeCategory
@@ -163,10 +162,8 @@ class TvShowFragment : BaseFragment() {
         holder: TrendingAdapter.TrendingViewHolder
     ) {
         with(holder) {
-            Picasso.get()
+            Glide.with(this@TvShowFragment)
                 .load("${Constant.BASE_URL_POSTER}${trendingResultsItem.posterPath}")
-                .networkPolicy(NetworkPolicy.NO_CACHE)
-                .memoryPolicy(MemoryPolicy.NO_CACHE)
                 .placeholder(R.drawable.poster_placeholder)
                 .into(acivCard)
 
@@ -222,6 +219,7 @@ class TvShowFragment : BaseFragment() {
                 ).apply {
                     putExtra(EXTRA_GENRE_DATA, genresItem)
                     putExtra(EXTRA_CATEGORY, TypeCategory.TV.name)
+                    putExtra(EXTRA_LIST_GENRE, tvShowViewModel.genreResponse.value)
                 })
             }
         }

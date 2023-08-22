@@ -92,7 +92,7 @@ class DetailViewModel(private var repository: Repository): BaseViewModel()
                 repository.fetchDetail(
                     id,
                     page + 1,
-                    typeCategory
+                    typeCategory.lowercase()
                 ) { mDetailResponse, mListVideo, mListCast, mReviewResponse, mListReviewItem ->
                     detailResponse.postValue(mDetailResponse.also {
                         it?.let {
@@ -106,7 +106,7 @@ class DetailViewModel(private var repository: Repository): BaseViewModel()
 
                             var flag = true
                             val mList = mutableListOf<String>()
-                            when (typeCategory) {
+                            when (typeCategory.lowercase()) {
                                 TypeCategory.MOVIE.name.lowercase() -> it.originalTitle?.let { mTitle ->
                                     it.releaseDate?.let { mDate ->
                                         flag = false

@@ -8,6 +8,7 @@ import com.zainal.moviedb.model.CastItem
 import com.zainal.moviedb.model.DetailResponse
 import com.zainal.moviedb.model.DiscoverResponse
 import com.zainal.moviedb.model.DiscoverResultsItem
+import com.zainal.moviedb.model.GenreResponse
 import com.zainal.moviedb.model.GenresItem
 import com.zainal.moviedb.model.ReviewItemResponse
 import com.zainal.moviedb.model.ReviewResponse
@@ -30,7 +31,7 @@ class Repository(
     suspend fun fetchMainFragmentData(
         trendingSeason: TrendingSeason,
         typeCategory: TypeCategory,
-        result: (List<TrendingResultsItem>?, List<GenresItem>?) -> Unit
+        result: (List<TrendingResultsItem>?, GenreResponse?, List<GenresItem>?) -> Unit
     ) {
         coroutineScope {
             delay(1000L)
@@ -48,6 +49,7 @@ class Repository(
 
             result(
                 trendingResponse?.results?.filterNotNull(),
+                genreResponse,
                 genreResponse?.genres?.filterNotNull()?.apply {
                     map {
                         it.icon = iconName(it.name)
@@ -288,8 +290,6 @@ class Repository(
         result: (DiscoverResponse?, List<DiscoverResultsItem>?) -> Unit
     ) {
         coroutineScope {
-            delay(1000L)
-
             val discoverResponse = async(Dispatchers.IO) {
                 when (typeCategory) {
                     TypeCategory.MOVIE.name -> restClientService.getInstance().getMovieDiscoverData(

@@ -7,7 +7,6 @@ plugins {
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.gms.google-services")
     id("kotlin-parcelize")
-    id("kotlinx-serialization")
     id("com.google.devtools.ksp") version "1.8.20-1.0.11"
 }
 
@@ -84,9 +83,6 @@ dependencies {
     implementation("androidx.room:room-ktx:$roomVersion")
     ksp("androidx.room:room-compiler:$roomVersion")
 
-    //kotlin-serialization
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1")
-
     //shimmer
     implementation("com.facebook.shimmer:shimmer:0.5.0@aar")
 
@@ -96,9 +92,9 @@ dependencies {
     //Gson
     implementation("com.google.code.gson:gson:2.10.1")
 
-    //picasso (Image loader)
-    implementation("com.squareup.picasso:picasso:2.71828")
-    implementation("jp.wasabeef:picasso-transformations:2.4.0")
+    //glide (Image loader)
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    ksp("com.github.bumptech.glide:ksp:4.16.0")
 
     implementation("com.google.android.material:material:1.9.0")
 

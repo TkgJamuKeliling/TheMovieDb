@@ -2,9 +2,7 @@ package com.zainal.moviedb.view.activity
 
 import android.content.Intent
 import android.content.res.ColorStateList
-import android.graphics.Bitmap
 import android.graphics.PorterDuff
-import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View.GONE
@@ -14,14 +12,15 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerCallback
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-import com.squareup.picasso.MemoryPolicy
-import com.squareup.picasso.NetworkPolicy
-import com.squareup.picasso.Picasso
-import com.squareup.picasso.Target
 import com.zainal.moviedb.R
 import com.zainal.moviedb.base.BaseActivity
 import com.zainal.moviedb.databinding.ActivityDetailBinding
@@ -29,7 +28,8 @@ import com.zainal.moviedb.databinding.TrailerDialogBinding
 import com.zainal.moviedb.model.CastItem
 import com.zainal.moviedb.model.ReviewResultsItem
 import com.zainal.moviedb.model.VideoResultsItem
-import com.zainal.moviedb.util.Constant
+import com.zainal.moviedb.util.Constant.BASE_URL_AVATAR
+import com.zainal.moviedb.util.Constant.BASE_URL_POSTER
 import com.zainal.moviedb.util.Constant.EXTRA_CATEGORY
 import com.zainal.moviedb.util.Constant.EXTRA_ID
 import com.zainal.moviedb.util.Constant.EXTRA_POSTER_PATH
@@ -41,7 +41,6 @@ import com.zainal.moviedb.view.adapter.CastAdapter
 import com.zainal.moviedb.view.adapter.ReviewAdapter
 import com.zainal.moviedb.view.adapter.TrailerAdapter
 import com.zainal.moviedb.viewmodel.DetailViewModel
-import jp.wasabeef.picasso.transformations.RoundedCornersTransformation
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -103,31 +102,28 @@ class DetailActivity: BaseActivity() {
 
             vmBgUrlPoster().observe(this@DetailActivity) {
                 it?.let {
-                    Picasso.get()
-                        .load("${Constant.BASE_URL_POSTER}$it")
-                        .networkPolicy(NetworkPolicy.NO_CACHE)
-                        .memoryPolicy(MemoryPolicy.NO_CACHE)
-                        .into(object : Target {
-                            override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
+                    Glide.with(this@DetailActivity)
+                        .load("${BASE_URL_POSTER}$it")
+                        .into(object : CustomTarget<Drawable>() {
+                            override fun onResourceReady(
+                                resource: Drawable,
+                                transition: Transition<in Drawable>?,
+                            ) {
                                 detailBinding.detailHeader.root.apply {
-                                    background = BitmapDrawable(resources, bitmap)
+                                    background = resource
                                     backgroundTintMode = PorterDuff.Mode.MULTIPLY
                                 }
                             }
 
-                            override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {}
-
-                            override fun onPrepareLoad(placeHolderDrawable: Drawable?) {}
+                            override fun onLoadCleared(placeholder: Drawable?) {}
                         })
                 }
             }
 
             vmUrlPoster().observe(this@DetailActivity) {
                 it?.let {
-                    Picasso.get()
-                        .load("${Constant.BASE_URL_POSTER}$it")
-                        .networkPolicy(NetworkPolicy.NO_CACHE)
-                        .memoryPolicy(MemoryPolicy.NO_CACHE)
+                    Glide.with(this@DetailActivity)
+                        .load("${BASE_URL_POSTER}$it")
                         .placeholder(R.drawable.poster_placeholder)
                         .into(detailBinding.detailHeader.acivPoster)
                 }
@@ -350,10 +346,8 @@ class DetailActivity: BaseActivity() {
         holder: CastAdapter.CastItemViewHolder
     ) {
         with(holder) {
-            Picasso.get()
-                .load("${Constant.BASE_URL_AVATAR}${castItem.profilePath}")
-                .networkPolicy(NetworkPolicy.NO_CACHE)
-                .memoryPolicy(MemoryPolicy.NO_CACHE)
+            Glide.with(this@DetailActivity)
+                .load("${BASE_URL_AVATAR}${castItem.profilePath}")
                 .error(when (castItem.gender) {
                     0, 2 -> R.drawable.ic_round_man_24
                     else -> R.drawable.ic_round_woman_24
@@ -408,13 +402,13 @@ class DetailActivity: BaseActivity() {
             reviewResultsItem.authorDetails?.avatarPath?.let {
                 if (it.isNotEmpty()) {
                     isPathValid = true
-                    Picasso.get()
-                        .load("${Constant.BASE_URL_AVATAR}$it")
-                        .networkPolicy(NetworkPolicy.NO_CACHE)
-                        .memoryPolicy(MemoryPolicy.NO_CACHE)
-                        .resize(50, 50)
-                        .centerCrop()
-                        .transform(RoundedCornersTransformation(14, 2))
+                    Glide.with(this@DetailActivity)
+                        .load("${BASE_URL_AVATAR}$it")
+                        .apply(RequestOptions()
+                            .override(50, 50)
+                            .transform(RoundedCorners(14))
+                            .centerCrop()
+                        )
                         .placeholder(R.drawable.ic_round_person_outline_24)
                         .into(acivAvatar)
                 }

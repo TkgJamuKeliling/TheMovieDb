@@ -27,4 +27,5 @@
     <string name="not_available">Not available</string>
     <string name="zero_value">0</string>
     <string name="review_note">Written by %1$s\non %2$s</string>
+    <string name="discover_text">Discover</string>
 </resources>

@@ -5,11 +5,12 @@ import com.google.gson.annotations.SerializedName
 import com.zainal.moviedb.base.Equatable
 import kotlinx.parcelize.Parcelize
 
-data class GenreResponseModel(
+@Parcelize
+data class GenreResponse(
 
 	@field:SerializedName("genres")
 	var genres: List<GenresItem?> = emptyList()
-)
+): Parcelable
 
 @Parcelize
 data class GenresItem(

@@ -3,9 +3,9 @@ package com.zainal.moviedb.view.activity
 import android.os.Bundle
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
-import com.squareup.picasso.MemoryPolicy
-import com.squareup.picasso.NetworkPolicy
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
+import com.bumptech.glide.annotation.GlideModule
+import com.bumptech.glide.module.AppGlideModule
 import com.zainal.moviedb.R
 import com.zainal.moviedb.base.BaseActivity
 import com.zainal.moviedb.databinding.ActivityReviewBinding
@@ -113,10 +113,8 @@ class ReviewActivity: BaseActivity() {
             }
 
             posterPath?.let {
-                Picasso.get()
+                Glide.with(this@ReviewActivity)
                     .load("${Constant.BASE_URL_POSTER}$it")
-                    .networkPolicy(NetworkPolicy.NO_CACHE)
-                    .memoryPolicy(MemoryPolicy.NO_CACHE)
                     .placeholder(R.drawable.poster_placeholder)
                     .into(acivPoster)
             }
