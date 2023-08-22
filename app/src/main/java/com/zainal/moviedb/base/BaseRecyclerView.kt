@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.zainal.moviedb.model.CastItem
+import com.zainal.moviedb.model.DiscoverResultsItem
 import com.zainal.moviedb.model.GenresItem
 import com.zainal.moviedb.model.TrendingResultsItem
 import com.zainal.moviedb.model.ReviewResultsItem
@@ -66,6 +67,26 @@ abstract class BaseRecyclerView: RecyclerView.Adapter<RecyclerView.ViewHolder>()
                             && oldItem.id == newItem.id
                             && oldItem.adult == newItem.adult
                             && oldItem.voteCount == newItem.voteCount
+
+                    oldItem is DiscoverResultsItem && newItem is DiscoverResultsItem -> oldItem.overview == newItem.overview
+                            && oldItem.originalLanguage == newItem.originalLanguage
+                            && oldItem.originalTitle == newItem.originalTitle
+                            && oldItem.video == newItem.video
+                            && oldItem.title == newItem.title
+                            && oldItem.genreIds == newItem.genreIds
+                            && oldItem.posterPath == newItem.posterPath
+                            && oldItem.backdropPath == newItem.backdropPath
+                            && oldItem.releaseDate == newItem.releaseDate
+                            && oldItem.popularity == newItem.popularity
+                            && oldItem.voteAverage == newItem.voteAverage
+                            && oldItem.id == newItem.id
+                            && oldItem.adult == newItem.adult
+                            && oldItem.voteCount == newItem.voteCount
+                            && oldItem.firstAirDate == newItem.firstAirDate
+                            && oldItem.name == newItem.name
+                            && oldItem.originalName == newItem.originalName
+                            && oldItem.originalCountry == newItem.originalCountry
+
                     else -> false
                 }
             }
@@ -74,6 +95,7 @@ abstract class BaseRecyclerView: RecyclerView.Adapter<RecyclerView.ViewHolder>()
                 return when {
                     oldItem is TrendingResultsItem && newItem is TrendingResultsItem
                             || oldItem is VideoResultsItem && newItem is VideoResultsItem
+                            || oldItem is DiscoverResultsItem && newItem is DiscoverResultsItem
                             || oldItem is ReviewResultsItem && newItem is ReviewResultsItem
                             || oldItem is CastItem && newItem is CastItem
                             || oldItem is GenresItem && newItem is GenresItem -> oldItem == newItem

@@ -5,6 +5,7 @@ import com.zainal.moviedb.network.RestClientService
 import com.zainal.moviedb.util.PrefsUtil
 import com.zainal.moviedb.util.Repository
 import com.zainal.moviedb.viewmodel.DetailViewModel
+import com.zainal.moviedb.viewmodel.DiscoverViewModel
 import com.zainal.moviedb.viewmodel.FavViewModel
 import com.zainal.moviedb.viewmodel.MovieViewModel
 import com.zainal.moviedb.viewmodel.ReviewViewModel
@@ -52,6 +53,10 @@ object AppModules {
 
         viewModel {
             ReviewViewModel(get())
+        }
+
+        viewModel {
+            DiscoverViewModel(get())
         }
     }
 }

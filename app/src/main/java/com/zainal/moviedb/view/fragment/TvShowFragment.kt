@@ -1,5 +1,7 @@
 package com.zainal.moviedb.view.fragment
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,11 +13,15 @@ import com.squareup.picasso.Picasso
 import com.zainal.moviedb.R
 import com.zainal.moviedb.base.BaseFragment
 import com.zainal.moviedb.databinding.MainFragmentLayoutBinding
+import com.zainal.moviedb.model.GenresItem
 import com.zainal.moviedb.model.TrendingResultsItem
 import com.zainal.moviedb.util.Constant
+import com.zainal.moviedb.util.Constant.EXTRA_CATEGORY
+import com.zainal.moviedb.util.Constant.EXTRA_GENRE_DATA
 import com.zainal.moviedb.util.ShimmerState
 import com.zainal.moviedb.util.TrendingSeason
 import com.zainal.moviedb.util.TypeCategory
+import com.zainal.moviedb.view.activity.DiscoverActivity
 import com.zainal.moviedb.view.adapter.GenreAdapter
 import com.zainal.moviedb.view.adapter.TrendingAdapter
 import com.zainal.moviedb.viewmodel.TvShowViewModel
@@ -35,6 +41,7 @@ class TvShowFragment : BaseFragment() {
     private var trendingSeason: TrendingSeason = TrendingSeason.DAY
 
     private val trendingAdapter = TrendingAdapter(::trendingAdapterCallback)
+    val genreAdapter = GenreAdapter(::genreAdapterCallback)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -188,6 +195,34 @@ class TvShowFragment : BaseFragment() {
                     trendingResultsItem.id,
                     TypeCategory.TV.name
                 )
+            }
+        }
+    }
+
+    @SuppressLint("DiscouragedApi")
+    fun genreAdapterCallback(
+        genresItem: GenresItem,
+        holder: GenreAdapter.GenreHolder
+    ) {
+        with(holder) {
+            val resId = requireContext().resources.getIdentifier(
+                genresItem.icon,
+                "drawable",
+                requireContext().packageName
+            )
+            acivIcon.setImageResource(resId)
+
+            mtvMenuTitle.text = genresItem.name
+
+            mcv.setOnClickListener {
+                startActivity(
+                    Intent(
+                    requireContext(),
+                    DiscoverActivity::class.java
+                ).apply {
+                    putExtra(EXTRA_GENRE_DATA, genresItem)
+                    putExtra(EXTRA_CATEGORY, TypeCategory.TV.name)
+                })
             }
         }
     }

@@ -2,6 +2,7 @@ package com.zainal.moviedb.network
 
 import com.zainal.moviedb.model.CastResponse
 import com.zainal.moviedb.model.DetailResponse
+import com.zainal.moviedb.model.DiscoverResponse
 import com.zainal.moviedb.model.GenreResponseModel
 import com.zainal.moviedb.model.ReviewItemResponse
 import com.zainal.moviedb.model.ReviewResponse
@@ -53,4 +54,16 @@ interface ApiService {
         @Path(value = "xCategory") xCategory: String,
         @Path(value = "xId") xId: String
     ): CastResponse?
+
+    @GET(Constant.DISCOVER_MOVIE_ENDPOINT)
+    suspend fun getMovieDiscoverData(
+        @Query(value = "page") page: String,
+        @Query(value = "with_genres", encoded = true) genreId: String
+    ): DiscoverResponse?
+
+    @GET(Constant.DISCOVER_TV_ENDPOINT)
+    suspend fun getTvDiscoverData(
+        @Query(value = "page") page: String,
+        @Query(value = "with_genres", encoded = true) genreId: String
+    ): DiscoverResponse?
 }

@@ -11,6 +11,7 @@ object Constant {
     const val EXTRA_REVIEW_ID = "extraReviewId"
     const val EXTRA_YEAR = "extraYear"
     const val EXTRA_POSTER_PATH = "extraPosterPath"
+    const val EXTRA_GENRE_DATA = "extraGenreData"
 
     const val BASE_URL = "https://api.themoviedb.org/3/"
     const val BASE_URL_POSTER = "https://www.themoviedb.org/t/p/w1280"
@@ -22,12 +23,8 @@ object Constant {
     const val VIDEOS_ENDPOINT = "{xCategory}/{xId}/videos?language=en-US"
     const val CAST_ENDPOINT = "{xCategory}/{xId}/credits?language=en-US"
     const val REVIEW_DETAIL_ENDPOINT = "review/{xId}"
-
-
-
-    const val DISCOVER_MOVIE_ENDPOINT = "discover/movie?include_adult=false&include_video=true&language=en-US&page={xPage}&sort_by=popularity.desc&with_genres={xGenre}"
-    const val DISCOVER_TV_ENDPOINT = "discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page={xPage}&sort_by=popularity.desc&with_genres={xGenre}"
-
+    const val DISCOVER_MOVIE_ENDPOINT = "discover/movie?include_adult=false&include_video=true&language=en-US&sort_by=popularity.desc"
+    const val DISCOVER_TV_ENDPOINT = "discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&sort_by=popularity.desc"
 }
 
 enum class TrendingSeason {

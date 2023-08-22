@@ -1,6 +1,7 @@
 package com.zainal.moviedb.model
 
 import com.google.gson.annotations.SerializedName
+import com.zainal.moviedb.base.Equatable
 
 data class DiscoverResponse(
 
@@ -59,5 +60,18 @@ data class DiscoverResultsItem(
 	var adult: Boolean = false,
 
 	@field:SerializedName("vote_count")
-	var voteCount: Int = 0
-)
+	var voteCount: Int = 0,
+
+	//TV
+	@field:SerializedName("first_air_date")
+	var firstAirDate: String? = "",
+
+	@field:SerializedName("name")
+	var name: String? = "",
+
+	@field:SerializedName("original_name")
+	var originalName: String? = "",
+
+	@field:SerializedName("origin_country")
+	var originalCountry: List<String>? = emptyList()
+): Equatable

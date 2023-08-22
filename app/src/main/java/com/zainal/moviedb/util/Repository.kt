@@ -6,6 +6,8 @@ import com.zainal.moviedb.db.MovieDatabase
 import com.zainal.moviedb.db.MovieEntity
 import com.zainal.moviedb.model.CastItem
 import com.zainal.moviedb.model.DetailResponse
+import com.zainal.moviedb.model.DiscoverResponse
+import com.zainal.moviedb.model.DiscoverResultsItem
 import com.zainal.moviedb.model.GenresItem
 import com.zainal.moviedb.model.ReviewItemResponse
 import com.zainal.moviedb.model.ReviewResponse
@@ -276,6 +278,36 @@ class Repository(
             if (flag) {
                 result(DbStateAction.FAILED_ACTION)
             }
+        }
+    }
+
+    suspend fun fetchDiscover(
+        genreId: Int,
+        page: Int,
+        typeCategory: String,
+        result: (DiscoverResponse?, List<DiscoverResultsItem>?) -> Unit
+    ) {
+        coroutineScope {
+            delay(1000L)
+
+            val discoverResponse = async(Dispatchers.IO) {
+                when (typeCategory) {
+                    TypeCategory.MOVIE.name -> restClientService.getInstance().getMovieDiscoverData(
+                        "$page",
+                        "$genreId"
+                    )
+
+                    else -> restClientService.getInstance().getTvDiscoverData(
+                        "$page",
+                        "$genreId"
+                    )
+                }
+            }.await()
+
+            result(
+                discoverResponse,
+                discoverResponse?.results?.filterNotNull()
+            )
         }
     }
 }
