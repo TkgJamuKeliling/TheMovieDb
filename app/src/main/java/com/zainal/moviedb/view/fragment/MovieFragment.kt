@@ -174,7 +174,7 @@ class MovieFragment : BaseFragment() {
 
                 lifecycleScope.launch(Dispatchers.Main) {
                     for (i in 0 until percentageValue) {
-                        mtvPercentageValue.text = "$percentageValue"
+                        mtvPercentageValue.text = "$i"
                         delay(10L)
                         cpiProgress.progress = i
                     }
