@@ -5,6 +5,7 @@ import android.content.res.ColorStateList
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.view.View.GONE
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
@@ -41,6 +42,7 @@ import com.zainal.moviedb.view.adapter.CastAdapter
 import com.zainal.moviedb.view.adapter.ReviewAdapter
 import com.zainal.moviedb.view.adapter.TrailerAdapter
 import com.zainal.moviedb.viewmodel.DetailViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -63,7 +65,11 @@ class DetailActivity: BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         detailBinding = ActivityDetailBinding.inflate(layoutInflater)
-        setContentView(detailBinding.root)
+        with(detailBinding) {
+            setContentView(root)
+            setSupportActionBar(toolbar)
+        }
+        title = ""
 
         initData()
         initView()
@@ -130,25 +136,44 @@ class DetailActivity: BaseActivity() {
             }
 
             vmTag().observe(this@DetailActivity) {
-                it?.let {
-                    detailBinding.mtvTag.text = it
+                detailBinding.mtvTag.apply {
+                    if (it.isNullOrEmpty()) {
+                        visibility = GONE
+                    } else {
+                        text = it
+                        visibility = VISIBLE
+                    }
                 }
             }
 
             vmTitle().observe(this@DetailActivity) {
                 it?.let { strings ->
                     if (strings.isNotEmpty()) {
+                        var mTitle = strings[0]
+                        var flag = true
                         if (strings.any { s ->
                                 s.isEmpty()
                             } || strings.size == 1) {
-                            detailBinding.toolbar.title = strings[0]
-                            return@observe
+                            flag = false
                         }
-                        detailBinding.toolbar.title = getString(
-                            R.string.placeholder_template,
-                            strings[0],
-                            strings[1]
-                        )
+                        if (flag) {
+                            mTitle = getString(
+                                R.string.placeholder_template,
+                                strings[0],
+                                strings[1]
+                            )
+                        }
+                        var txtTitle = ""
+                        lifecycleScope.launch(Dispatchers.Main) {
+                            for (c in mTitle.subSequence(0, mTitle.length)) {
+                                delay(25L)
+                                txtTitle = buildString {
+                                    append(txtTitle)
+                                    append(c)
+                                }
+                                detailBinding.collapsToolbarLayout.title = txtTitle
+                            }
+                        }
                     }
                 }
             }
@@ -188,13 +213,18 @@ class DetailActivity: BaseActivity() {
             }
 
             vmOverview().observe(this@DetailActivity) {
-                it?.let {
+                if (!it.isNullOrEmpty()) {
                     detailBinding.mtvOverview.text = it
                 }
             }
 
             vmVideoResultItems().observe(this@DetailActivity) {
-                trailerAdapter.setupData(it)
+                detailBinding.mtvNoTrailer.visibility = when {
+                    it.isNullOrEmpty() -> VISIBLE
+                    else -> GONE.also { _ ->
+                        trailerAdapter.setupData(it)
+                    }
+                }
             }
 
             vmCastItems().observe(this@DetailActivity) {
@@ -242,6 +272,7 @@ class DetailActivity: BaseActivity() {
             root.apply {
                 setOnRefreshListener {
                     isRefreshing = false
+                    collapsToolbarLayout.title = ""
                     getDetailData()
                 }
             }

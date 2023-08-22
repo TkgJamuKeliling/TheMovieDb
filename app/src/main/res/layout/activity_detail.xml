@@ -31,6 +31,8 @@
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
+                android:animateLayoutChanges="true"
+                android:id="@+id/collapsToolbarLayout"
                 android:layout_height="350dp"
                 app:contentScrim="?android:statusBarColor"
                 app:extraMultilineHeightEnabled="true"
@@ -136,6 +138,7 @@
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/mtvOverview"
                             android:layout_width="0dp"
+                            android:text="@string/not_available"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
                             android:letterSpacing="0.01"
@@ -166,29 +169,58 @@
                             app:layout_constraintTop_toBottomOf="@id/mtvOverview"
                             app:layout_constraintVertical_bias="0.0"/>
 
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/rcvTrailer"
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/trailerValueContainer"
+                            android:layout_width="match_parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/mtvTrailerTitle"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintVertical_bias="0.0"
+                            app:layout_constraintHorizontal_bias="0.0"
                             android:layout_marginTop="4dp"
                             android:layout_marginHorizontal="10dp"
-                            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                            app:spanCount="1"
-                            android:overScrollMode="never"
-                            android:nestedScrollingEnabled="false"
-                            tools:listitem="@layout/trailer_item"
-                            android:orientation="horizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/mtvNoTrailer"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintVertical_bias="0.0"
+                                app:layout_constraintHorizontal_bias="0.0"
+                                android:text="@string/not_available"
+                                android:letterSpacing="0.01"
+                                android:textAlignment="textStart"
+                                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rcvTrailer"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintVertical_bias="0.0"
+                                app:layout_constraintHorizontal_bias="0.0"
+                                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                                app:spanCount="1"
+                                android:overScrollMode="never"
+                                android:nestedScrollingEnabled="false"
+                                tools:listitem="@layout/trailer_item"
+                                android:orientation="horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/mtvCastTitle"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/rcvTrailer"
+                            app:layout_constraintTop_toBottomOf="@id/trailerValueContainer"
                             android:layout_marginTop="12dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintHorizontal_bias="0.0"
