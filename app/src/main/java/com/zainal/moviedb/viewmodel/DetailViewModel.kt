@@ -107,7 +107,7 @@ class DetailViewModel(private var repository: Repository): BaseViewModel()
                             var flag = true
                             val mList = mutableListOf<String>()
                             when (typeCategory.lowercase()) {
-                                TypeCategory.MOVIE.name.lowercase() -> it.originalTitle?.let { mTitle ->
+                                TypeCategory.MOVIE.name.lowercase() -> it.title?.let { mTitle ->
                                     it.releaseDate?.let { mDate ->
                                         flag = false
                                         mList.apply {
@@ -121,7 +121,7 @@ class DetailViewModel(private var repository: Repository): BaseViewModel()
                                     }
                                 }
 
-                                else -> it.originalName?.let { mTitle ->
+                                else -> it.name?.let { mTitle ->
                                     it.firstAirDate?.let { mDate ->
                                         flag = false
                                         mList.apply {

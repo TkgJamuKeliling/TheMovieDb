@@ -26,6 +26,7 @@ class FavAdapter(var callback: (MovieEntity, FavViewHolder) -> Unit): PagingData
         val mcvFav = favItemBinding.root
         val sivPoster = favItemBinding.sivPoster
         val mtvName = favItemBinding.mtvName
+        val mtvYear = favItemBinding.mtvYear
     }
 
     override fun onBindViewHolder(holder: FavViewHolder, position: Int) {

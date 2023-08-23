@@ -184,7 +184,7 @@ class MovieFragment : BaseFragment() {
                 }
             }
 
-            mtvCardTitle.text = trendingResultsItem.originalTitle
+            mtvCardTitle.text = trendingResultsItem.title
 
             val formatter = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
             val parser = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())

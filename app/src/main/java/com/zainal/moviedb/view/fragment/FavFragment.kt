@@ -40,20 +40,40 @@ class FavFragment : BaseFragment() {
             val model = Gson().fromJson(movieEntity.movieDetail, DetailResponse::class.java)
             var txtName = "-"
             var flag = true
-            model.originalTitle?.let {
+            model.title?.let {
                 if (it.isNotEmpty()) {
                     flag = false
                     txtName = it
                 }
             }
             if (flag) {
-                model.originalName?.let {
+                model.name?.let {
                     if (it.isNotEmpty()) {
                         txtName = it
                     }
                 }
             }
             mtvName.text = txtName
+
+            flag = true
+            var txtYear = ""
+            model.releaseDate?.let {
+                if (it.isNotEmpty()) {
+                    flag = false
+                    txtYear = it.substringBefore("-")
+                }
+            }
+            if (flag) {
+                model.firstAirDate?.let {
+                    if (it.isNotEmpty()) {
+                        txtYear = it.substringBefore("-")
+                    }
+                }
+            }
+            mtvYear.text = getString(
+                R.string.year_template,
+                txtYear
+            )
 
             Glide.with(this@FavFragment)
                 .load("${Constant.BASE_URL_POSTER}${model.posterPath}")
@@ -116,8 +136,8 @@ class FavFragment : BaseFragment() {
                             .make(root, getString(
                                 R.string.snackbar_remove_info,
                                 when (movieEntity?.typeCategory) {
-                                    TypeCategory.MOVIE.name.uppercase() -> detailMovie.originalTitle
-                                    else -> detailMovie.originalName
+                                    TypeCategory.MOVIE.name.uppercase() -> detailMovie.title
+                                    else -> detailMovie.name
                                 }
                             ), Snackbar.LENGTH_LONG)
                             .setAction(getString(R.string.undo_text)) {
