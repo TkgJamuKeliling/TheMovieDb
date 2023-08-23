@@ -290,7 +290,7 @@ class DetailActivity: BaseActivity() {
 
             nestedScrollView.setOnScrollChangeListener(
                 NestedScrollView.OnScrollChangeListener { v, _, scrollY, _, _ ->
-                    if (scrollY == v.getChildAt(0).measuredHeight - v.measuredHeight) {
+                    if (scrollY != 0 && scrollY == v.getChildAt(0).measuredHeight - v.measuredHeight) {
                         detailViewModel.getMoreReviewsData(typeCategory)
                     }
                 }

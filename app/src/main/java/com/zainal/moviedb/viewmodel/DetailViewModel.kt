@@ -183,36 +183,40 @@ class DetailViewModel(private var repository: Repository): BaseViewModel()
     fun getMoreReviewsData(typeCategory: String) {
         viewModelScope.launch {
             reviewResponse.value?.let {
-                if (!isLoadingMoreReview) {
-                    isLoadingMoreReview = true
+                reviewItems.value?.let { resultsItems ->
+                    if (resultsItems.isNotEmpty()) {
+                        if (!isLoadingMoreReview) {
+                            isLoadingMoreReview = true
 
-                    loadingView.postValue(VISIBLE)
+                            loadingView.postValue(VISIBLE)
 
-                    if (it.totalPages > it.page) {
-                        repository.fetchMoreReviews(
-                            it.id,
-                            it.page + 1,
-                            reviewItems.value,
-                            typeCategory
-                        ) { mReviewResponse, mListReviewItem ->
-                            reviewResponse.postValue(mReviewResponse)
-                            totalReview.postValue(mReviewResponse?.totalResults ?:0)
+                            if (it.totalPages > it.page) {
+                                repository.fetchMoreReviews(
+                                    it.id,
+                                    it.page + 1,
+                                    resultsItems,
+                                    typeCategory
+                                ) { mReviewResponse, mListReviewItem ->
+                                    reviewResponse.postValue(mReviewResponse)
+                                    totalReview.postValue(mReviewResponse?.totalResults ?:0)
 
+                                    loadingView.postValue(INVISIBLE)
+                                    reviewItems.postValue(mListReviewItem)
+
+                                    isLoadingMoreReview = false
+                                }
+                                return@launch
+                            }
+
+                            delay(1000L)
                             loadingView.postValue(INVISIBLE)
-                            reviewItems.postValue(mListReviewItem)
+                            stuckView.postValue(VISIBLE)
 
+                            delay(1000L)
+                            stuckView.postValue(INVISIBLE)
                             isLoadingMoreReview = false
                         }
-                        return@launch
                     }
-
-                    delay(1000L)
-                    loadingView.postValue(INVISIBLE)
-                    stuckView.postValue(VISIBLE)
-
-                    delay(1000L)
-                    stuckView.postValue(INVISIBLE)
-                    isLoadingMoreReview = false
                 }
             }
         }
