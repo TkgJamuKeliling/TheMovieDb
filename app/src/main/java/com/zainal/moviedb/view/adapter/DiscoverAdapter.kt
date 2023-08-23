@@ -24,6 +24,7 @@ class DiscoverAdapter(
 
     override fun onGetBindHolder(holder: RecyclerView.ViewHolder, model: Equatable, position: Int) {
         if (model is DiscoverResultsItem && holder is DiscoverViewHolder) {
+            holder.sivPoster.layout(0, 0, 0, 0)
             callback(
                 model,
                 holder

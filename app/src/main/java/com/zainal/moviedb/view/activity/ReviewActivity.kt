@@ -115,6 +115,8 @@ class ReviewActivity: BaseActivity() {
             posterPath?.let {
                 Glide.with(this@ReviewActivity)
                     .load("${Constant.BASE_URL_POSTER}$it")
+                    .override(100, 150)
+                    .centerCrop()
                     .placeholder(R.drawable.poster_placeholder)
                     .into(acivPoster)
             }

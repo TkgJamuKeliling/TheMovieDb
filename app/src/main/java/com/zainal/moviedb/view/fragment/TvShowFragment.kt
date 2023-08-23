@@ -164,6 +164,8 @@ class TvShowFragment : BaseFragment() {
         with(holder) {
             Glide.with(this@TvShowFragment)
                 .load("${Constant.BASE_URL_POSTER}${trendingResultsItem.posterPath}")
+                .override(200, 295)
+                .centerCrop()
                 .placeholder(R.drawable.poster_placeholder)
                 .into(acivCard)
 

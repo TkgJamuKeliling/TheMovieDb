@@ -10,6 +10,7 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.zainal.moviedb.R
 import com.zainal.moviedb.base.BaseFragment
 import com.zainal.moviedb.databinding.MainFragmentLayoutBinding
@@ -166,6 +167,8 @@ class MovieFragment : BaseFragment() {
         with(holder) {
             Glide.with(this@MovieFragment)
                 .load("${Constant.BASE_URL_POSTER}${trendingResultsItem.posterPath}")
+                .override(200, 295)
+                .centerCrop()
                 .placeholder(R.drawable.poster_placeholder)
                 .into(acivCard)
 

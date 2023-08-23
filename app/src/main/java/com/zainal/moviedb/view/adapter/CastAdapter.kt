@@ -22,6 +22,7 @@ class CastAdapter(var callback: (CastItem, CastItemViewHolder) -> Unit): BaseRec
 
     override fun onGetBindHolder(holder: RecyclerView.ViewHolder, model: Equatable, position: Int) {
         if (model is CastItem && holder is CastItemViewHolder) {
+            holder.acivAvatar.layout(0, 0, 0, 0)
             callback(
                 model,
                 holder

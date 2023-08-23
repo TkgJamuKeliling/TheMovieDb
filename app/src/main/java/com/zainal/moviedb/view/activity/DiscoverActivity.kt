@@ -9,6 +9,7 @@ import android.view.View.VISIBLE
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.widget.NestedScrollView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.zainal.moviedb.R
 import com.zainal.moviedb.base.BaseActivity
 import com.zainal.moviedb.databinding.ActivityDiscoverBinding
@@ -198,6 +199,8 @@ class DiscoverActivity: BaseActivity() {
         with(holder.sivPoster) {
             Glide.with(this)
                 .load("${BASE_URL_POSTER}${discoverResultsItem.posterPath}")
+                .override(165, 250)
+                .centerCrop()
                 .placeholder(R.drawable.poster_placeholder)
                 .into(this)
 

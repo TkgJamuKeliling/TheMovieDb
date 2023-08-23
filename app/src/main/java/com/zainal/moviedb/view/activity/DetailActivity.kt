@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.View.GONE
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.lifecycleScope
@@ -110,6 +111,8 @@ class DetailActivity: BaseActivity() {
                 it?.let {
                     Glide.with(this@DetailActivity)
                         .load("${BASE_URL_POSTER}$it")
+                        .override(MATCH_PARENT, 250)
+                        .centerCrop()
                         .into(object : CustomTarget<Drawable>() {
                             override fun onResourceReady(
                                 resource: Drawable,
@@ -130,6 +133,8 @@ class DetailActivity: BaseActivity() {
                 it?.let {
                     Glide.with(this@DetailActivity)
                         .load("${BASE_URL_POSTER}$it")
+                        .override(140, 250)
+                        .centerCrop()
                         .placeholder(R.drawable.poster_placeholder)
                         .into(detailBinding.detailHeader.acivPoster)
                 }
@@ -379,6 +384,8 @@ class DetailActivity: BaseActivity() {
         with(holder) {
             Glide.with(this@DetailActivity)
                 .load("${BASE_URL_AVATAR}${castItem.profilePath}")
+                .override(MATCH_PARENT, 100)
+                .centerCrop()
                 .error(when (castItem.gender) {
                     0, 2 -> R.drawable.ic_round_man_24
                     else -> R.drawable.ic_round_woman_24
@@ -435,11 +442,9 @@ class DetailActivity: BaseActivity() {
                     isPathValid = true
                     Glide.with(this@DetailActivity)
                         .load("${BASE_URL_AVATAR}$it")
-                        .apply(RequestOptions()
-                            .override(50, 50)
-                            .transform(RoundedCorners(14))
-                            .centerCrop()
-                        )
+                        .override(50, 50)
+                        .transform(RoundedCorners(14))
+                        .centerCrop()
                         .placeholder(R.drawable.ic_round_person_outline_24)
                         .into(acivAvatar)
                 }

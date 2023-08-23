@@ -31,6 +31,7 @@ class TrendingAdapter(var callback: (TrendingResultsItem, TrendingViewHolder) ->
         position: Int
     ) {
         if (model is TrendingResultsItem && holder is TrendingViewHolder) {
+            holder.acivCard.layout(0, 0, 0, 0)
             callback(
                 model,
                 holder

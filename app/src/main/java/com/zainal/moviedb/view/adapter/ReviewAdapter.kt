@@ -27,6 +27,7 @@ class ReviewAdapter(var callback: (ReviewResultsItem, ReviewItemViewHolder) -> U
 
     override fun onGetBindHolder(holder: RecyclerView.ViewHolder, model: Equatable, position: Int) {
         if (model is ReviewResultsItem && holder is ReviewItemViewHolder) {
+            holder.acivAvatar.layout(0, 0, 0, 0)
             callback(
                 model,
                 holder
