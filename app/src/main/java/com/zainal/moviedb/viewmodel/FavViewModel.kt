@@ -30,15 +30,25 @@ class FavViewModel(private var repository: Repository) : BaseViewModel() {
     }.flow.cachedIn(viewModelScope)
 
     init {
-        refreshData()
+        viewModelScope.launch {
+            data.collectLatest {
+                movieEntity.postValue(it)
+            }
+        }
     }
 
-    fun removeItem(movieEntity: MovieEntity?) {
+    fun removeItem(
+        movieEntity: MovieEntity?,
+        result: (Boolean) -> Unit
+    ) {
         movieEntity?.let {
             viewModelScope.launch {
                 repository.deleteFavItem(it)
+                result(true)
             }
+            return
         }
+        result(false)
     }
 
     fun restoreItem(
@@ -53,13 +63,5 @@ class FavViewModel(private var repository: Repository) : BaseViewModel() {
             return
         }
         result(false)
-    }
-
-    fun refreshData() {
-        viewModelScope.launch {
-            data.collectLatest {
-                movieEntity.postValue(it)
-            }
-        }
     }
 }

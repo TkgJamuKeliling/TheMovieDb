@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -13,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.zainal.moviedb.R
+import com.zainal.moviedb.base.BaseFragment
 import com.zainal.moviedb.callback.SwipeCallback
 import com.zainal.moviedb.databinding.FragmentFavBinding
 import com.zainal.moviedb.db.MovieEntity
@@ -25,9 +25,9 @@ import com.zainal.moviedb.viewmodel.FavViewModel
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
-class FavFragment : Fragment() {
+class FavFragment : BaseFragment() {
 
-    lateinit var favBinding: FragmentFavBinding
+    private lateinit var favBinding: FragmentFavBinding
     val favViewModel by inject<FavViewModel>()
 
     val favAdapter = FavAdapter(::favAdapterCallback)
@@ -62,7 +62,10 @@ class FavFragment : Fragment() {
                 .into(sivPoster)
 
             mcvFav.setOnClickListener {
-                //TODO
+                openDetailActivity(
+                    model.id,
+                    movieEntity.typeCategory
+                )
             }
         }
     }
@@ -82,6 +85,11 @@ class FavFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        favAdapter.refresh()
+    }
+
     private fun initView() {
         with(favBinding) {
             rcvFav.apply {
@@ -98,8 +106,11 @@ class FavFragment : Fragment() {
 
                         val detailMovie = Gson().fromJson(movieEntity?.movieDetail, DetailResponse::class.java)
 
-                        favViewModel.removeItem(movieEntity)
-                        favAdapter.notifyItemRemoved(position)
+                        favViewModel.removeItem(movieEntity) {
+                            if (it) {
+                                favAdapter.refresh()
+                            }
+                        }
 
                         val snackbar = Snackbar
                             .make(root, getString(
@@ -112,9 +123,7 @@ class FavFragment : Fragment() {
                             .setAction(getString(R.string.undo_text)) {
                                 favViewModel.restoreItem(movieEntity) {
                                     if (it) {
-                                        favViewModel.refreshData()
-                                        favAdapter.notifyItemInserted(position)
-                                        scrollToPosition(position)
+                                        favAdapter.refresh()
                                     }
                                 }
                             }
