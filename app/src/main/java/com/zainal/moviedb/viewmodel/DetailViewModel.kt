@@ -191,7 +191,7 @@ class DetailViewModel(private var repository: Repository): BaseViewModel()
                     if (it.totalPages > it.page) {
                         repository.fetchMoreReviews(
                             it.id,
-                            it.page,
+                            it.page + 1,
                             reviewItems.value,
                             typeCategory
                         ) { mReviewResponse, mListReviewItem ->
