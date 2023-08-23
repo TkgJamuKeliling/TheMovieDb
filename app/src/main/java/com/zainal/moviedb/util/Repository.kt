@@ -310,4 +310,14 @@ class Repository(
             )
         }
     }
+
+    suspend fun fetchFavData(result: (List<MovieEntity>?) -> Unit) {
+        coroutineScope {
+            val movieEntities = async {
+                MovieDatabase.getInstance(context)?.movieDao()?.getAllData()
+            }.await()
+
+            result(movieEntities)
+        }
+    }
 }

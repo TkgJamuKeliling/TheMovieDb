@@ -4,6 +4,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.zainal.moviedb.db.MovieEntity
 import com.zainal.moviedb.model.response.CastItem
 import com.zainal.moviedb.model.response.DiscoverResultsItem
 import com.zainal.moviedb.model.response.GenresItem
@@ -19,6 +20,11 @@ abstract class BaseRecyclerView: RecyclerView.Adapter<RecyclerView.ViewHolder>()
                     oldItem is GenresItem && newItem is GenresItem -> oldItem.id == newItem.id
                             && oldItem.name == newItem.name
                             && oldItem.icon == newItem.icon
+
+                    oldItem is MovieEntity && newItem is MovieEntity -> oldItem.id == newItem.id
+                            && oldItem.movieId == newItem.movieId
+                            && oldItem.movieDetail == newItem.movieDetail
+                            && oldItem.typeCategory == newItem.typeCategory
 
                     oldItem is ReviewResultsItem && newItem is ReviewResultsItem -> oldItem.authorDetails == newItem.authorDetails
                             && oldItem.updatedAt == newItem.updatedAt
@@ -95,6 +101,7 @@ abstract class BaseRecyclerView: RecyclerView.Adapter<RecyclerView.ViewHolder>()
                 return when {
                     oldItem is TrendingResultsItem && newItem is TrendingResultsItem
                             || oldItem is VideoResultsItem && newItem is VideoResultsItem
+                            || oldItem is MovieEntity && newItem is MovieEntity
                             || oldItem is DiscoverResultsItem && newItem is DiscoverResultsItem
                             || oldItem is ReviewResultsItem && newItem is ReviewResultsItem
                             || oldItem is CastItem && newItem is CastItem
@@ -114,16 +121,24 @@ abstract class BaseRecyclerView: RecyclerView.Adapter<RecyclerView.ViewHolder>()
                 }) {
                     it.map { e ->
                         (e as ReviewResultsItem).copy()
-                    }.also { reviewResultsItems ->
-                        data = reviewResultsItems
+                    }.also { items ->
+                        data = items
                     }
                 } else if (it.all { equatable ->
                         equatable is ReviewResultsItem
                     }) {
                     it.map { e ->
                         (e as DiscoverResultsItem).copy()
-                    }.also { discoverResultsItems ->
-                        data = discoverResultsItems
+                    }.also { items ->
+                        data = items
+                    }
+                } else if (it.all { equatable ->
+                        equatable is MovieEntity
+                    }) {
+                    it.map { e ->
+                        (e as MovieEntity).copy()
+                    }.also { items ->
+                        data = items
                     }
                 } else {
                     submitList(null)

@@ -3,6 +3,7 @@ package com.zainal.moviedb.db
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.zainal.moviedb.base.Equatable
 
 @Entity(tableName = "favTable")
 data class MovieEntity(
@@ -17,4 +18,4 @@ data class MovieEntity(
 
     @ColumnInfo(name = "typeCategory")
     var typeCategory: String
-)
+): Equatable
