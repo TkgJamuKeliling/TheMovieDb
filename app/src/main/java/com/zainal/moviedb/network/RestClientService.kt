@@ -2,7 +2,7 @@ package com.zainal.moviedb.network
 
 import com.google.gson.GsonBuilder
 import com.zainal.moviedb.helper.PrefsHelper
-import com.zainal.moviedb.util.Constant
+import com.zainal.moviedb.util.Constant.BASE_URL
 import okhttp3.ConnectionPool
 import okhttp3.OkHttpClient
 import okhttp3.Protocol
@@ -35,7 +35,7 @@ class RestClientService(private var prefsHelper: PrefsHelper) {
         }
 
         val retrofit by lazy { Retrofit.Builder()
-            .baseUrl(Constant.BASE_URL)
+            .baseUrl(BASE_URL)
             .client(mClient.build())
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
             .build()

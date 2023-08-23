@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -11,19 +11,19 @@
 
         <com.facebook.shimmer.ShimmerFrameLayout
             android:id="@+id/discoverShimmer"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/topContainer"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.0"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/topContainer"
+            app:layout_constraintVertical_bias="0.0">
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <include
                     layout="@layout/discover_placeholder" />
@@ -40,55 +40,55 @@
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appBarLayout"
-            android:background="?android:statusBarColor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="?android:statusBarColor"
             android:theme="@style/ThemeOverlay.Material3.Dark">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/topContainer"
-                android:padding="10dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintVertical_bias="0.0"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnMenu"
-                    android:enabled="true"
-                    app:iconTint="?colorPrimaryInverse"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="10dp"
+                    android:enabled="true"
+                    android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                     app:icon="@drawable/ic_round_arrow_drop_down_24"
                     app:iconGravity="textEnd"
                     app:iconPadding="10dp"
-                    tools:text="Action"
-                    android:layout_marginVertical="10dp"
-                    android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                    android:layout_height="wrap_content" />
+                    app:iconTint="?colorPrimaryInverse"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Action" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/mtvTitle"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/btnMenu"
-                    app:layout_constraintTop_toTopOf="@id/btnMenu"
-                    app:layout_constraintBottom_toBottomOf="@id/btnMenu"
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
-                    android:text="@string/discover_text"
-                    android:textColor="@color/white"
-                    android:textAlignment="textStart"
-                    android:textStyle="bold"
                     android:letterSpacing="0.05"
+                    android:text="@string/discover_text"
+                    android:textAlignment="textStart"
                     android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
-                    android:layout_height="wrap_content"/>
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/btnMenu"
+                    app:layout_constraintEnd_toStartOf="@id/btnMenu"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/btnMenu"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -96,16 +96,16 @@
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/nestedScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
             android:overScrollMode="never"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:fillViewport="true"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/topContainer"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/topContainer"
+            app:layout_constraintVertical_bias="0.0">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -113,41 +113,41 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rcvDiscover"
-                    android:visibility="invisible"
-                    android:overScrollMode="never"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintVertical_bias="0.0"
                     android:layout_width="match_parent"
-                    app:spanCount="2"
+                    android:layout_height="wrap_content"
                     android:nestedScrollingEnabled="false"
+                    android:overScrollMode="never"
+                    android:visibility="invisible"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                    tools:listitem="@layout/discover_item"
-                    android:layout_height="wrap_content"/>
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:spanCount="2"
+                    tools:listitem="@layout/discover_item"/>
 
                 <include
                     android:id="@+id/loadingView"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/rcvDiscover"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintVertical_bias="0.0"
+                    layout="@layout/bottom_loading"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    layout="@layout/bottom_loading"/>
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rcvDiscover"
+                    app:layout_constraintVertical_bias="0.0"/>
 
                 <include
                     android:id="@+id/stuckView"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/rcvDiscover"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintVertical_bias="0.0"
+                    layout="@layout/bottom_stuck"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    layout="@layout/bottom_stuck"/>
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rcvDiscover"
+                    app:layout_constraintVertical_bias="0.0"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

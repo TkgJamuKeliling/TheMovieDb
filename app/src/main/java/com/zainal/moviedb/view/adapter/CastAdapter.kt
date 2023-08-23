@@ -20,7 +20,7 @@ class CastAdapter(var callback: (CastItem, CastItemViewHolder) -> Unit): BaseRec
 
     override fun onGetAdapter() = this
 
-    override fun onGetBindHolder(holder: RecyclerView.ViewHolder, model: Equatable, position: Int) {
+    override fun onGetBindHolder(holder: RecyclerView.ViewHolder, model: Equatable) {
         if (model is CastItem && holder is CastItemViewHolder) {
             holder.acivAvatar.layout(0, 0, 0, 0)
             callback(
@@ -30,7 +30,7 @@ class CastAdapter(var callback: (CastItem, CastItemViewHolder) -> Unit): BaseRec
         }
     }
 
-    override fun onGetViewHolder(parent: ViewGroup, viewType: Int) = CastItemViewHolder(
+    override fun onGetViewHolder(parent: ViewGroup) = CastItemViewHolder(
         CastItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 }

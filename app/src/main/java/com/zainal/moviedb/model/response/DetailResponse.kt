@@ -1,7 +1,6 @@
 package com.zainal.moviedb.model.response
 
 import com.google.gson.annotations.SerializedName
-import java.math.BigInteger
 
 data class DetailResponse(
 

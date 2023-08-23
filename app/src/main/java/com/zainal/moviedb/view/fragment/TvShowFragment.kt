@@ -13,7 +13,7 @@ import com.zainal.moviedb.base.BaseFragment
 import com.zainal.moviedb.databinding.MainFragmentLayoutBinding
 import com.zainal.moviedb.model.response.GenresItem
 import com.zainal.moviedb.model.response.TrendingResultsItem
-import com.zainal.moviedb.util.Constant
+import com.zainal.moviedb.util.Constant.BASE_URL_POSTER
 import com.zainal.moviedb.util.Constant.EXTRA_CATEGORY
 import com.zainal.moviedb.util.Constant.EXTRA_GENRE_DATA
 import com.zainal.moviedb.util.Constant.EXTRA_LIST_GENRE
@@ -40,7 +40,7 @@ class TvShowFragment : BaseFragment() {
     private var trendingSeason: TrendingSeason = TrendingSeason.DAY
 
     private val trendingAdapter = TrendingAdapter(::trendingAdapterCallback)
-    val genreAdapter = GenreAdapter(::genreAdapterCallback)
+    private val genreAdapter = GenreAdapter(::genreAdapterCallback)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -163,7 +163,7 @@ class TvShowFragment : BaseFragment() {
     ) {
         with(holder) {
             Glide.with(this@TvShowFragment)
-                .load("${Constant.BASE_URL_POSTER}${trendingResultsItem.posterPath}")
+                .load("${BASE_URL_POSTER}${trendingResultsItem.posterPath}")
                 .override(200, 295)
                 .centerCrop()
                 .placeholder(R.drawable.poster_placeholder)

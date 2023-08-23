@@ -25,7 +25,7 @@ class ReviewAdapter(var callback: (ReviewResultsItem, ReviewItemViewHolder) -> U
 
     override fun onGetAdapter() = this
 
-    override fun onGetBindHolder(holder: RecyclerView.ViewHolder, model: Equatable, position: Int) {
+    override fun onGetBindHolder(holder: RecyclerView.ViewHolder, model: Equatable) {
         if (model is ReviewResultsItem && holder is ReviewItemViewHolder) {
             holder.acivAvatar.layout(0, 0, 0, 0)
             callback(
@@ -35,7 +35,7 @@ class ReviewAdapter(var callback: (ReviewResultsItem, ReviewItemViewHolder) -> U
         }
     }
 
-    override fun onGetViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onGetViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return ReviewItemViewHolder(
             ReviewItemBinding.inflate(inflater, parent, false)

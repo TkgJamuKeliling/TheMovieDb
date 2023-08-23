@@ -1,6 +1,5 @@
 package com.zainal.moviedb.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -15,12 +14,12 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class DiscoverViewModel(private var repository: Repository): BaseViewModel() {
-    var isFirstRequestProcess = false
-    var isMoreRequestProcess = false
+    private var isFirstRequestProcess = false
+    private var isMoreRequestProcess = false
 
-    val discoverResponse = MutableLiveData<DiscoverResponse?>()
+    private val discoverResponse = MutableLiveData<DiscoverResponse?>()
 
-    val discoverResultsItem = MutableLiveData<List<DiscoverResultsItem>?>()
+    private val discoverResultsItem = MutableLiveData<List<DiscoverResultsItem>?>()
     fun vmDiscoverResultsItem(): LiveData<List<DiscoverResultsItem>?> = discoverResultsItem
 
     fun getDiscoverData(
@@ -53,9 +52,7 @@ class DiscoverViewModel(private var repository: Repository): BaseViewModel() {
                 },
                 when {
                     isPageOne -> BottomViewState.NORMAL
-                    else -> BottomViewState.LOADING.also {
-                        Log.w("Zen", "loading")
-                    }
+                    else -> BottomViewState.LOADING
                 }
             )
 

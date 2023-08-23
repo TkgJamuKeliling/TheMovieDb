@@ -17,7 +17,7 @@ import com.zainal.moviedb.callback.SwipeCallback
 import com.zainal.moviedb.databinding.FragmentFavBinding
 import com.zainal.moviedb.db.MovieEntity
 import com.zainal.moviedb.model.response.DetailResponse
-import com.zainal.moviedb.util.Constant
+import com.zainal.moviedb.util.Constant.BASE_URL_POSTER
 import com.zainal.moviedb.util.TypeCategory
 import com.zainal.moviedb.view.adapter.FavAdapter
 import com.zainal.moviedb.view.adapter.FavLoadAdapter
@@ -76,7 +76,7 @@ class FavFragment : BaseFragment() {
             )
 
             Glide.with(this@FavFragment)
-                .load("${Constant.BASE_URL_POSTER}${model.posterPath}")
+                .load("${BASE_URL_POSTER}${model.posterPath}")
                 .override(MATCH_PARENT, 125)
                 .centerCrop()
                 .into(sivPoster)

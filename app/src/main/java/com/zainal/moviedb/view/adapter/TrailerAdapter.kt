@@ -19,7 +19,7 @@ class TrailerAdapter(var callback: (VideoResultsItem, TrailerItemViewHolder) -> 
 
     override fun onGetAdapter() = this
 
-    override fun onGetBindHolder(holder: RecyclerView.ViewHolder, model: Equatable, position: Int) {
+    override fun onGetBindHolder(holder: RecyclerView.ViewHolder, model: Equatable) {
         if (model is VideoResultsItem && holder is TrailerItemViewHolder) {
             callback(
                 model,
@@ -28,7 +28,7 @@ class TrailerAdapter(var callback: (VideoResultsItem, TrailerItemViewHolder) -> 
         }
     }
 
-    override fun onGetViewHolder(parent: ViewGroup, viewType: Int) = TrailerItemViewHolder(
+    override fun onGetViewHolder(parent: ViewGroup) = TrailerItemViewHolder(
         TrailerItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 }

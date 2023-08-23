@@ -13,9 +13,9 @@
         <com.facebook.shimmer.ShimmerFrameLayout
             android:id="@+id/detailShimmer"
             style="@style/ShimmerTheme"
-            tools:visibility="gone"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            tools:visibility="gone">
 
             <include
                 layout="@layout/detail_placeholder"/>
@@ -24,17 +24,17 @@
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appBarLayout"
-            android:visibility="invisible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/ThemeOverlay.Material3.Dark">
+            android:theme="@style/ThemeOverlay.Material3.Dark"
+            android:visibility="invisible">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapsToolbarLayout"
                 android:layout_width="match_parent"
                 android:layout_height="350dp"
-                app:contentScrim="?android:statusBarColor"
-                android:id="@+id/collapsToolbarLayout"
                 android:animateLayoutChanges="true"
+                app:contentScrim="?android:statusBarColor"
                 app:extraMultilineHeightEnabled="true"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed|enterAlwaysCollapsed"
                 app:maxLines="2"
@@ -71,65 +71,65 @@
         <androidx.core.widget.NestedScrollView
             android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:overScrollMode="never"
             android:visibility="invisible"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:layout_height="wrap_content">
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_gravity="top|center_horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|center_horizontal">
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/mcvDetail"
                     style="@style/Widget.Material3.CardView.Filled"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintVertical_bias="0.0"
+                    app:cardBackgroundColor="?attr/colorOnPrimary"
                     app:cardElevation="12dp"
-                    app:strokeColor="?colorPrimaryInverse"
-                    app:strokeWidth="2dp"
                     app:cardUseCompatPadding="true"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                    app:cardBackgroundColor="?attr/colorOnPrimary">
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:strokeColor="?colorPrimaryInverse"
+                    app:strokeWidth="2dp">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_margin="10dp"
-                        android:layout_gravity="top|center_horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|center_horizontal"
+                        android:layout_margin="10dp">
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/mtvTag"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintVertical_bias="0.0"
-                            app:layout_constraintHorizontal_bias="0.0"
-                            android:textAlignment="textStart"
-                            android:textStyle="italic"
-                            tools:text="Abcdefghijk"
-                            android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:textAlignment="textStart"
+                            android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+                            android:textStyle="italic"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.0"
+                            tools:text="Abcdefghijk"/>
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/mtvOverviewTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
                             android:text="@string/overview_text"
                             android:textAlignment="textStart"
                             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            android:layout_marginTop="10dp"
                             app:layout_constraintHorizontal_bias="0.0"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/mtvTag"
@@ -138,12 +138,12 @@
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/mtvOverview"
                             android:layout_width="0dp"
-                            android:text="@string/not_available"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:letterSpacing="0.01"
                             android:layout_marginHorizontal="10dp"
+                            android:layout_marginTop="4dp"
                             android:justificationMode="inter_word"
+                            android:letterSpacing="0.01"
+                            android:text="@string/not_available"
                             android:textAlignment="textStart"
                             android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -158,6 +158,7 @@
                             android:id="@+id/mtvTrailerTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
                             android:text="@string/trailer_title"
                             android:textAlignment="textStart"
                             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
@@ -166,100 +167,99 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.0"
                             app:layout_constraintStart_toStartOf="parent"
-                            android:layout_marginTop="12dp"
                             app:layout_constraintTop_toBottomOf="@id/mtvOverview"
                             app:layout_constraintVertical_bias="0.0"/>
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/trailerValueContainer"
                             android:layout_width="match_parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/mtvTrailerTitle"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintVertical_bias="0.0"
-                            app:layout_constraintHorizontal_bias="0.0"
-                            android:layout_marginTop="4dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginHorizontal="10dp"
-                            android:layout_height="wrap_content">
+                            android:layout_marginTop="4dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/mtvTrailerTitle"
+                            app:layout_constraintVertical_bias="0.0">
 
                             <com.google.android.material.textview.MaterialTextView
                                 android:id="@+id/mtvNoTrailer"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintVertical_bias="0.0"
-                                app:layout_constraintHorizontal_bias="0.0"
-                                android:text="@string/not_available"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:letterSpacing="0.01"
+                                android:text="@string/not_available"
                                 android:textAlignment="textStart"
                                 android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.0"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintVertical_bias="0.0"/>
 
                             <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/rcvTrailer"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintVertical_bias="0.0"
-                                app:layout_constraintHorizontal_bias="0.0"
-                                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                                app:spanCount="1"
-                                android:overScrollMode="never"
-                                android:nestedScrollingEnabled="false"
-                                tools:listitem="@layout/trailer_item"
-                                android:orientation="horizontal"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="wrap_content"
+                                android:nestedScrollingEnabled="false"
+                                android:orientation="horizontal"
+                                android:overScrollMode="never"
+                                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.0"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintVertical_bias="0.0"
+                                app:spanCount="1"
+                                tools:listitem="@layout/trailer_item"/>
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/mtvCastTitle"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/trailerValueContainer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintHorizontal_bias="0.0"
-                            app:layout_constraintVertical_bias="0.0"
                             android:text="@string/top_billed_cast_title"
                             android:textAlignment="textStart"
                             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                             android:textStyle="bold"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/trailerValueContainer"
+                            app:layout_constraintVertical_bias="0.0"/>
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rcvCast"
-                            android:layout_marginHorizontal="10dp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/mtvCastTitle"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintVertical_bias="0.0"
                             android:layout_width="match_parent"
-                            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                            app:spanCount="1"
-                            android:overScrollMode="never"
-                            android:nestedScrollingEnabled="false"
-                            tools:listitem="@layout/cast_item"
-                            android:orientation="horizontal"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
                             android:layout_marginTop="4dp"
-                            android:layout_height="wrap_content"/>
+                            android:nestedScrollingEnabled="false"
+                            android:orientation="horizontal"
+                            android:overScrollMode="never"
+                            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/mtvCastTitle"
+                            app:layout_constraintVertical_bias="0.0"
+                            app:spanCount="1"
+                            tools:listitem="@layout/cast_item"/>
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/mtvReviewTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
                             android:text="@string/review_text"
                             android:textAlignment="textStart"
                             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                             android:textStyle="bold"
-                            android:layout_marginTop="12dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.0"
@@ -274,34 +274,34 @@
                             android:layout_marginVertical="4dp"
                             android:nestedScrollingEnabled="false"
                             android:overScrollMode="never"
-                            app:layout_constraintVertical_bias="0.0"
                             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/mtvReviewTitle"
+                            app:layout_constraintVertical_bias="0.0"
                             app:spanCount="1"
                             tools:listitem="@layout/review_item"/>
 
                         <include
                             android:id="@+id/bottomLoading"
+                            layout="@layout/bottom_loading"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            app:layout_constraintStart_toStartOf="@id/rcvReview"
-                            app:layout_constraintEnd_toEndOf="@id/rcvReview"
-                            app:layout_constraintTop_toBottomOf="@id/rcvReview"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            layout="@layout/bottom_loading"/>
+                            app:layout_constraintEnd_toEndOf="@id/rcvReview"
+                            app:layout_constraintStart_toStartOf="@id/rcvReview"
+                            app:layout_constraintTop_toBottomOf="@id/rcvReview"/>
 
                         <include
                             android:id="@+id/stuckView"
+                            layout="@layout/bottom_stuck"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            app:layout_constraintStart_toStartOf="@id/rcvReview"
-                            app:layout_constraintEnd_toEndOf="@id/rcvReview"
-                            app:layout_constraintTop_toBottomOf="@id/rcvReview"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            layout="@layout/bottom_stuck"/>
+                            app:layout_constraintEnd_toEndOf="@id/rcvReview"
+                            app:layout_constraintStart_toStartOf="@id/rcvReview"
+                            app:layout_constraintTop_toBottomOf="@id/rcvReview"/>
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 

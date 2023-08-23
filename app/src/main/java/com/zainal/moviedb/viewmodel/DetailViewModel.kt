@@ -25,53 +25,53 @@ class DetailViewModel(private var repository: Repository): BaseViewModel()
     private var isLoadingMoreReview = false
     private var isProcessGetDetail = false
 
-    val shimmerState = MutableLiveData<ShimmerState>()
+    private val shimmerState = MutableLiveData<ShimmerState>()
     fun vmShimmerState(): LiveData<ShimmerState> = shimmerState
 
-    val detailResponse = MutableLiveData<DetailResponse?>()
+    private val detailResponse = MutableLiveData<DetailResponse?>()
 
-    val bgUrlPoster = MutableLiveData<String?>()
+    private val bgUrlPoster = MutableLiveData<String?>()
     fun vmBgUrlPoster(): LiveData<String?> = bgUrlPoster
 
     val urlPoster = MutableLiveData<String?>()
     fun vmUrlPoster(): LiveData<String?> = urlPoster
 
-    val tag = MutableLiveData<String?>()
+    private val tag = MutableLiveData<String?>()
     fun vmTag(): LiveData<String?> = tag
 
     val title = MutableLiveData<List<String>>()
     fun vmTitle(): LiveData<List<String>> = title
 
-    val genresItem = MutableLiveData<String?>()
+    private val genresItem = MutableLiveData<String?>()
     fun vmGenresItem(): LiveData<String?> = genresItem
 
-    val voteAverage = MutableLiveData<Int?>()
+    private val voteAverage = MutableLiveData<Int?>()
     fun vmVoteAverage(): LiveData<Int?> = voteAverage
 
-    val overview = MutableLiveData<String?>()
+    private val overview = MutableLiveData<String?>()
     fun vmOverview(): LiveData<String?> = overview
 
-    val isFav = MutableLiveData<Int>()
+    private val isFav = MutableLiveData<Int>()
     fun vmIsFav(): LiveData<Int> = isFav
 
-    val videoResultItems = MutableLiveData<List<VideoResultsItem>?>()
+    private val videoResultItems = MutableLiveData<List<VideoResultsItem>?>()
     fun vmVideoResultItems(): LiveData<List<VideoResultsItem>?> = videoResultItems
 
-    val castItems = MutableLiveData<List<CastItem>?>()
+    private val castItems = MutableLiveData<List<CastItem>?>()
     fun vmCastItems(): LiveData<List<CastItem>?> = castItems
 
-    val reviewResponse = MutableLiveData<ReviewResponse?>()
+    private val reviewResponse = MutableLiveData<ReviewResponse?>()
 
-    val totalReview = MutableLiveData<Int>()
+    private val totalReview = MutableLiveData<Int>()
     fun vmTotalReview(): LiveData<Int> = totalReview
 
-    val reviewItems = MutableLiveData<List<ReviewResultsItem>>()
+    private val reviewItems = MutableLiveData<List<ReviewResultsItem>>()
     fun vmReviewItems(): LiveData<List<ReviewResultsItem>> = reviewItems
 
-    val loadingView = MutableLiveData<Int>()
+    private val loadingView = MutableLiveData<Int>()
     fun vmLoadingView(): LiveData<Int> = loadingView
 
-    val stuckView = MutableLiveData<Int>()
+    private val stuckView = MutableLiveData<Int>()
     fun vmStuckView(): LiveData<Int> = stuckView
 
     fun getDetailData(

@@ -135,16 +135,13 @@ abstract class BaseRecyclerView: RecyclerView.Adapter<RecyclerView.ViewHolder>()
         }
     }
 
-    fun getListModel(): MutableList<Equatable> = asyncListDiffer.currentList
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = onGetViewHolder(parent, viewType)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = onGetViewHolder(parent)
 
     override fun getItemCount() = asyncListDiffer.currentList.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) = onGetBindHolder(
         holder,
-        asyncListDiffer.currentList[position],
-        position
+        asyncListDiffer.currentList[position]
     )
 
     override fun getItemId(position: Int): Long {
@@ -156,11 +153,10 @@ abstract class BaseRecyclerView: RecyclerView.Adapter<RecyclerView.ViewHolder>()
 
     abstract fun onGetBindHolder(
         holder: RecyclerView.ViewHolder,
-        model: Equatable,
-        position: Int
+        model: Equatable
     )
 
-    abstract fun onGetViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder
+    abstract fun onGetViewHolder(parent: ViewGroup): RecyclerView.ViewHolder
 }
 
 interface Equatable {

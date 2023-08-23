@@ -10,7 +10,6 @@
     <string name="genre_text">Genre</string>
     <string name="genre_text_header">Genre :</string>
     <string name="overview_text">Overview</string>
-    <string name="trailer_text">Play Trailer</string>
     <string name="review_text">Reviews</string>
     <string name="read_the_rest_text"><u>read the rest</u></string>
     <string name="placeholder_template">%1$s (%2$s)</string>

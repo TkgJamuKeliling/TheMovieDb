@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="4dp"
-    android:layout_gravity="center">
+    android:layout_gravity="center"
+    android:layout_marginTop="4dp">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl"
@@ -24,46 +24,46 @@
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/acivAvatar"
         android:layout_width="50dp"
-        tools:src="@mipmap/ic_launcher"
         android:layout_height="50dp"
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/gl"
-        app:layout_constraintVertical_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:src="@mipmap/ic_launcher"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/mtvAvatar"
-        android:visibility="invisible"
-        app:layout_constraintStart_toStartOf="@id/acivAvatar"
-        app:layout_constraintEnd_toEndOf="@id/acivAvatar"
-        app:layout_constraintTop_toTopOf="@id/acivAvatar"
-        app:layout_constraintBottom_toBottomOf="@id/acivAvatar"
-        tools:text="A"
-        android:textSize="30sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:textSize="30sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/acivAvatar"
+        app:layout_constraintEnd_toEndOf="@id/acivAvatar"
+        app:layout_constraintStart_toStartOf="@id/acivAvatar"
+        app:layout_constraintTop_toTopOf="@id/acivAvatar"
+        tools:text="A"/>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/voteContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         app:cardBackgroundColor="@color/md_theme_dark_primaryContainer"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/gl"
-        android:layout_marginTop="4dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/acivAvatar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_marginHorizontal="12dp"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_height="wrap_content">
+            android:layout_marginHorizontal="12dp">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/acivStar"

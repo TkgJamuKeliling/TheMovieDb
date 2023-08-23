@@ -3,81 +3,81 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/Widget.Material3.CardView.Elevated"
-    app:cardUseCompatPadding="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
     app:cardBackgroundColor="?colorPrimary"
     app:cardElevation="10dp"
-    android:layout_gravity="center"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_margin="12dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gl"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.25"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.25"/>
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/sivPoster"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/gl"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_width="0dp"
+            android:layout_height="125dp"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
-            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CardItem"
-            tools:src="@mipmap/ic_launcher"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/gl"
             app:layout_constraintHorizontal_bias="0.0"
-            android:layout_height="125dp"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CardItem"
+            tools:src="@mipmap/ic_launcher"/>
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gl1"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.5"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/mtvName"
-            app:layout_constraintStart_toEndOf="@id/gl"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/sivPoster"
-            app:layout_constraintBottom_toTopOf="@id/gl1"
-            app:layout_constraintVertical_bias="1.0"
-            android:textAlignment="textStart"
-            android:maxLines="2"
-            android:ellipsize="end"
-            app:layout_constraintHorizontal_bias="0.0"
-            android:textColor="?colorPrimaryInverse"
-            android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
-            tools:text="Tukang Bubur Naik Haji"
             android:layout_width="0dp"
-            android:textStyle="bold"
+            android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_height="wrap_content"/>
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textAlignment="textStart"
+            android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+            android:textColor="?colorPrimaryInverse"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/gl1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@id/gl"
+            app:layout_constraintTop_toTopOf="@id/sivPoster"
+            app:layout_constraintVertical_bias="1.0"
+            tools:text="Tukang Bubur Naik Haji"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/mtvYear"
-            app:layout_constraintStart_toEndOf="@id/gl"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/gl1"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            android:textAlignment="textStart"
-            app:layout_constraintHorizontal_bias="0.0"
-            android:textColor="?colorPrimaryInverse"
-            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-            android:layout_marginTop="4dp"
-            tools:text="Tukang Bubur Naik Haji"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_height="wrap_content"/>
+            android:layout_marginTop="4dp"
+            android:textAlignment="textStart"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+            android:textColor="?colorPrimaryInverse"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@id/gl"
+            app:layout_constraintTop_toBottomOf="@id/gl1"
+            app:layout_constraintVertical_bias="0.0"
+            tools:text="Tukang Bubur Naik Haji"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

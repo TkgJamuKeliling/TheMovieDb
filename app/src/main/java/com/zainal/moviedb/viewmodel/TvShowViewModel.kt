@@ -1,7 +1,6 @@
 package com.zainal.moviedb.viewmodel
 
 import androidx.lifecycle.viewModelScope
-import com.zainal.moviedb.base.BaseViewModel
 import com.zainal.moviedb.util.Repository
 import com.zainal.moviedb.util.ShimmerState
 import com.zainal.moviedb.util.TrendingSeason

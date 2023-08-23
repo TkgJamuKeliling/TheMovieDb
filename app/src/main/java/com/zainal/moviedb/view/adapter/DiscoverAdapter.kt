@@ -22,7 +22,7 @@ class DiscoverAdapter(
 
     override fun onGetAdapter() = this
 
-    override fun onGetBindHolder(holder: RecyclerView.ViewHolder, model: Equatable, position: Int) {
+    override fun onGetBindHolder(holder: RecyclerView.ViewHolder, model: Equatable) {
         if (model is DiscoverResultsItem && holder is DiscoverViewHolder) {
             holder.sivPoster.layout(0, 0, 0, 0)
             callback(
@@ -32,7 +32,7 @@ class DiscoverAdapter(
         }
     }
 
-    override fun onGetViewHolder(parent: ViewGroup, viewType: Int) = DiscoverViewHolder(
+    override fun onGetViewHolder(parent: ViewGroup) = DiscoverViewHolder(
         DiscoverItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 }

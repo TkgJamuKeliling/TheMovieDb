@@ -4,12 +4,10 @@ import android.os.Bundle
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import com.bumptech.glide.Glide
-import com.bumptech.glide.annotation.GlideModule
-import com.bumptech.glide.module.AppGlideModule
 import com.zainal.moviedb.R
 import com.zainal.moviedb.base.BaseActivity
 import com.zainal.moviedb.databinding.ActivityReviewBinding
-import com.zainal.moviedb.util.Constant
+import com.zainal.moviedb.util.Constant.BASE_URL_POSTER
 import com.zainal.moviedb.util.Constant.EXTRA_POSTER_PATH
 import com.zainal.moviedb.util.Constant.EXTRA_REVIEW_ID
 import com.zainal.moviedb.util.Constant.EXTRA_YEAR
@@ -18,11 +16,11 @@ import com.zainal.moviedb.viewmodel.ReviewViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ReviewActivity: BaseActivity() {
-    lateinit var reviewItemBinding: ActivityReviewBinding
-    val reviewViewModel by viewModel<ReviewViewModel>()
+    private lateinit var reviewItemBinding: ActivityReviewBinding
+    private val reviewViewModel by viewModel<ReviewViewModel>()
 
-    var reviewId: String? = null
-    var yearInfo: String? = null
+    private var reviewId: String? = null
+    private var yearInfo: String? = null
     var posterPath: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -114,7 +112,7 @@ class ReviewActivity: BaseActivity() {
 
             posterPath?.let {
                 Glide.with(this@ReviewActivity)
-                    .load("${Constant.BASE_URL_POSTER}$it")
+                    .load("${BASE_URL_POSTER}$it")
                     .override(100, 150)
                     .centerCrop()
                     .placeholder(R.drawable.poster_placeholder)

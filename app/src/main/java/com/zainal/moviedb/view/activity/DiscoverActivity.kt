@@ -9,7 +9,6 @@ import android.view.View.VISIBLE
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.widget.NestedScrollView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.zainal.moviedb.R
 import com.zainal.moviedb.base.BaseActivity
 import com.zainal.moviedb.databinding.ActivityDiscoverBinding
@@ -17,10 +16,10 @@ import com.zainal.moviedb.model.response.DiscoverResultsItem
 import com.zainal.moviedb.model.response.GenreResponse
 import com.zainal.moviedb.model.response.GenresItem
 import com.zainal.moviedb.util.BottomViewState
-import com.zainal.moviedb.util.Constant
 import com.zainal.moviedb.util.Constant.BASE_URL_POSTER
 import com.zainal.moviedb.util.Constant.EXTRA_CATEGORY
 import com.zainal.moviedb.util.Constant.EXTRA_GENRE_DATA
+import com.zainal.moviedb.util.Constant.EXTRA_ID
 import com.zainal.moviedb.util.Constant.EXTRA_LIST_GENRE
 import com.zainal.moviedb.util.ShimmerState
 import com.zainal.moviedb.util.TypeCategory
@@ -29,14 +28,14 @@ import com.zainal.moviedb.viewmodel.DiscoverViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DiscoverActivity: BaseActivity() {
-    lateinit var discoverBinding: ActivityDiscoverBinding
-    val discoverViewModel by viewModel<DiscoverViewModel>()
+    private lateinit var discoverBinding: ActivityDiscoverBinding
+    private val discoverViewModel by viewModel<DiscoverViewModel>()
 
-    var genresItem: GenresItem? = null
+    private var genresItem: GenresItem? = null
     var typeCategory: String = TypeCategory.MOVIE.name
-    var genreResponse: GenreResponse? = null
+    private var genreResponse: GenreResponse? = null
 
-    val discoverAdapter = DiscoverAdapter(::discoverAdapterCallback)
+    private val discoverAdapter = DiscoverAdapter(::discoverAdapterCallback)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -209,8 +208,8 @@ class DiscoverActivity: BaseActivity() {
                     this@DiscoverActivity,
                     DetailActivity::class.java
                 ).apply {
-                    putExtra(Constant.EXTRA_ID, discoverResultsItem.id)
-                    putExtra(Constant.EXTRA_CATEGORY, typeCategory)
+                    putExtra(EXTRA_ID, discoverResultsItem.id)
+                    putExtra(EXTRA_CATEGORY, typeCategory)
                 })
             }
         }

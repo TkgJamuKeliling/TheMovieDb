@@ -21,14 +21,13 @@ class TrendingAdapter(var callback: (TrendingResultsItem, TrendingViewHolder) ->
 
     override fun onGetAdapter() = this
 
-    override fun onGetViewHolder(parent: ViewGroup, viewType: Int) = TrendingViewHolder(
+    override fun onGetViewHolder(parent: ViewGroup) = TrendingViewHolder(
         CardItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
     override fun onGetBindHolder(
         holder: RecyclerView.ViewHolder,
-        model: Equatable,
-        position: Int
+        model: Equatable
     ) {
         if (model is TrendingResultsItem && holder is TrendingViewHolder) {
             holder.acivCard.layout(0, 0, 0, 0)

@@ -1,6 +1,5 @@
 package com.zainal.moviedb.viewmodel
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -12,18 +11,18 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 
 class ReviewViewModel(private var repository: Repository): BaseViewModel() {
-    var isProcessGetDetail = false
+    private var isProcessGetDetail = false
 
     val title = MutableLiveData<String?>()
     fun vmTitle(): LiveData<String?> = title
 
-    val subTitle = MutableLiveData<List<String>?>()
+    private val subTitle = MutableLiveData<List<String>?>()
     fun vmSubTitle(): LiveData<List<String>?> = subTitle
 
     val content = MutableLiveData<String?>()
     fun vmContent(): LiveData<String?> = content
 
-    val shimmerState = MutableLiveData<ShimmerState>()
+    private val shimmerState = MutableLiveData<ShimmerState>()
     fun vmShimmerState(): LiveData<ShimmerState> = shimmerState
 
     fun getReviewDetail(

@@ -5,7 +5,7 @@ import androidx.paging.PagingState
 import com.zainal.moviedb.db.MovieDao
 import com.zainal.moviedb.db.MovieEntity
 
-class FavPagingSource(var movieDao: MovieDao?): PagingSource<Int, MovieEntity>() {
+class FavPagingSource(private var movieDao: MovieDao?): PagingSource<Int, MovieEntity>() {
     override fun getRefreshKey(state: PagingState<Int, MovieEntity>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)

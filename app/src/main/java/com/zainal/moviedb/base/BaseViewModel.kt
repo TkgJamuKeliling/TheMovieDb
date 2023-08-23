@@ -9,7 +9,7 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfigException
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 import com.zainal.moviedb.helper.PrefsHelper
-import com.zainal.moviedb.util.Constant
+import com.zainal.moviedb.util.Constant.KEY_PREFS
 import com.zainal.moviedb.util.TrendingSeason
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
@@ -30,7 +30,7 @@ open class BaseViewModel: ViewModel(), KoinComponent {
                 if (it.isSuccessful) {
                     viewModelScope.launch {
                         prefsHelper.saveKeyPrefs(
-                            getString(Constant.KEY_PREFS)
+                            getString(KEY_PREFS)
                         )
 
                         fetchAllData()
@@ -40,7 +40,7 @@ open class BaseViewModel: ViewModel(), KoinComponent {
 
             addOnConfigUpdateListener(object : ConfigUpdateListener {
                 override fun onUpdate(configUpdate: ConfigUpdate) {
-                    if (configUpdate.updatedKeys.contains(Constant.KEY_PREFS)) {
+                    if (configUpdate.updatedKeys.contains(KEY_PREFS)) {
                         activate()
                     }
                 }

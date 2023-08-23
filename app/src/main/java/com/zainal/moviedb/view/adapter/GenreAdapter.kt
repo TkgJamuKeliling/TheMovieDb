@@ -22,8 +22,7 @@ class GenreAdapter(var callback : (GenresItem, GenreHolder) -> Unit): BaseRecycl
 
     override fun onGetBindHolder(
         holder: RecyclerView.ViewHolder,
-        model: Equatable,
-        position: Int
+        model: Equatable
     ) {
         if (model is GenresItem && holder is GenreHolder) {
             callback(
@@ -33,7 +32,7 @@ class GenreAdapter(var callback : (GenresItem, GenreHolder) -> Unit): BaseRecycl
         }
     }
 
-    override fun onGetViewHolder(parent: ViewGroup, viewType: Int) = GenreHolder(
+    override fun onGetViewHolder(parent: ViewGroup) = GenreHolder(
         GenreItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 }
