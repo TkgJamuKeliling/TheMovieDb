@@ -17,6 +17,6 @@ interface MovieDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertFav(entity: MovieEntity)
 
-    @Query("SELECT * FROM favTable")
-    suspend fun getAllData(): List<MovieEntity>?
+    @Query("SELECT * FROM favTable LIMIT :limit OFFSET :offset")
+    suspend fun getAllData(limit: Int, offset: Int): List<MovieEntity>
 }

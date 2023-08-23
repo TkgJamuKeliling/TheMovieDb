@@ -221,10 +221,9 @@ class Repository(
         result: (Boolean, MovieEntity?) -> Unit
     ) {
         coroutineScope {
-            MovieDatabase.getInstance(context)?.let {
-                val movieDao = it.movieDao()
+            getMovieDao()?.let {
                 val movieEntity = async {
-                    movieDao.isFavExist("$movieId")
+                    it.isFavExist("$movieId")
                 }.await()
 
                 movieEntity?.let { entity ->
@@ -243,18 +242,16 @@ class Repository(
     ) {
         coroutineScope {
             var flag = true
-            MovieDatabase.getInstance(context)?.let {
-                val movieDao = it.movieDao()
-
+            getMovieDao()?.let {
                 isFavExist(detailResponse.id) { b, movieEntity ->
-                    movieEntity?.let {
+                    movieEntity?.let { _ ->
                         if (b) {
                             flag = false
 
                             //delete
                             launch {
                                 withContext(Dispatchers.Default) {
-                                    movieDao.deleteFav(movieEntity)
+                                    it.deleteFav(movieEntity)
                                 }
                                 result(DbStateAction.SUCCESS_DELETE)
                             }
@@ -262,10 +259,12 @@ class Repository(
                     }
 
                     if (flag) {
+                        flag = false
+
                         //save
                         launch {
                             withContext(Dispatchers.Default) {
-                                movieDao.insertFav(MovieEntity(
+                                it.insertFav(MovieEntity(
                                     movieId = detailResponse.id,
                                     movieDetail = Gson().toJson(detailResponse, DetailResponse::class.java),
                                     typeCategory = typeCategory.uppercase()
@@ -275,8 +274,8 @@ class Repository(
                         }
                     }
                 }
-                return@coroutineScope
             }
+
             if (flag) {
                 result(DbStateAction.FAILED_ACTION)
             }
@@ -311,13 +310,13 @@ class Repository(
         }
     }
 
-    suspend fun fetchFavData(result: (List<MovieEntity>?) -> Unit) {
-        coroutineScope {
-            val movieEntities = async {
-                MovieDatabase.getInstance(context)?.movieDao()?.getAllData()
-            }.await()
+    fun getMovieDao() = MovieDatabase.getInstance(context)?.movieDao()
 
-            result(movieEntities)
-        }
+    suspend fun deleteFavItem(movieEntity: MovieEntity) = coroutineScope {
+        getMovieDao()?.deleteFav(movieEntity)
+    }
+
+    suspend fun restoreFavItem(movieEntity: MovieEntity) = coroutineScope {
+        getMovieDao()?.insertFav(movieEntity)
     }
 }
