@@ -1,47 +1,47 @@
-package com.zainal.moviedb.model
+package com.zainal.moviedb.model.response
 
 import com.google.gson.annotations.SerializedName
 import com.zainal.moviedb.base.Equatable
 
 data class ReviewResponse(
 
-	@field:SerializedName("id")
+    @field:SerializedName("id")
 	var id: Int = 0,
 
-	@field:SerializedName("page")
+    @field:SerializedName("page")
 	var page: Int = 1,
 
-	@field:SerializedName("total_pages")
+    @field:SerializedName("total_pages")
 	var totalPages: Int = 0,
 
-	@field:SerializedName("results")
+    @field:SerializedName("results")
 	var results: List<ReviewResultsItem?>? = emptyList(),
 
-	@field:SerializedName("total_results")
+    @field:SerializedName("total_results")
 	var totalResults: Int = 0
 )
 
 data class ReviewResultsItem(
 
-	@field:SerializedName("author_details")
+    @field:SerializedName("author_details")
 	var authorDetails: AuthorDetails? = null,
 
-	@field:SerializedName("updated_at")
+    @field:SerializedName("updated_at")
 	var updatedAt: String? = "",
 
-	@field:SerializedName("author")
+    @field:SerializedName("author")
 	var author: String? = "",
 
-	@field:SerializedName("created_at")
+    @field:SerializedName("created_at")
 	var createdAt: String? = "",
 
-	@field:SerializedName("id")
+    @field:SerializedName("id")
 	var id: String? = "",
 
-	@field:SerializedName("content")
+    @field:SerializedName("content")
 	var content: String? = "",
 
-	@field:SerializedName("url")
+    @field:SerializedName("url")
 	var url: String? = ""
 ): Equatable
 

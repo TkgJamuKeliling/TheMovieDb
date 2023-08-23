@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.zainal.moviedb.base.BaseRecyclerView
 import com.zainal.moviedb.base.Equatable
 import com.zainal.moviedb.databinding.CastItemBinding
-import com.zainal.moviedb.model.CastItem
+import com.zainal.moviedb.model.response.CastItem
 
 class CastAdapter(var callback: (CastItem, CastItemViewHolder) -> Unit): BaseRecyclerView() {
 

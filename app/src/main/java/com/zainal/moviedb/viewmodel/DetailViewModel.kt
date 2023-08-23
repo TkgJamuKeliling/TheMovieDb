@@ -7,11 +7,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.zainal.moviedb.R
 import com.zainal.moviedb.base.BaseViewModel
-import com.zainal.moviedb.model.CastItem
-import com.zainal.moviedb.model.DetailResponse
-import com.zainal.moviedb.model.ReviewResponse
-import com.zainal.moviedb.model.ReviewResultsItem
-import com.zainal.moviedb.model.VideoResultsItem
+import com.zainal.moviedb.model.response.CastItem
+import com.zainal.moviedb.model.response.DetailResponse
+import com.zainal.moviedb.model.response.ReviewResponse
+import com.zainal.moviedb.model.response.ReviewResultsItem
+import com.zainal.moviedb.model.response.VideoResultsItem
 import com.zainal.moviedb.util.DbStateAction
 import com.zainal.moviedb.util.Repository
 import com.zainal.moviedb.util.ShimmerState

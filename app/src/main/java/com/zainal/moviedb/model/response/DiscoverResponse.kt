@@ -1,20 +1,20 @@
-package com.zainal.moviedb.model
+package com.zainal.moviedb.model.response
 
 import com.google.gson.annotations.SerializedName
 import com.zainal.moviedb.base.Equatable
 
 data class DiscoverResponse(
 
-	@field:SerializedName("page")
+    @field:SerializedName("page")
 	var page: Int = 1,
 
-	@field:SerializedName("total_pages")
+    @field:SerializedName("total_pages")
 	var totalPages: Int = 0,
 
-	@field:SerializedName("results")
+    @field:SerializedName("results")
 	var results: List<DiscoverResultsItem?> = emptyList(),
 
-	@field:SerializedName("total_results")
+    @field:SerializedName("total_results")
 	var totalResults: Int = 0
 )
 

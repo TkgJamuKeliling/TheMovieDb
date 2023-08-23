@@ -13,9 +13,9 @@ import com.bumptech.glide.Glide
 import com.zainal.moviedb.R
 import com.zainal.moviedb.base.BaseActivity
 import com.zainal.moviedb.databinding.ActivityDiscoverBinding
-import com.zainal.moviedb.model.DiscoverResultsItem
-import com.zainal.moviedb.model.GenreResponse
-import com.zainal.moviedb.model.GenresItem
+import com.zainal.moviedb.model.response.DiscoverResultsItem
+import com.zainal.moviedb.model.response.GenreResponse
+import com.zainal.moviedb.model.response.GenresItem
 import com.zainal.moviedb.util.BottomViewState
 import com.zainal.moviedb.util.Constant
 import com.zainal.moviedb.util.Constant.BASE_URL_POSTER

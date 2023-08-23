@@ -1,13 +1,13 @@
 package com.zainal.moviedb.network
 
-import com.zainal.moviedb.model.CastResponse
-import com.zainal.moviedb.model.DetailResponse
-import com.zainal.moviedb.model.DiscoverResponse
-import com.zainal.moviedb.model.GenreResponse
-import com.zainal.moviedb.model.ReviewItemResponse
-import com.zainal.moviedb.model.ReviewResponse
-import com.zainal.moviedb.model.TrendingResponse
-import com.zainal.moviedb.model.VideoResponse
+import com.zainal.moviedb.model.response.CastResponse
+import com.zainal.moviedb.model.response.DetailResponse
+import com.zainal.moviedb.model.response.DiscoverResponse
+import com.zainal.moviedb.model.response.GenreResponse
+import com.zainal.moviedb.model.response.ReviewItemResponse
+import com.zainal.moviedb.model.response.ReviewResponse
+import com.zainal.moviedb.model.response.TrendingResponse
+import com.zainal.moviedb.model.response.VideoResponse
 import com.zainal.moviedb.util.Constant
 import retrofit2.http.GET
 import retrofit2.http.Path

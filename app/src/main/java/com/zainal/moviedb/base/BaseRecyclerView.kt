@@ -4,12 +4,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.zainal.moviedb.model.CastItem
-import com.zainal.moviedb.model.DiscoverResultsItem
-import com.zainal.moviedb.model.GenresItem
-import com.zainal.moviedb.model.TrendingResultsItem
-import com.zainal.moviedb.model.ReviewResultsItem
-import com.zainal.moviedb.model.VideoResultsItem
+import com.zainal.moviedb.model.response.CastItem
+import com.zainal.moviedb.model.response.DiscoverResultsItem
+import com.zainal.moviedb.model.response.GenresItem
+import com.zainal.moviedb.model.response.TrendingResultsItem
+import com.zainal.moviedb.model.response.ReviewResultsItem
+import com.zainal.moviedb.model.response.VideoResultsItem
 
 abstract class BaseRecyclerView: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val asyncListDiffer by lazy {

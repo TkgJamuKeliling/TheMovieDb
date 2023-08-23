@@ -1,4 +1,4 @@
-package com.zainal.moviedb.model
+package com.zainal.moviedb.model.response
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName

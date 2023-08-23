@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.zainal.moviedb.base.BaseRecyclerView
 import com.zainal.moviedb.base.Equatable
 import com.zainal.moviedb.databinding.DiscoverItemBinding
-import com.zainal.moviedb.model.DiscoverResultsItem
+import com.zainal.moviedb.model.response.DiscoverResultsItem
 
 class DiscoverAdapter(
     var callback: (

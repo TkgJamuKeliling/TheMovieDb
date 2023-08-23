@@ -1,131 +1,131 @@
-package com.zainal.moviedb.model
+package com.zainal.moviedb.model.response
 
 import com.google.gson.annotations.SerializedName
 
 data class DetailResponse(
 
-	@field:SerializedName("original_language")
+    @field:SerializedName("original_language")
 	var originalLanguage: String? = "",
 
-	@field:SerializedName("imdb_id")
+    @field:SerializedName("imdb_id")
 	var imdbId: String? = "",
 
-	@field:SerializedName("video")
+    @field:SerializedName("video")
 	var video: Boolean = false,
 
-	@field:SerializedName("title")
+    @field:SerializedName("title")
 	var title: String? = "",
 
-	@field:SerializedName("backdrop_path")
+    @field:SerializedName("backdrop_path")
 	var backdropPath: String? = "",
 
-	@field:SerializedName("revenue")
+    @field:SerializedName("revenue")
 	var revenue: Int = 0,
 
-	@field:SerializedName("genres")
+    @field:SerializedName("genres")
 	var genres: List<DetailGenresItem?>? = emptyList(),
 
-	@field:SerializedName("popularity")
+    @field:SerializedName("popularity")
 	var popularity: Double? = 0.0,
 
-	@field:SerializedName("production_countries")
+    @field:SerializedName("production_countries")
 	var productionCountries: List<ProductionCountriesItem?>? = emptyList(),
 
-	@field:SerializedName("id")
+    @field:SerializedName("id")
 	var id: Int = 0,
 
-	@field:SerializedName("vote_count")
+    @field:SerializedName("vote_count")
 	var voteCount: Int = 0,
 
-	@field:SerializedName("budget")
+    @field:SerializedName("budget")
 	var budget: Int = 0,
 
-	@field:SerializedName("overview")
+    @field:SerializedName("overview")
 	var overview: String? = "",
 
-	@field:SerializedName("original_title")
+    @field:SerializedName("original_title")
 	var originalTitle: String? = "",
 
-	@field:SerializedName("runtime")
+    @field:SerializedName("runtime")
 	var runtime: Int = 0,
 
-	@field:SerializedName("poster_path")
+    @field:SerializedName("poster_path")
 	var posterPath: String? = "",
 
-	@field:SerializedName("spoken_languages")
+    @field:SerializedName("spoken_languages")
 	var spokenLanguages: List<SpokenLanguagesItem?>? = emptyList(),
 
-	@field:SerializedName("production_companies")
+    @field:SerializedName("production_companies")
 	var productionCompanies: List<ProductionCompaniesItem?>? = emptyList(),
 
-	@field:SerializedName("release_date")
+    @field:SerializedName("release_date")
 	var releaseDate: String? = "",
 
-	@field:SerializedName("vote_average")
+    @field:SerializedName("vote_average")
 	var voteAverage: Double? = 0.0,
 
-	@field:SerializedName("belongs_to_collection")
+    @field:SerializedName("belongs_to_collection")
 	var belongsToCollection: BelongsCollection? = null,
 
-	@field:SerializedName("tagline")
+    @field:SerializedName("tagline")
 	var tagline: String? = "",
 
-	@field:SerializedName("adult")
+    @field:SerializedName("adult")
 	var adult: Boolean = false,
 
-	@field:SerializedName("homepage")
+    @field:SerializedName("homepage")
 	var homepage: String? = "",
 
-	@field:SerializedName("status")
+    @field:SerializedName("status")
 	var status: String? = "",
 
 	//TV
-	@field:SerializedName("created_by")
+    @field:SerializedName("created_by")
 	var createBy: List<CreateBy>? = emptyList(),
 
-	@field:SerializedName("episode_run_time")
+    @field:SerializedName("episode_run_time")
 	var episodeRunTime: List<Int>? = emptyList(),
 
-	@field:SerializedName("first_air_date")
+    @field:SerializedName("first_air_date")
 	var firstAirDate: String? = "",
 
-	@field:SerializedName("in_production")
+    @field:SerializedName("in_production")
 	var inProduction: Boolean = false,
 
-	@field:SerializedName("languages")
+    @field:SerializedName("languages")
 	var languages: List<String>? = emptyList(),
 
-	@field:SerializedName("last_air_date")
+    @field:SerializedName("last_air_date")
 	var lastAirDate: String? = "",
 
-	@field:SerializedName("name")
+    @field:SerializedName("name")
 	var name: String? = "",
 
-	@field:SerializedName("type")
+    @field:SerializedName("type")
 	var type: String? = "",
 
-	@field:SerializedName("original_name")
+    @field:SerializedName("original_name")
 	var originalName: String? = "",
 
-	@field:SerializedName("number_of_episodes")
+    @field:SerializedName("number_of_episodes")
 	var numberOfEpisodes: Int = 0,
 
-	@field:SerializedName("number_of_seasons")
+    @field:SerializedName("number_of_seasons")
 	var numberOfSeasons: Int = 0,
 
-	@field:SerializedName("last_episode_to_air")
+    @field:SerializedName("last_episode_to_air")
 	var lastEpisodeToAir: LastEpisodeToAir? = null,
 
-	@field:SerializedName("next_episode_to_air")
+    @field:SerializedName("next_episode_to_air")
 	var nextEpisodeToAir: NextEpisodeToAir? = null,
 
-	@field:SerializedName("networks")
+    @field:SerializedName("networks")
 	var networks: List<Network>? = emptyList(),
 
-	@field:SerializedName("origin_country")
+    @field:SerializedName("origin_country")
 	var originCountry: List<String>? = emptyList(),
 
-	@field:SerializedName("seasons")
+    @field:SerializedName("seasons")
 	var seasons: List<Seasons>? = emptyList(),
 )
 

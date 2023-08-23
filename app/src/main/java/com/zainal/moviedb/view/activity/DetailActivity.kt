@@ -26,9 +26,9 @@ import com.zainal.moviedb.R
 import com.zainal.moviedb.base.BaseActivity
 import com.zainal.moviedb.databinding.ActivityDetailBinding
 import com.zainal.moviedb.databinding.TrailerDialogBinding
-import com.zainal.moviedb.model.CastItem
-import com.zainal.moviedb.model.ReviewResultsItem
-import com.zainal.moviedb.model.VideoResultsItem
+import com.zainal.moviedb.model.response.CastItem
+import com.zainal.moviedb.model.response.ReviewResultsItem
+import com.zainal.moviedb.model.response.VideoResultsItem
 import com.zainal.moviedb.util.Constant.BASE_URL_AVATAR
 import com.zainal.moviedb.util.Constant.BASE_URL_POSTER
 import com.zainal.moviedb.util.Constant.EXTRA_CATEGORY

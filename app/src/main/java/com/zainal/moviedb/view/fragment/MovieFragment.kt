@@ -13,8 +13,8 @@ import com.bumptech.glide.Glide
 import com.zainal.moviedb.R
 import com.zainal.moviedb.base.BaseFragment
 import com.zainal.moviedb.databinding.MainFragmentLayoutBinding
-import com.zainal.moviedb.model.GenresItem
-import com.zainal.moviedb.model.TrendingResultsItem
+import com.zainal.moviedb.model.response.GenresItem
+import com.zainal.moviedb.model.response.TrendingResultsItem
 import com.zainal.moviedb.util.Constant
 import com.zainal.moviedb.util.Constant.EXTRA_CATEGORY
 import com.zainal.moviedb.util.Constant.EXTRA_GENRE_DATA

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.zainal.moviedb.base.BaseRecyclerView
 import com.zainal.moviedb.base.Equatable
 import com.zainal.moviedb.databinding.TrailerItemBinding
-import com.zainal.moviedb.model.VideoResultsItem
+import com.zainal.moviedb.model.response.VideoResultsItem
 
 class TrailerAdapter(var callback: (VideoResultsItem, TrailerItemViewHolder) -> Unit): BaseRecyclerView() {
 

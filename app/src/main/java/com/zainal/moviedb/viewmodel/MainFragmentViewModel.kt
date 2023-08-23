@@ -3,9 +3,9 @@ package com.zainal.moviedb.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.zainal.moviedb.base.BaseViewModel
-import com.zainal.moviedb.model.GenreResponse
-import com.zainal.moviedb.model.GenresItem
-import com.zainal.moviedb.model.TrendingResultsItem
+import com.zainal.moviedb.model.response.GenreResponse
+import com.zainal.moviedb.model.response.GenresItem
+import com.zainal.moviedb.model.response.TrendingResultsItem
 import com.zainal.moviedb.util.Repository
 import com.zainal.moviedb.util.ShimmerState
 

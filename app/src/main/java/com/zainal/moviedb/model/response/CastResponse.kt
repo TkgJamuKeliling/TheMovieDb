@@ -1,17 +1,17 @@
-package com.zainal.moviedb.model
+package com.zainal.moviedb.model.response
 
 import com.google.gson.annotations.SerializedName
 import com.zainal.moviedb.base.Equatable
 
 data class CastResponse(
 
-	@field:SerializedName("cast")
+    @field:SerializedName("cast")
 	var cast: List<CastItem?>? = emptyList(),
 
-	@field:SerializedName("id")
+    @field:SerializedName("id")
 	var id: Int = 0,
 
-	@field:SerializedName("crew")
+    @field:SerializedName("crew")
 	var crew: List<CrewItem?>? = emptyList()
 )
 

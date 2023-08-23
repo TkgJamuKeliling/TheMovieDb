@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.zainal.moviedb.base.BaseRecyclerView
 import com.zainal.moviedb.base.Equatable
 import com.zainal.moviedb.databinding.CardItemBinding
-import com.zainal.moviedb.model.TrendingResultsItem
+import com.zainal.moviedb.model.response.TrendingResultsItem
 
 class TrendingAdapter(var callback: (TrendingResultsItem, TrendingViewHolder) -> Unit) : BaseRecyclerView() {
 

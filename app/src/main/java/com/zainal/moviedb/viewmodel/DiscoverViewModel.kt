@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.zainal.moviedb.base.BaseViewModel
-import com.zainal.moviedb.model.DiscoverResponse
-import com.zainal.moviedb.model.DiscoverResultsItem
+import com.zainal.moviedb.model.response.DiscoverResponse
+import com.zainal.moviedb.model.response.DiscoverResultsItem
 import com.zainal.moviedb.util.BottomViewState
 import com.zainal.moviedb.util.MenuState
 import com.zainal.moviedb.util.Repository

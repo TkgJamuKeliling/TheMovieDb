@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.zainal.moviedb.base.BaseRecyclerView
 import com.zainal.moviedb.base.Equatable
 import com.zainal.moviedb.databinding.ReviewItemBinding
-import com.zainal.moviedb.model.ReviewResultsItem
+import com.zainal.moviedb.model.response.ReviewResultsItem
 
 class ReviewAdapter(var callback: (ReviewResultsItem, ReviewItemViewHolder) -> Unit): BaseRecyclerView() {
 

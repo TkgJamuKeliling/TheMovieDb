@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.zainal.moviedb.base.BaseRecyclerView
 import com.zainal.moviedb.base.Equatable
 import com.zainal.moviedb.databinding.GenreItemBinding
-import com.zainal.moviedb.model.GenresItem
+import com.zainal.moviedb.model.response.GenresItem
 
 class GenreAdapter(var callback : (GenresItem, GenreHolder) -> Unit): BaseRecyclerView() {
 
