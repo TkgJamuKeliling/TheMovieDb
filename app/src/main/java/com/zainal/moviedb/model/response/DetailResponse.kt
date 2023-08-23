@@ -1,6 +1,7 @@
 package com.zainal.moviedb.model.response
 
 import com.google.gson.annotations.SerializedName
+import java.math.BigInteger
 
 data class DetailResponse(
 
@@ -20,7 +21,7 @@ data class DetailResponse(
 	var backdropPath: String? = "",
 
     @field:SerializedName("revenue")
-	var revenue: Int = 0,
+	var revenue: Number = 0,
 
     @field:SerializedName("genres")
 	var genres: List<DetailGenresItem?>? = emptyList(),
