@@ -8,7 +8,6 @@ import com.zainal.moviedb.base.BaseViewModel
 import com.zainal.moviedb.model.response.DiscoverResponse
 import com.zainal.moviedb.model.response.DiscoverResultsItem
 import com.zainal.moviedb.util.BottomViewState
-import com.zainal.moviedb.util.MenuState
 import com.zainal.moviedb.util.Repository
 import com.zainal.moviedb.util.ScrollState
 import com.zainal.moviedb.util.ShimmerState
@@ -31,8 +30,7 @@ class DiscoverViewModel(private var repository: Repository): BaseViewModel() {
         stateView: (
             ShimmerState,
             ScrollState,
-            BottomViewState,
-            MenuState
+            BottomViewState
         ) -> Unit
     ) {
         viewModelScope.launch {
@@ -58,10 +56,6 @@ class DiscoverViewModel(private var repository: Repository): BaseViewModel() {
                     else -> BottomViewState.LOADING.also {
                         Log.w("Zen", "loading")
                     }
-                },
-                when {
-                    isPageOne -> MenuState.DISABLE
-                    else -> MenuState.ENABLE
                 }
             )
 
@@ -79,8 +73,7 @@ class DiscoverViewModel(private var repository: Repository): BaseViewModel() {
                         stateView(
                             ShimmerState.STOP_GONE,
                             ScrollState.ENABLE,
-                            BottomViewState.STUCK,
-                            MenuState.ENABLE
+                            BottomViewState.STUCK
                         )
 
                         delay(1000L)
@@ -88,8 +81,7 @@ class DiscoverViewModel(private var repository: Repository): BaseViewModel() {
                         stateView(
                             ShimmerState.STOP_GONE,
                             ScrollState.ENABLE,
-                            BottomViewState.NORMAL,
-                            MenuState.ENABLE
+                            BottomViewState.NORMAL
                         )
                         return@launch
                     } else {
@@ -123,8 +115,7 @@ class DiscoverViewModel(private var repository: Repository): BaseViewModel() {
                 stateView(
                     ShimmerState.STOP_GONE,
                     ScrollState.ENABLE,
-                    BottomViewState.NORMAL,
-                    MenuState.ENABLE
+                    BottomViewState.NORMAL
                 )
 
                 discoverResultsItem.postValue(when {

@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import androidx.appcompat.widget.PopupMenu
@@ -64,7 +63,7 @@ class DiscoverActivity: BaseActivity() {
                 it.id,
                 typeCategory,
                 isPageOne
-            ) { shimmerState, scrollState, bottomViewState, menuState ->
+            ) { shimmerState, scrollState, bottomViewState ->
                 with(discoverBinding) {
                     when (shimmerState) {
                         ShimmerState.START -> {
@@ -88,9 +87,8 @@ class DiscoverActivity: BaseActivity() {
                     }
 
                     root.isEnabled = scrollState.state
+                    btnMenu.isEnabled = scrollState.state
                     nestedScrollView.isEnabled = scrollState.state
-
-                    btnMenu.isEnabled = menuState.state
 
                     when (bottomViewState) {
                         BottomViewState.LOADING -> loadingView.root.visibility = VISIBLE

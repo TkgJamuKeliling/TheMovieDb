@@ -5,69 +5,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/topContainer"
-            android:padding="10dp"
-            android:background="?android:statusBarColor"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnMenu"
-                android:enabled="true"
-                android:textColor="?colorOnSurfaceVariant"
-                app:iconTint="?colorOnSurfaceVariant"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                android:layout_width="wrap_content"
-                app:icon="@drawable/ic_round_arrow_drop_down_24"
-                app:iconGravity="textEnd"
-                app:iconPadding="10dp"
-                android:backgroundTint="?colorPrimaryInverse"
-                tools:text="Action"
-                android:layout_marginVertical="10dp"
-                android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                android:layout_height="wrap_content" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/mtvTitle"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/btnMenu"
-                app:layout_constraintTop_toTopOf="@id/btnMenu"
-                app:layout_constraintBottom_toBottomOf="@id/btnMenu"
-                android:layout_width="0dp"
-                android:layout_marginEnd="10dp"
-                android:text="@string/discover_text"
-                android:textColor="@color/white"
-                android:textAlignment="textStart"
-                android:textStyle="bold"
-                android:letterSpacing="0.05"
-                android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
-                android:layout_height="wrap_content"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
         <com.facebook.shimmer.ShimmerFrameLayout
             android:id="@+id/discoverShimmer"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/topContainer"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintVertical_bias="0.0"
             android:layout_width="match_parent"
-            android:layout_height="0dp">
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:orientation="vertical"
@@ -87,9 +38,66 @@
 
         </com.facebook.shimmer.ShimmerFrameLayout>
 
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:background="?android:statusBarColor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.Material3.Dark">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/topContainer"
+                android:padding="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnMenu"
+                    android:enabled="true"
+                    app:iconTint="?colorPrimaryInverse"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    android:layout_width="wrap_content"
+                    app:icon="@drawable/ic_round_arrow_drop_down_24"
+                    app:iconGravity="textEnd"
+                    app:iconPadding="10dp"
+                    tools:text="Action"
+                    android:layout_marginVertical="10dp"
+                    android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                    android:layout_height="wrap_content" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/mtvTitle"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/btnMenu"
+                    app:layout_constraintTop_toTopOf="@id/btnMenu"
+                    app:layout_constraintBottom_toBottomOf="@id/btnMenu"
+                    android:layout_width="0dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/discover_text"
+                    android:textColor="@color/white"
+                    android:textAlignment="textStart"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.05"
+                    android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
+                    android:layout_height="wrap_content"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
         <androidx.core.widget.NestedScrollView
             android:id="@+id/nestedScrollView"
             android:overScrollMode="never"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:fillViewport="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -97,7 +105,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintVertical_bias="0.0"
             android:layout_width="match_parent"
-            android:layout_height="0dp">
+            android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -145,6 +153,6 @@
 
         </androidx.core.widget.NestedScrollView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

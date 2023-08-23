@@ -60,8 +60,3 @@ enum class ScrollState(var state: Boolean) {
     ENABLE(true),
     DISABLE(false)
 }
-
-enum class MenuState(var state: Boolean) {
-    ENABLE(true),
-    DISABLE(false)
-}
