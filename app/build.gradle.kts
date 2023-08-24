@@ -8,6 +8,7 @@ plugins {
     id("com.google.gms.google-services")
     id("kotlin-parcelize")
     id("com.google.devtools.ksp") version "1.8.20-1.0.11"
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 val keystorePropertiesFile = rootProject.file("keystore.properties")
@@ -63,6 +64,7 @@ android {
 
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 

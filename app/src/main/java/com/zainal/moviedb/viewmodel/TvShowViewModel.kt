@@ -8,8 +8,12 @@ import com.zainal.moviedb.util.TypeCategory
 import kotlinx.coroutines.launch
 
 class TvShowViewModel(repository: Repository) : MainFragmentViewModel(repository) {
-    override fun fetchAllData(trendingSeason: TrendingSeason) {
-        super.fetchAllData(trendingSeason)
+
+    init {
+        fetchAllData(TrendingSeason.DAY)
+    }
+
+    fun fetchAllData(trendingSeason: TrendingSeason = TrendingSeason.DAY) {
         if (!isProcessGetAllData && !isProcessGetTrendingData) {
             isProcessGetAllData = true
             shimmerState.postValue(ShimmerState.START)

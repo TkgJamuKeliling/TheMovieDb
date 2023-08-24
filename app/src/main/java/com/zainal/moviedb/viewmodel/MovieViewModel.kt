@@ -9,8 +9,12 @@ import kotlinx.coroutines.launch
 
 class MovieViewModel(repository: Repository) : MainFragmentViewModel(repository)
 {
-    override fun fetchAllData(trendingSeason: TrendingSeason) {
-        super.fetchAllData(trendingSeason)
+
+    init {
+        fetchAllData(TrendingSeason.DAY)
+    }
+
+    fun fetchAllData(trendingSeason: TrendingSeason) {
         if (!isProcessGetAllData && !isProcessGetTrendingData) {
             isProcessGetAllData = true
             shimmerState.postValue(ShimmerState.START)

@@ -1,5 +1,6 @@
 package com.zainal.moviedb.helper
 
+import com.zainal.moviedb.BuildConfig
 import com.zainal.moviedb.util.Constant.PREFS_ACCESS_TOKEN
 import com.zainal.moviedb.util.Constant.PREFS_API_KEY
 import com.zainal.moviedb.util.PrefsUtil
@@ -17,8 +18,14 @@ class PrefsHelper(private val prefsUtil: PrefsUtil) {
         }
     }
 
-    fun accessToken() = "${prefsUtil.getFromPrefs(
-        PREFS_ACCESS_TOKEN,
-        PrefsUtil.PrefsType.STRING
-    )}"
+    fun accessToken(): String {
+        var apiKey = "${prefsUtil.getFromPrefs(
+            PREFS_ACCESS_TOKEN,
+            PrefsUtil.PrefsType.STRING
+        )}"
+        if (apiKey.isEmpty()) {
+            apiKey = BuildConfig.TMDB_API_KEY
+        }
+        return apiKey
+    }
 }
