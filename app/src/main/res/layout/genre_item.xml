@@ -16,7 +16,6 @@
         android:background="?selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
-        app:cardBackgroundColor="?colorPrimary"
         app:cardElevation="4dp"
         app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -26,12 +25,13 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp">
+            android:background="@drawable/bg_genre_item"
+            android:layout_height="match_parent">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/acivIcon"
                 android:layout_width="28dp"
+                android:layout_marginTop="10dp"
                 android:layout_height="28dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -48,6 +48,7 @@
                 android:textAlignment="center"
                 android:textColor="?colorSurface"
                 android:textSize="16sp"
+                android:layout_marginBottom="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

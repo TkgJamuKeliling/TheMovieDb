@@ -40,7 +40,8 @@
 
         <activity
             android:name=".view.activity.DiscoverActivity"
-            android:exported="false"/>
+            android:exported="false"
+            android:theme="@style/Theme.MovieDb.DiscoverTheme"/>
     </application>
 
 </manifest>

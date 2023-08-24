@@ -42,7 +42,7 @@
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?android:statusBarColor"
+            android:background="@drawable/bg_top_discover"
             android:theme="@style/ThemeOverlay.Material3.Dark">
 
             <androidx.constraintlayout.widget.ConstraintLayout

@@ -5,7 +5,7 @@
     android:layout_height="350dp"
     android:layout_gravity="center"
     android:animateLayoutChanges="true"
-    android:background="@drawable/bg_window"
+    android:background="@drawable/bg_window_dark"
     android:backgroundTint="@color/md_theme_dark_primaryContainer"
     android:backgroundTintMode="multiply">
 
