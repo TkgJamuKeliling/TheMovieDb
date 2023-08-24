@@ -1,33 +1,67 @@
 package com.zainal.moviedb.viewmodel
 
 import androidx.lifecycle.viewModelScope
+import com.zainal.moviedb.R
 import com.zainal.moviedb.util.Repository
 import com.zainal.moviedb.util.ShimmerState
 import com.zainal.moviedb.util.TrendingSeason
 import com.zainal.moviedb.util.TypeCategory
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 
 class MovieViewModel(repository: Repository) : MainFragmentViewModel(repository) {
+    private var isProcessGetAllData = false
+    private var isProcessGetTrendingData = false
 
-    init {
-        fetchAllData(TrendingSeason.DAY)
+    private fun exceptionHandler(state: (ShimmerState, String?) -> Unit): CoroutineExceptionHandler {
+        return CoroutineExceptionHandler { _, throwable ->
+            var msg = repository.context.getString(R.string.default_error_msg)
+            throwable.message?.let {
+                msg = it
+            }
+            state(
+                ShimmerState.STOP_VISIBLE,
+                msg
+            )
+            isProcessGetAllData = false
+            isProcessGetTrendingData = false
+        }
     }
 
-    fun fetchAllData(trendingSeason: TrendingSeason) {
+    fun fetchAllData(
+        trendingSeason: TrendingSeason,
+        state: (ShimmerState, String?) -> Unit
+    ) {
         if (!isProcessGetAllData && !isProcessGetTrendingData) {
             isProcessGetAllData = true
-            shimmerState.postValue(ShimmerState.START)
 
-            viewModelScope.launch(coroutineExceptionHandler) {
+            genreResponse.postValue(null)
+            trendingResultsItem.postValue(null)
+            genresItem.postValue(null)
+
+            state(
+                ShimmerState.START,
+                null
+            )
+
+            viewModelScope.launch(exceptionHandler { shimmerState, s ->
+                state(
+                    shimmerState,
+                    s
+                )
+            }) {
                 repository.fetchMainFragmentData(
                     trendingSeason,
                     TypeCategory.MOVIE
                 ) { mTrendingResultsItem, mGenreResponse, mGenresItem ->
                     genreResponse.postValue(mGenreResponse)
-                    shimmerState.postValue(ShimmerState.STOP_GONE)
-
                     trendingResultsItem.postValue(mTrendingResultsItem)
                     genresItem.postValue(mGenresItem)
+
+                    state(
+                        ShimmerState.STOP_GONE,
+                        null
+                    )
 
                     isProcessGetAllData = false
                 }
@@ -35,23 +69,40 @@ class MovieViewModel(repository: Repository) : MainFragmentViewModel(repository)
         }
     }
 
-    fun getMovieTrendingData(trendingSeason: TrendingSeason) {
+    fun getMovieTrendingData(
+        trendingSeason: TrendingSeason,
+        state: (ShimmerState, String?) -> Unit
+    ) {
         if (!isProcessGetTrendingData) {
             isProcessGetTrendingData = true
 
             trendingResultsItem.postValue(null)
-            trendingShimmerState.postValue(ShimmerState.START)
 
-            viewModelScope.launch(coroutineExceptionHandler) {
+            state(
+                ShimmerState.START,
+                null
+            )
+
+            viewModelScope.launch(exceptionHandler { shimmerState, s ->
+                state(
+                    shimmerState,
+                    s
+                )
+            }) {
                 repository.fetchTrendingData(
                     trendingSeason,
                     TypeCategory.MOVIE
                 ) { result ->
                     trendingResultsItem.postValue(result)
-                    trendingShimmerState.postValue(when {
-                        result.isNullOrEmpty() -> ShimmerState.STOP_GONE
-                        else -> ShimmerState.STOP_VISIBLE
-                    })
+
+                    state(
+                        when {
+                            result.isNullOrEmpty() -> ShimmerState.STOP_VISIBLE
+                            else -> ShimmerState.STOP_GONE
+                        },
+                        null
+                    )
+
                     isProcessGetTrendingData = false
                 }
             }

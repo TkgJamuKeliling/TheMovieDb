@@ -28,6 +28,7 @@ import com.zainal.moviedb.databinding.TrailerDialogBinding
 import com.zainal.moviedb.model.response.CastItem
 import com.zainal.moviedb.model.response.ReviewResultsItem
 import com.zainal.moviedb.model.response.VideoResultsItem
+import com.zainal.moviedb.util.BottomViewState
 import com.zainal.moviedb.util.Constant.BASE_URL_AVATAR
 import com.zainal.moviedb.util.Constant.BASE_URL_POSTER
 import com.zainal.moviedb.util.Constant.EXTRA_CATEGORY
@@ -77,43 +78,6 @@ class DetailActivity: BaseActivity() {
 
     private fun observeView() {
         with(detailViewModel) {
-            vmErrorMsg().observe(this@DetailActivity) {
-                it?.let {
-                    showGlobalDialog(it)
-                    isProcessGetDetail = false
-                    isLoadingMoreReview = false
-                    postErrorMsg()
-                }
-            }
-
-            vmShimmerState().observe(this@DetailActivity) {
-                with(detailBinding) {
-                    when (it) {
-                        ShimmerState.START -> {
-                            appBarLayout.visibility = INVISIBLE
-                            nestedScrollView.visibility = INVISIBLE
-                            detailShimmer.apply {
-                                visibility = VISIBLE
-                                if (!isShimmerStarted) {
-                                    startShimmer()
-                                }
-                            }
-                        }
-
-                        else -> {
-                            detailShimmer.apply {
-                                if (isShimmerStarted) {
-                                    stopShimmer()
-                                }
-                                visibility = INVISIBLE
-                            }
-                            appBarLayout.visibility = VISIBLE
-                            nestedScrollView.visibility = VISIBLE
-                        }
-                    }
-                }
-            }
-
             vmBgUrlPoster().observe(this@DetailActivity) {
                 it?.let {
                     Glide.with(this@DetailActivity)
@@ -254,14 +218,6 @@ class DetailActivity: BaseActivity() {
             vmReviewItems().observe(this@DetailActivity) {
                 reviewAdapter.setupData(it)
             }
-
-            vmLoadingView().observe(this@DetailActivity) {
-                detailBinding.bottomLoading.root.visibility = it
-            }
-
-            vmStuckView().observe(this@DetailActivity) {
-                detailBinding.stuckView.root.visibility = it
-            }
         }
     }
 
@@ -269,13 +225,52 @@ class DetailActivity: BaseActivity() {
         detailViewModel.getDetailData(
             idTvOrMovie,
             0,
-            typeCategory,
-            ::setupSwipeLayout
-        )
-    }
+            typeCategory
+        ) { shimmerState, s ->
+            with(detailBinding) {
+                when (shimmerState) {
+                    ShimmerState.START -> {
+                        root.isEnabled = false
+                        appBarLayout.visibility = INVISIBLE
+                        nestedScrollView.visibility = INVISIBLE
+                        detailShimmer.apply {
+                            visibility = VISIBLE
+                            if (!isShimmerStarted) {
+                                startShimmer()
+                            }
+                        }
+                    }
 
-    private fun setupSwipeLayout(enable: Boolean) {
-        detailBinding.root.isEnabled = enable
+                    ShimmerState.STOP_VISIBLE -> {
+                        root.isEnabled = true
+                        appBarLayout.visibility = INVISIBLE
+                        nestedScrollView.visibility = INVISIBLE
+                        detailShimmer.apply {
+                            visibility = VISIBLE
+                            if (isShimmerStarted) {
+                                stopShimmer()
+                            }
+                        }
+                    }
+
+                    else -> {
+                        detailShimmer.apply {
+                            if (isShimmerStarted) {
+                                stopShimmer()
+                            }
+                            visibility = INVISIBLE
+                        }
+                        root.isEnabled = true
+                        appBarLayout.visibility = VISIBLE
+                        nestedScrollView.visibility = VISIBLE
+                    }
+                }
+            }
+
+            s?.let {
+                showGlobalDialog(it)
+            }
+        }
     }
 
     private fun initView() {
@@ -300,7 +295,7 @@ class DetailActivity: BaseActivity() {
             nestedScrollView.setOnScrollChangeListener(
                 NestedScrollView.OnScrollChangeListener { v, _, scrollY, _, _ ->
                     if (scrollY != 0 && scrollY == v.getChildAt(0).measuredHeight - v.measuredHeight) {
-                        detailViewModel.getMoreReviewsData(typeCategory)
+                        getMoreReviewsData()
                     }
                 }
             )
@@ -329,6 +324,30 @@ class DetailActivity: BaseActivity() {
         }
 
         getDetailData()
+    }
+
+    private fun getMoreReviewsData() {
+        detailViewModel.getMoreReviewsData(
+            typeCategory
+        ) { bottomViewState, s ->
+            with(detailBinding) {
+                when (bottomViewState) {
+                    BottomViewState.LOADING -> bottomLoading.root.visibility = VISIBLE
+                    BottomViewState.STUCK -> {
+                        bottomLoading.root.visibility = INVISIBLE
+                        stuckView.root.visibility = VISIBLE
+                    }
+                    else -> {
+                        bottomLoading.root.visibility = INVISIBLE
+                        stuckView.root.visibility = INVISIBLE
+                    }
+                }
+            }
+
+            s?.let {
+                showGlobalDialog(it)
+            }
+        }
     }
 
     private fun initData() {

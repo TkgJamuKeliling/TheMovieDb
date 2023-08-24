@@ -48,22 +48,11 @@ class DiscoverActivity: BaseActivity() {
     }
 
     private fun observeView() {
-        with(discoverViewModel) {
-            vmErrorMsg().observe(this@DiscoverActivity) {
-                it?.let {
-                    showGlobalDialog(it)
-                    isFirstRequestProcess = false
-                    isMoreRequestProcess = false
-                    postErrorMsg()
-                }
-            }
-
-            vmDiscoverResultsItem().observe(this@DiscoverActivity) {
-                discoverAdapter.setupData(it)
-            }
-
-            getData()
+        discoverViewModel.vmDiscoverResultsItem().observe(this@DiscoverActivity) {
+            discoverAdapter.setupData(it)
         }
+
+        getData()
     }
 
     private fun getData(isPageOne: Boolean = true) {
@@ -72,7 +61,7 @@ class DiscoverActivity: BaseActivity() {
                 it.id,
                 typeCategory,
                 isPageOne
-            ) { shimmerState, scrollState, bottomViewState ->
+            ) { shimmerState, scrollState, bottomViewState, s ->
                 with(discoverBinding) {
                     when (shimmerState) {
                         ShimmerState.START -> {
@@ -110,6 +99,10 @@ class DiscoverActivity: BaseActivity() {
                             stuckView.root.visibility = INVISIBLE
                         }
                     }
+                }
+
+                s?.let { s1 ->
+                    showGlobalDialog(s1)
                 }
             }
         }

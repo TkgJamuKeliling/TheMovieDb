@@ -35,42 +35,6 @@ class ReviewActivity: BaseActivity() {
 
     private fun observeView() {
         with(reviewViewModel) {
-            vmErrorMsg().observe(this@ReviewActivity) {
-                it?.let {
-                    showGlobalDialog(it)
-                    isProcessGetDetail = false
-                    postErrorMsg()
-                }
-            }
-
-            vmShimmerState().observe(this@ReviewActivity) {
-                with(reviewItemBinding) {
-                    when (it) {
-                        ShimmerState.START -> {
-                            mcvReview.visibility = INVISIBLE
-                            nestedScrollView.visibility = INVISIBLE
-                            shimmerReview.apply {
-                                visibility = VISIBLE
-                                if (!isShimmerStarted) {
-                                    startShimmer()
-                                }
-                            }
-                        }
-
-                        else -> {
-                            shimmerReview.apply {
-                                if (isShimmerStarted) {
-                                    stopShimmer()
-                                }
-                                visibility = INVISIBLE
-                            }
-                            mcvReview.visibility = VISIBLE
-                            nestedScrollView.visibility = VISIBLE
-                        }
-                    }
-                }
-            }
-
             vmTitle().observe(this@ReviewActivity) {
                 it?.let {
                     reviewItemBinding.mtvTitle.text = it
@@ -99,14 +63,52 @@ class ReviewActivity: BaseActivity() {
         reviewId?.let {
             reviewViewModel.getReviewDetail(
                 it,
-                yearInfo,
-                ::setupSwipeLayout
-            )
+                yearInfo
+            ) { b, shimmerState, s ->
+                with(reviewItemBinding) {
+                    root.isEnabled = b
+
+                    when (shimmerState) {
+                        ShimmerState.START -> {
+                            mcvReview.visibility = INVISIBLE
+                            nestedScrollView.visibility = INVISIBLE
+                            shimmerReview.apply {
+                                visibility = VISIBLE
+                                if (!isShimmerStarted) {
+                                    startShimmer()
+                                }
+                            }
+                        }
+
+                        ShimmerState.STOP_VISIBLE -> {
+                            mcvReview.visibility = INVISIBLE
+                            nestedScrollView.visibility = INVISIBLE
+                            shimmerReview.apply {
+                                visibility = VISIBLE
+                                if (isShimmerStarted) {
+                                    stopShimmer()
+                                }
+                            }
+                        }
+
+                        else -> {
+                            shimmerReview.apply {
+                                if (isShimmerStarted) {
+                                    stopShimmer()
+                                }
+                                visibility = INVISIBLE
+                            }
+                            mcvReview.visibility = VISIBLE
+                            nestedScrollView.visibility = VISIBLE
+                        }
+                    }
+                }
+
+                s?.let { s1 ->
+                    showGlobalDialog(s1)
+                }
+            }
         }
-    }
-    
-    private fun setupSwipeLayout(enable: Boolean) {
-        reviewItemBinding.root.isEnabled = enable
     }
 
     private fun initView() {

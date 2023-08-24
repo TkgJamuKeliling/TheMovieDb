@@ -1,7 +1,5 @@
 package com.zainal.moviedb.viewmodel
 
-import android.view.View.INVISIBLE
-import android.view.View.VISIBLE
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -12,18 +10,20 @@ import com.zainal.moviedb.model.response.DetailResponse
 import com.zainal.moviedb.model.response.ReviewResponse
 import com.zainal.moviedb.model.response.ReviewResultsItem
 import com.zainal.moviedb.model.response.VideoResultsItem
+import com.zainal.moviedb.util.BottomViewState
 import com.zainal.moviedb.util.DbStateAction
 import com.zainal.moviedb.util.Repository
 import com.zainal.moviedb.util.ShimmerState
 import com.zainal.moviedb.util.TypeCategory
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
-class DetailViewModel(private var repository: Repository): BaseViewModel(repository.context)
+class DetailViewModel(private var repository: Repository): BaseViewModel()
 {
-    var isLoadingMoreReview = false
-    var isProcessGetDetail = false
+    private var isLoadingMoreReview = false
+    private var isProcessGetDetail = false
 
     private val detailResponse = MutableLiveData<DetailResponse?>()
 
@@ -65,25 +65,41 @@ class DetailViewModel(private var repository: Repository): BaseViewModel(reposit
     private val reviewItems = MutableLiveData<List<ReviewResultsItem>>()
     fun vmReviewItems(): LiveData<List<ReviewResultsItem>> = reviewItems
 
-    private val loadingView = MutableLiveData<Int>()
-    fun vmLoadingView(): LiveData<Int> = loadingView
-
-    private val stuckView = MutableLiveData<Int>()
-    fun vmStuckView(): LiveData<Int> = stuckView
+    private fun exceptionHandler(state: (ShimmerState, String?) -> Unit): CoroutineExceptionHandler {
+        return CoroutineExceptionHandler { _, throwable ->
+            var msg = repository.context.getString(R.string.default_error_msg)
+            throwable.message?.let {
+                msg = it
+            }
+            state(
+                ShimmerState.STOP_VISIBLE,
+                msg
+            )
+            isProcessGetDetail = false
+            isLoadingMoreReview = false
+        }
+    }
 
     fun getDetailData(
         id: Int,
         page: Int,
         typeCategory: String,
-        enable: (Boolean) -> Unit
+        state: (ShimmerState, String?) -> Unit
     ) {
         if (!isProcessGetDetail) {
             isProcessGetDetail = true
 
-            enable(false)
-            shimmerState.postValue(ShimmerState.START)
+            state(
+                ShimmerState.START,
+                null
+            )
 
-            viewModelScope.launch(coroutineExceptionHandler) {
+            viewModelScope.launch(exceptionHandler { shimmerState, s ->
+                state(
+                    shimmerState,
+                    s
+                )
+            }) {
                 voteAverage.postValue(0)
 
                 repository.fetchDetail(
@@ -93,8 +109,6 @@ class DetailViewModel(private var repository: Repository): BaseViewModel(reposit
                 ) { mDetailResponse, mListVideo, mListCast, mReviewResponse, mListReviewItem ->
                     detailResponse.postValue(mDetailResponse.also {
                         it?.let {
-                            shimmerState.postValue(ShimmerState.STOP_GONE)
-
                             bgUrlPoster.postValue(it.backdropPath)
 
                             urlPoster.postValue(it.posterPath)
@@ -170,22 +184,37 @@ class DetailViewModel(private var repository: Repository): BaseViewModel(reposit
 
                     reviewItems.postValue(mListReviewItem)
 
-                    enable(true)
+                    state(
+                        ShimmerState.STOP_GONE,
+                        null
+                    )
+
                     isProcessGetDetail = false
                 }
             }
         }
     }
 
-    fun getMoreReviewsData(typeCategory: String) {
-        viewModelScope.launch(coroutineExceptionHandler) {
+    fun getMoreReviewsData(
+        typeCategory: String,
+        state: (BottomViewState, String?) -> Unit
+    ) {
+        viewModelScope.launch(exceptionHandler { _, s ->
+            state(
+                BottomViewState.NORMAL,
+                s
+            )
+        }) {
             reviewResponse.value?.let {
                 reviewItems.value?.let { resultsItems ->
                     if (resultsItems.isNotEmpty()) {
                         if (!isLoadingMoreReview) {
                             isLoadingMoreReview = true
 
-                            loadingView.postValue(VISIBLE)
+                            state(
+                                BottomViewState.LOADING,
+                                null
+                            )
 
                             if (it.totalPages > it.page) {
                                 repository.fetchMoreReviews(
@@ -197,20 +226,29 @@ class DetailViewModel(private var repository: Repository): BaseViewModel(reposit
                                     reviewResponse.postValue(mReviewResponse)
                                     totalReview.postValue(mReviewResponse?.totalResults ?:0)
 
-                                    loadingView.postValue(INVISIBLE)
-                                    reviewItems.postValue(mListReviewItem)
+                                    state(
+                                        BottomViewState.NORMAL,
+                                        null
+                                    )
 
+                                    reviewItems.postValue(mListReviewItem)
                                     isLoadingMoreReview = false
                                 }
                                 return@launch
                             }
 
                             delay(1000L)
-                            loadingView.postValue(INVISIBLE)
-                            stuckView.postValue(VISIBLE)
+                            state(
+                                BottomViewState.STUCK,
+                                null
+                            )
 
                             delay(1000L)
-                            stuckView.postValue(INVISIBLE)
+                            state(
+                                BottomViewState.NORMAL,
+                                null
+                            )
+
                             isLoadingMoreReview = false
                         }
                     }

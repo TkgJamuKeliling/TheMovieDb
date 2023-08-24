@@ -64,7 +64,7 @@ class MovieFragment : BaseFragment() {
         with(movieBinding) {
             root.setOnRefreshListener {
                 root.isRefreshing = false
-                movieViewModel.fetchAllData(trendingSeason)
+                fetchData()
             }
 
             with(trendingLayout) {
@@ -76,7 +76,7 @@ class MovieFragment : BaseFragment() {
                                 btnToday.id -> TrendingSeason.DAY
                                 else -> TrendingSeason.WEEK
                             }
-                            movieViewModel.getMovieTrendingData(trendingSeason)
+                            fetchTrendingData()
                         }
                     }
                 }
@@ -98,42 +98,50 @@ class MovieFragment : BaseFragment() {
         }
     }
 
-    private fun observeView() {
-        with(movieViewModel) {
-            vmErrorMsg().observe(viewLifecycleOwner) {
-                it?.let {
-                    (activity as? MainActivity)?.showGlobalDialog(it)
-                    isProcessGetAllData = false
-                    isProcessGetTrendingData = false
-                    postErrorMsg()
-                }
-            }
+    private fun fetchTrendingData() {
+        movieViewModel.getMovieTrendingData(trendingSeason) { shimmerState, s ->
+            with(movieBinding.trendingLayout) {
+                when (shimmerState) {
+                    ShimmerState.START -> {
+                        trendingContainer.visibility = INVISIBLE
+                        trendingShimmer.apply {
+                            visibility = VISIBLE
+                            if (!isShimmerStarted) {
+                                startShimmer()
+                            }
+                        }
+                    }
 
-            vmShimmerState().observe(viewLifecycleOwner) {
-                with(movieBinding) {
-                    when (it) {
-                        ShimmerState.START -> {
-                            nestedScrollView.visibility = INVISIBLE
-                            mainShimmer.apply {
-                                visibility = VISIBLE
-                                if (!isShimmerStarted) {
-                                    startShimmer()
-                                }
+                    ShimmerState.STOP_VISIBLE -> {
+                        trendingContainer.visibility = INVISIBLE
+                        trendingShimmer.apply {
+                            visibility = VISIBLE
+                            if (isShimmerStarted) {
+                                stopShimmer()
                             }
                         }
-                        else -> {
-                            mainShimmer.apply {
-                                if (isShimmerStarted) {
-                                    stopShimmer()
-                                }
-                                visibility = INVISIBLE
+                    }
+
+                    else -> {
+                        trendingShimmer.apply {
+                            if (isShimmerStarted) {
+                                stopShimmer()
                             }
-                            nestedScrollView.visibility = VISIBLE
+                            visibility = INVISIBLE
                         }
+                        trendingContainer.visibility = VISIBLE
                     }
                 }
             }
 
+            s?.let {
+                (activity as? MainActivity)?.showGlobalDialog(it)
+            }
+        }
+    }
+
+    private fun observeView() {
+        with(movieViewModel) {
             vmTrendingResultsItem().observe(viewLifecycleOwner) {
                 trendingAdapter.setData(it)
             }
@@ -141,30 +149,52 @@ class MovieFragment : BaseFragment() {
             vmGenresItem().observe(viewLifecycleOwner) {
                 genreAdapter.setData(it)
             }
+        }
 
-            vmTrendingShimmerState().observe(viewLifecycleOwner) {
-                with(movieBinding.trendingLayout) {
-                    when (it) {
-                        ShimmerState.START -> {
-                            trendingContainer.visibility = INVISIBLE
-                            trendingShimmer.apply {
-                                visibility = VISIBLE
-                                if (!isShimmerStarted) {
-                                    startShimmer()
-                                }
+        fetchData()
+    }
+
+    private fun fetchData() {
+        movieViewModel.fetchAllData(trendingSeason) { shimmerState, s ->
+            with(movieBinding) {
+                when (shimmerState) {
+                    ShimmerState.START -> {
+                        root.isEnabled = false
+                        nestedScrollView.visibility = INVISIBLE
+                        mainShimmer.apply {
+                            visibility = VISIBLE
+                            if (!isShimmerStarted) {
+                                startShimmer()
                             }
-                        }
-                        else -> {
-                            trendingShimmer.apply {
-                                if (isShimmerStarted) {
-                                    stopShimmer()
-                                }
-                                visibility = INVISIBLE
-                            }
-                            trendingContainer.visibility = VISIBLE
                         }
                     }
+
+                    ShimmerState.STOP_VISIBLE -> {
+                        mainShimmer.apply {
+                            visibility = VISIBLE
+                            if (isShimmerStarted) {
+                                stopShimmer()
+                            }
+                        }
+                        nestedScrollView.visibility = INVISIBLE
+                        root.isEnabled = true
+                    }
+
+                    else -> {
+                        mainShimmer.apply {
+                            if (isShimmerStarted) {
+                                stopShimmer()
+                            }
+                            visibility = INVISIBLE
+                        }
+                        nestedScrollView.visibility = VISIBLE
+                        root.isEnabled = true
+                    }
                 }
+            }
+
+            s?.let {
+                (activity as? MainActivity)?.showGlobalDialog(it)
             }
         }
     }
