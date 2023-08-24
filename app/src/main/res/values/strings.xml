@@ -23,6 +23,7 @@
     <string name="trailer_title">Trailer</string>
     <string name="close_text">Close</string>
     <string name="lottie_loading_file">loading.json</string>
+    <string name="lottie_no_data_file">no_data.json</string>
     <string name="have_reached_data">You have reached the last data</string>
     <string name="not_available">Not available</string>
     <string name="zero_value">0</string>

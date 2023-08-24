@@ -12,9 +12,20 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:overScrollMode="never"
+        android:visibility="invisible"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:spanCount="1"
         tools:listitem="@layout/fav_item"/>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="invisible"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="@string/lottie_no_data_file"
+        app:lottie_loop="true"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

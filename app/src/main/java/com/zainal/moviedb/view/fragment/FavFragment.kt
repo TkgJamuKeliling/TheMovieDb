@@ -3,6 +3,8 @@ package com.zainal.moviedb.view.fragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import androidx.lifecycle.lifecycleScope
@@ -116,6 +118,17 @@ class FavFragment : BaseFragment() {
                 adapter = favAdapter.withLoadStateFooter(
                     FavLoadAdapter()
                 )
+                favAdapter.addLoadStateListener {
+                    if (it.append.endOfPaginationReached) {
+                        if (favAdapter.itemCount < 1) {
+                            rcvFav.visibility = INVISIBLE
+                            lottieView.visibility = VISIBLE
+                        } else {
+                            rcvFav.visibility = VISIBLE
+                            lottieView.visibility = INVISIBLE
+                        }
+                    }
+                }
                 setHasFixedSize(false)
                 itemAnimator = null
 
