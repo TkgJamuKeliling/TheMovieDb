@@ -49,6 +49,15 @@ class DiscoverActivity: BaseActivity() {
 
     private fun observeView() {
         with(discoverViewModel) {
+            vmErrorMsg().observe(this@DiscoverActivity) {
+                it?.let {
+                    showGlobalDialog(it)
+                    isFirstRequestProcess = false
+                    isMoreRequestProcess = false
+                    postErrorMsg()
+                }
+            }
+
             vmDiscoverResultsItem().observe(this@DiscoverActivity) {
                 discoverAdapter.setupData(it)
             }

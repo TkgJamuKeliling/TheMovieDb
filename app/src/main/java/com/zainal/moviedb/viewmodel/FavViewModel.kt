@@ -14,7 +14,7 @@ import com.zainal.moviedb.util.Repository
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class FavViewModel(private var repository: Repository) : BaseViewModel() {
+class FavViewModel(private var repository: Repository) : BaseViewModel(repository.context) {
 
     private val movieEntity = MutableLiveData<PagingData<MovieEntity>?>()
     fun vmMovieEntity(): LiveData<PagingData<MovieEntity>?> = movieEntity

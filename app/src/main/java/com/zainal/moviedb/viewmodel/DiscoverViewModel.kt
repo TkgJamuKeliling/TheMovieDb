@@ -13,9 +13,9 @@ import com.zainal.moviedb.util.ShimmerState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class DiscoverViewModel(private var repository: Repository): BaseViewModel() {
-    private var isFirstRequestProcess = false
-    private var isMoreRequestProcess = false
+class DiscoverViewModel(private var repository: Repository): BaseViewModel(repository.context) {
+    var isFirstRequestProcess = false
+    var isMoreRequestProcess = false
 
     private val discoverResponse = MutableLiveData<DiscoverResponse?>()
 
@@ -32,7 +32,7 @@ class DiscoverViewModel(private var repository: Repository): BaseViewModel() {
             BottomViewState
         ) -> Unit
     ) {
-        viewModelScope.launch {
+        viewModelScope.launch(coroutineExceptionHandler) {
             if (isPageOne) {
                 if (isFirstRequestProcess) {
                     return@launch

@@ -10,8 +10,8 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class ReviewViewModel(private var repository: Repository): BaseViewModel() {
-    private var isProcessGetDetail = false
+class ReviewViewModel(private var repository: Repository): BaseViewModel(repository.context) {
+    var isProcessGetDetail = false
 
     val title = MutableLiveData<String?>()
     fun vmTitle(): LiveData<String?> = title
@@ -22,9 +22,6 @@ class ReviewViewModel(private var repository: Repository): BaseViewModel() {
     val content = MutableLiveData<String?>()
     fun vmContent(): LiveData<String?> = content
 
-    private val shimmerState = MutableLiveData<ShimmerState>()
-    fun vmShimmerState(): LiveData<ShimmerState> = shimmerState
-
     fun getReviewDetail(
         reviewId: String,
         year: String?,
@@ -34,7 +31,7 @@ class ReviewViewModel(private var repository: Repository): BaseViewModel() {
             isProcessGetDetail = true
             shimmerState.postValue(ShimmerState.START)
 
-            viewModelScope.launch {
+            viewModelScope.launch(coroutineExceptionHandler) {
                 enable(false)
 
                 repository.fetchReviewDetail(

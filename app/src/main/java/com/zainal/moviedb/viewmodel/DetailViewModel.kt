@@ -20,13 +20,10 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
-class DetailViewModel(private var repository: Repository): BaseViewModel()
+class DetailViewModel(private var repository: Repository): BaseViewModel(repository.context)
 {
-    private var isLoadingMoreReview = false
-    private var isProcessGetDetail = false
-
-    private val shimmerState = MutableLiveData<ShimmerState>()
-    fun vmShimmerState(): LiveData<ShimmerState> = shimmerState
+    var isLoadingMoreReview = false
+    var isProcessGetDetail = false
 
     private val detailResponse = MutableLiveData<DetailResponse?>()
 
@@ -86,7 +83,7 @@ class DetailViewModel(private var repository: Repository): BaseViewModel()
             enable(false)
             shimmerState.postValue(ShimmerState.START)
 
-            viewModelScope.launch {
+            viewModelScope.launch(coroutineExceptionHandler) {
                 voteAverage.postValue(0)
 
                 repository.fetchDetail(
@@ -181,7 +178,7 @@ class DetailViewModel(private var repository: Repository): BaseViewModel()
     }
 
     fun getMoreReviewsData(typeCategory: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(coroutineExceptionHandler) {
             reviewResponse.value?.let {
                 reviewItems.value?.let { resultsItems ->
                     if (resultsItems.isNotEmpty()) {

@@ -23,6 +23,7 @@ import com.zainal.moviedb.util.ShimmerState
 import com.zainal.moviedb.util.TrendingSeason
 import com.zainal.moviedb.util.TypeCategory
 import com.zainal.moviedb.view.activity.DiscoverActivity
+import com.zainal.moviedb.view.activity.MainActivity
 import com.zainal.moviedb.view.adapter.GenreAdapter
 import com.zainal.moviedb.view.adapter.TrendingAdapter
 import com.zainal.moviedb.viewmodel.MovieViewModel
@@ -99,6 +100,15 @@ class MovieFragment : BaseFragment() {
 
     private fun observeView() {
         with(movieViewModel) {
+            vmErrorMsg().observe(viewLifecycleOwner) {
+                it?.let {
+                    (activity as? MainActivity)?.showGlobalDialog(it)
+                    isProcessGetAllData = false
+                    isProcessGetTrendingData = false
+                    postErrorMsg()
+                }
+            }
+
             vmShimmerState().observe(viewLifecycleOwner) {
                 with(movieBinding) {
                     when (it) {

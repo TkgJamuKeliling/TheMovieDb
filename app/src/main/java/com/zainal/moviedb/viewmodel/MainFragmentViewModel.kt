@@ -9,12 +9,9 @@ import com.zainal.moviedb.model.response.TrendingResultsItem
 import com.zainal.moviedb.util.Repository
 import com.zainal.moviedb.util.ShimmerState
 
-open class MainFragmentViewModel(var repository: Repository) : BaseViewModel() {
+open class MainFragmentViewModel(var repository: Repository) : BaseViewModel(repository.context) {
     var isProcessGetAllData = false
     var isProcessGetTrendingData = false
-
-    val shimmerState = MutableLiveData<ShimmerState>()
-    fun vmShimmerState(): LiveData<ShimmerState> = shimmerState
 
     val trendingResultsItem = MutableLiveData<List<TrendingResultsItem>?>()
     fun vmTrendingResultsItem(): LiveData<List<TrendingResultsItem>?> = trendingResultsItem

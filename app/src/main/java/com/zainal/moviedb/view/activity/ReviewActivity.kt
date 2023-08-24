@@ -35,6 +35,14 @@ class ReviewActivity: BaseActivity() {
 
     private fun observeView() {
         with(reviewViewModel) {
+            vmErrorMsg().observe(this@ReviewActivity) {
+                it?.let {
+                    showGlobalDialog(it)
+                    isProcessGetDetail = false
+                    postErrorMsg()
+                }
+            }
+
             vmShimmerState().observe(this@ReviewActivity) {
                 with(reviewItemBinding) {
                     when (it) {

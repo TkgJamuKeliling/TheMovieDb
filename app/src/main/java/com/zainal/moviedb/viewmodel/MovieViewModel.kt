@@ -7,8 +7,7 @@ import com.zainal.moviedb.util.TrendingSeason
 import com.zainal.moviedb.util.TypeCategory
 import kotlinx.coroutines.launch
 
-class MovieViewModel(repository: Repository) : MainFragmentViewModel(repository)
-{
+class MovieViewModel(repository: Repository) : MainFragmentViewModel(repository) {
 
     init {
         fetchAllData(TrendingSeason.DAY)
@@ -19,7 +18,7 @@ class MovieViewModel(repository: Repository) : MainFragmentViewModel(repository)
             isProcessGetAllData = true
             shimmerState.postValue(ShimmerState.START)
 
-            viewModelScope.launch {
+            viewModelScope.launch(coroutineExceptionHandler) {
                 repository.fetchMainFragmentData(
                     trendingSeason,
                     TypeCategory.MOVIE
@@ -43,7 +42,7 @@ class MovieViewModel(repository: Repository) : MainFragmentViewModel(repository)
             trendingResultsItem.postValue(null)
             trendingShimmerState.postValue(ShimmerState.START)
 
-            viewModelScope.launch {
+            viewModelScope.launch(coroutineExceptionHandler) {
                 repository.fetchTrendingData(
                     trendingSeason,
                     TypeCategory.MOVIE

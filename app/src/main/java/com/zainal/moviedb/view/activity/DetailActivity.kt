@@ -77,6 +77,15 @@ class DetailActivity: BaseActivity() {
 
     private fun observeView() {
         with(detailViewModel) {
+            vmErrorMsg().observe(this@DetailActivity) {
+                it?.let {
+                    showGlobalDialog(it)
+                    isProcessGetDetail = false
+                    isLoadingMoreReview = false
+                    postErrorMsg()
+                }
+            }
+
             vmShimmerState().observe(this@DetailActivity) {
                 with(detailBinding) {
                     when (it) {

@@ -13,12 +13,12 @@ class TvShowViewModel(repository: Repository) : MainFragmentViewModel(repository
         fetchAllData(TrendingSeason.DAY)
     }
 
-    fun fetchAllData(trendingSeason: TrendingSeason = TrendingSeason.DAY) {
+    fun fetchAllData(trendingSeason: TrendingSeason) {
         if (!isProcessGetAllData && !isProcessGetTrendingData) {
             isProcessGetAllData = true
             shimmerState.postValue(ShimmerState.START)
 
-            viewModelScope.launch {
+            viewModelScope.launch(coroutineExceptionHandler) {
                 repository.fetchMainFragmentData(
                     trendingSeason,
                     TypeCategory.TV
@@ -43,7 +43,7 @@ class TvShowViewModel(repository: Repository) : MainFragmentViewModel(repository
             trendingResultsItem.postValue(null)
             trendingShimmerState.postValue(ShimmerState.START)
 
-            viewModelScope.launch {
+            viewModelScope.launch(coroutineExceptionHandler) {
                 repository.fetchTrendingData(
                     trendingSeason,
                     TypeCategory.TV

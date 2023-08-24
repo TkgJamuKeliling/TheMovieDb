@@ -5,6 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
@@ -21,6 +23,7 @@ import com.zainal.moviedb.util.ShimmerState
 import com.zainal.moviedb.util.TrendingSeason
 import com.zainal.moviedb.util.TypeCategory
 import com.zainal.moviedb.view.activity.DiscoverActivity
+import com.zainal.moviedb.view.activity.MainActivity
 import com.zainal.moviedb.view.adapter.GenreAdapter
 import com.zainal.moviedb.view.adapter.TrendingAdapter
 import com.zainal.moviedb.viewmodel.TvShowViewModel
@@ -97,13 +100,22 @@ class TvShowFragment : BaseFragment() {
 
     private fun observeView() {
         with(tvShowViewModel) {
+            vmErrorMsg().observe(viewLifecycleOwner) {
+                it?.let {
+                    (activity as? MainActivity)?.showGlobalDialog(it)
+                    isProcessGetAllData = false
+                    isProcessGetTrendingData = false
+                    postErrorMsg()
+                }
+            }
+
             vmShimmerState().observe(viewLifecycleOwner) {
                 with(tvShowBinding) {
                     when (it) {
                         ShimmerState.START -> {
-                            nestedScrollView.visibility = View.INVISIBLE
+                            nestedScrollView.visibility = INVISIBLE
                             mainShimmer.apply {
-                                visibility = View.VISIBLE
+                                visibility = VISIBLE
                                 if (!isShimmerStarted) {
                                     startShimmer()
                                 }
@@ -114,9 +126,9 @@ class TvShowFragment : BaseFragment() {
                                 if (isShimmerStarted) {
                                     stopShimmer()
                                 }
-                                visibility = View.INVISIBLE
+                                visibility = INVISIBLE
                             }
-                            nestedScrollView.visibility = View.VISIBLE
+                            nestedScrollView.visibility = VISIBLE
                         }
                     }
                 }
@@ -134,9 +146,9 @@ class TvShowFragment : BaseFragment() {
                 with(tvShowBinding.trendingLayout) {
                     when (it) {
                         ShimmerState.START -> {
-                            trendingContainer.visibility = View.INVISIBLE
+                            trendingContainer.visibility = INVISIBLE
                             trendingShimmer.apply {
-                                visibility = View.VISIBLE
+                                visibility = VISIBLE
                                 if (!isShimmerStarted) {
                                     startShimmer()
                                 }
@@ -147,9 +159,9 @@ class TvShowFragment : BaseFragment() {
                                 if (isShimmerStarted) {
                                     stopShimmer()
                                 }
-                                visibility = View.INVISIBLE
+                                visibility = INVISIBLE
                             }
-                            trendingContainer.visibility = View.VISIBLE
+                            trendingContainer.visibility = VISIBLE
                         }
                     }
                 }
