@@ -34,8 +34,6 @@ class Repository(
         result: (List<TrendingResultsItem>?, GenreResponse?, List<GenresItem>?) -> Unit
     ) {
         coroutineScope {
-            delay(1000L)
-
             val trendingResponse = async(Dispatchers.IO) {
                 fetchTrendingResponse(
                     typeCategory,
@@ -94,8 +92,6 @@ class Repository(
         result: (List<TrendingResultsItem>?) -> Unit
     ) {
         coroutineScope {
-            delay(1000L)
-
             val trendingResponse = async(Dispatchers.IO) {
                 fetchTrendingResponse(
                     typeCategory,
@@ -120,8 +116,6 @@ class Repository(
         ) -> Unit
     ) {
         coroutineScope {
-            delay(1000L)
-
             val detailResponse = async(Dispatchers.IO) {
                 restClientService.getInstance().getDetailData(
                     typeCategory.lowercase(),
@@ -207,7 +201,6 @@ class Repository(
         result: (ReviewItemResponse?) -> Unit
     ) {
         coroutineScope {
-            delay(1000L)
             val reviewItemResponse = async(Dispatchers.IO) {
                 restClientService.getInstance().getReviewDetail(reviewId)
             }.await()

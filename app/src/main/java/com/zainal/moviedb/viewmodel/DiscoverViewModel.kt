@@ -90,7 +90,9 @@ class DiscoverViewModel(private var repository: Repository): BaseViewModel() {
                 discoverResultsItem.postValue(null)
             }
 
-            delay(1000L)
+            if (!isPageOne) {
+                delay(1000L)
+            }
 
             if (!isPageOne) {
                 var flag = false
