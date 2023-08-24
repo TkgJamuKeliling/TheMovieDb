@@ -32,8 +32,6 @@ open class BaseViewModel: ViewModel(), KoinComponent {
                         prefsHelper.saveKeyPrefs(
                             getString(KEY_PREFS)
                         )
-
-                        fetchAllData()
                     }
                 }
             }
@@ -51,6 +49,4 @@ open class BaseViewModel: ViewModel(), KoinComponent {
             })
         }
     }
-
-    open fun fetchAllData(trendingSeason: TrendingSeason = TrendingSeason.DAY) {}
 }
